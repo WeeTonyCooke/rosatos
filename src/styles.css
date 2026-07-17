@@ -326,8 +326,8 @@ input {
    lower on the page. */
 .order-fab {
   position: fixed;
-  top: calc(var(--ticker-h) + 0.6rem + env(safe-area-inset-top, 0px));
-  right: max(0.75rem, env(safe-area-inset-right, 0px));
+  top: calc(var(--ticker-h) + 0.9rem + env(safe-area-inset-top, 0px));
+  right: max(1.1rem, env(safe-area-inset-right, 0px));
   bottom: auto;
   z-index: 55;
   display: flex;
@@ -515,7 +515,7 @@ body:has(.cart-fab) .order-fab {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, 27rem);
+  width: min(90%, 22rem);
   transform: none;
 }
 
@@ -533,7 +533,7 @@ body:has(.cart-fab) .order-fab {
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(58svh, 30rem);
+  max-height: min(46svh, 24rem);
   object-fit: contain;
   object-position: center center;
   animation: hero-fade 1.4s var(--ease) both;
@@ -570,9 +570,20 @@ body:has(.cart-fab) .order-fab {
   font-size: clamp(2.9rem, 13vw, 3.75rem);
 }
 
+/* Place line under the name — breaks up the name/CTA pair so they don't
+   read as glued together, without adding much vertical weight. */
+.hero--photo .hero__place {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(243, 238, 230, 0.7);
+}
+
 .hero--photo .hero__actions {
   justify-content: center;
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
 }
 
 /* Book a table: a clear, comfortably-sized action — not the dominant

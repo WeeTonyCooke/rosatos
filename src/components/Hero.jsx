@@ -9,6 +9,9 @@ export function Hero({ venue }) {
     >
       <div className="hero__content">
         <h1 className="hero__name hero__reveal">{venue.name}</h1>
+        {venue.place ? (
+          <p className="hero__place hero__reveal">{venue.place}</p>
+        ) : null}
         <div className="hero__actions hero__reveal">
           <a className="btn btn--on-hero" href={venue.bookingUrl}>
             Book a table
