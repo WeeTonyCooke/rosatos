@@ -321,12 +321,14 @@ input {
   color: inherit;
 }
 
-/* Order pizza — bottom FAB on mobile so it never leans the hero */
+/* Order pizza — top-right badge on every breakpoint, sitting just under
+   the ticker so it reads immediately without competing with the CTA
+   lower on the page. */
 .order-fab {
   position: fixed;
-  top: auto;
+  top: calc(var(--ticker-h) + 0.6rem + env(safe-area-inset-top, 0px));
   right: max(0.75rem, env(safe-area-inset-right, 0px));
-  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  bottom: auto;
   z-index: 55;
   display: flex;
   align-items: center;
@@ -474,17 +476,19 @@ body:has(.cart-fab) .order-fab {
 .hero--photo {
   background-color: var(--forest);
   /*
-    Mobile: one optically centred stack (name → CTA → building → caption).
-    justify-content centres the group; internal gaps stay tight — no flex-grown void.
+    Mobile: name sits high (right under the ticker/order badge), the CTA
+    dominates as the clear next action, then the building — enlarged — and
+    its caption follow, tight to each other. justify-content:flex-start
+    keeps the stack pinned near the top instead of vertically centred.
   */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-height: 100svh;
   min-height: 100dvh;
   padding:
-    calc(var(--ticker-h) + 0.35rem)
+    calc(var(--ticker-h) + 0.85rem)
     1.25rem
     max(1.25rem, env(safe-area-inset-bottom, 0px));
   gap: 0;
@@ -499,7 +503,7 @@ body:has(.cart-fab) .order-fab {
   align-items: flex-end;
   width: 100%;
   min-height: 0;
-  margin-top: 0.4rem;
+  margin-top: 1.1rem;
   overflow: visible;
   background-color: transparent;
 }
@@ -510,7 +514,7 @@ body:has(.cart-fab) .order-fab {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, 18.5rem);
+  width: min(100%, 23rem);
   /* Optical centre — sign throws right, façade mass throws left.
      Scales with viewport instead of a fixed rem offset so the nudge
      doesn't overshoot on narrow phones (~320–360px). */
@@ -531,7 +535,7 @@ body:has(.cart-fab) .order-fab {
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(36svh, 17rem);
+  max-height: min(46svh, 23rem);
   object-fit: contain;
   object-position: center bottom;
   animation: hero-fade 1.4s var(--ease) both;
@@ -540,7 +544,7 @@ body:has(.cart-fab) .order-fab {
 .hero__tagline--under {
   position: relative;
   z-index: 3;
-  margin: 0.4rem 0 0;
+  margin: 0.15rem 0 0;
   width: 100%;
   max-width: 16.5rem;
   padding: 0;
@@ -571,12 +575,19 @@ body:has(.cart-fab) .order-fab {
 
 .hero--photo .hero__actions {
   justify-content: center;
-  margin-top: 0.55rem;
+  width: 100%;
+  margin-top: 0.85rem;
 }
 
+/* Book a table is the primary action on the landing screen — full-width,
+   taller, and set larger than the rest of the hero copy so it reads as
+   the dominant element next to the name. */
 .hero--photo .btn--on-hero {
-  min-height: 2.55rem;
-  padding: 0.6rem 1.15rem;
+  width: 100%;
+  min-height: 3.4rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 /* Desktop: copy left, façade + caption as one unit on the right */
