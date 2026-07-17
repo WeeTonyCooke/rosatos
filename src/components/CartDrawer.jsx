@@ -1,29 +1,63 @@
 import { useMemo, useState } from 'react'
 import { useCart } from '../cart/CartContext.jsx'
+import { getTodaysWindow } from '../lib/hours.js'
 
-function buildSlots(leadMinutes, kitchenCloses) {
+function formatClock(date) {
+  return date.toLocaleTimeString('en-IE', { hour: '2-digit', minute: '2-digit', hour12: false })
+}
+
+/**
+ * Builds today's collection slots against the venue's real opening hours,
+ * not just `kitchenCloses`. Previously this only checked the closing time,
+ * so ordering outside hours (before opening, or any time after close) still
+ * produced a list of slots — including, overnight, a nonsensical run of
+ * "slots" rolled into the next calendar day with no indication anything
+ * was wrong. Now it returns a `closed` reason instead of bad slots whenever
+ * there's no valid collection window left today.
+ */
+function buildSlots(venue, leadMinutes, kitchenCloses) {
   const now = new Date()
-  const earliest = new Date(now.getTime() + leadMinutes * 60 * 1000)
-  earliest.setSeconds(0, 0)
-  earliest.setMinutes(Math.ceil(earliest.getMinutes() / 15) * 15)
+  const window = getTodaysWindow(venue.hours, now)
+
+  if (!window) {
+    return { slots: [], closed: true, reason: 'Closed today — check our hours below.' }
+  }
 
   const [closeH, closeM] = kitchenCloses.split(':').map(Number)
-  const close = new Date(now)
-  close.setHours(closeH, closeM, 0, 0)
-  if (close <= now) close.setDate(close.getDate() + 1)
+  const kitchenClose = new Date(now)
+  kitchenClose.setHours(closeH, closeM, 0, 0)
+  // Online ordering can't run past the venue's own closing time either.
+  const close = kitchenClose < window.close ? kitchenClose : window.close
+
+  if (now >= close) {
+    return {
+      slots: [],
+      closed: true,
+      reason: `Kitchen’s closed for online orders now. Back at ${window.open.toLocaleTimeString('en-IE', { hour: '2-digit', minute: '2-digit', hour12: false })} — give us a call for anything else.`,
+    }
+  }
+
+  const earliestByLead = new Date(now.getTime() + leadMinutes * 60 * 1000)
+  earliestByLead.setSeconds(0, 0)
+  earliestByLead.setMinutes(Math.ceil(earliestByLead.getMinutes() / 15) * 15)
+
+  const earliest = earliestByLead < window.open ? window.open : earliestByLead
+
+  if (earliest > close) {
+    return {
+      slots: [],
+      closed: true,
+      reason: 'No more collection slots today — kitchen’s about to close.',
+    }
+  }
 
   const slots = []
   const cursor = new Date(earliest)
-  while (cursor <= close && slots.length < 16) {
-    const label = cursor.toLocaleTimeString('en-IE', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    })
-    slots.push(label)
+  while (cursor <= close && slots.length < 40) {
+    slots.push(formatClock(cursor))
     cursor.setMinutes(cursor.getMinutes() + 15)
   }
-  return slots
+  return { slots, closed: false, reason: '' }
 }
 
 function encode(data) {
@@ -53,9 +87,12 @@ export function CartDrawer({ venue }) {
   const [status, setStatus] = useState('idle')
   const [error, setError] = useState('')
 
-  const slots = useMemo(
-    () => (ordering ? buildSlots(ordering.leadMinutes, ordering.kitchenCloses) : []),
-    [ordering],
+  const { slots, closed, reason } = useMemo(
+    () =>
+      ordering
+        ? buildSlots(venue, ordering.leadMinutes, ordering.kitchenCloses)
+        : { slots: [], closed: false, reason: '' },
+    [venue, ordering],
   )
 
   if (!enabled || !ordering) return null
@@ -64,6 +101,10 @@ export function CartDrawer({ venue }) {
     event.preventDefault()
     setError('')
 
+    if (closed) {
+      setError(reason || 'Online ordering is closed right now.')
+      return
+    }
     if (!items.length) {
       setError('Add a pizza to continue.')
       return
@@ -202,6 +243,8 @@ export function CartDrawer({ venue }) {
                 </p>
                 <p className="cart-drawer__pay">{ordering.payNote}</p>
 
+                {closed ? <p className="cart-drawer__closed">{reason}</p> : null}
+
                 <label>
                   Name
                   <input
@@ -229,10 +272,11 @@ export function CartDrawer({ venue }) {
                   <select
                     name="collectionTime"
                     required
+                    disabled={closed}
                     value={collectionTime}
                     onChange={(e) => setCollectionTime(e.target.value)}
                   >
-                    <option value="">Select a time</option>
+                    <option value="">{closed ? 'No slots available' : 'Select a time'}</option>
                     {slots.map((slot) => (
                       <option key={slot} value={slot}>
                         {slot}
@@ -256,7 +300,7 @@ export function CartDrawer({ venue }) {
                 <button
                   className="btn btn--primary"
                   type="submit"
-                  disabled={status === 'sending' || total <= 0}
+                  disabled={status === 'sending' || total <= 0 || closed}
                 >
                   {status === 'sending' ? 'Sending…' : 'Place collection order'}
                 </button>
