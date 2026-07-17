@@ -63,11 +63,19 @@ export function Header({ venue }) {
     const hero = document.getElementById('top')
     if (!hero) return undefined
 
+    // Hysteresis: showing the header bar grows the sticky header, which
+    // reflows the hero we're observing. With a single threshold that shift
+    // bounces the state on/off (jitter on mobile). Separate on/off ratios
+    // give a dead zone wider than that shift so it can't oscillate.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setScrolled(!(entry.isIntersecting && entry.intersectionRatio > 0.4))
+        const ratio = entry.intersectionRatio
+        setScrolled((prev) => {
+          if (prev) return ratio > 0.55 ? false : true
+          return ratio < 0.25 ? true : false
+        })
       },
-      { threshold: [0, 0.4, 0.7, 1] },
+      { threshold: [0, 0.25, 0.55, 1] },
     )
 
     observer.observe(hero)
