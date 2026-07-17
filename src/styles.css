@@ -476,35 +476,35 @@ body:has(.cart-fab) .order-fab {
 .hero--photo {
   background-color: var(--forest);
   /*
-    Mobile: name sits high (right under the ticker/order badge), a normal
-    (not oversized) CTA follows, then the building — enlarged and truly
-    centred — and its caption. justify-content:flex-start keeps the stack
-    pinned near the top; consistent margins between each element give the
-    whole group room to breathe instead of clumping.
+    Mobile: two proportional bands, not a stack of one-off margins.
+    Row 1 (auto) = name + CTA, sized to its content. Row 2 (1fr) = the
+    building, which absorbs all remaining vertical space and centres the
+    image within it — so the gap above/below the building scales with the
+    viewport instead of being a guessed fixed value. The source image is
+    now cropped to its real bounding box (no baked-in transparent margin),
+    so what you see here IS the layout, not the asset's internal padding.
   */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  row-gap: clamp(1.25rem, 4vh, var(--space-4));
+  align-items: start;
+  justify-items: center;
   min-height: 100svh;
   min-height: 100dvh;
   padding:
-    calc(var(--ticker-h) + 0.85rem)
+    calc(var(--ticker-h) + var(--space-3))
     1.25rem
-    max(1.25rem, env(safe-area-inset-bottom, 0px));
-  gap: 0;
+    max(var(--space-3), env(safe-area-inset-bottom, 0px));
 }
 
 .hero--photo .hero__media {
   position: relative;
   z-index: 0;
-  flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   width: 100%;
   min-height: 0;
-  margin-top: 1.75rem;
   overflow: visible;
   background-color: transparent;
 }
@@ -516,8 +516,6 @@ body:has(.cart-fab) .order-fab {
   flex-direction: column;
   align-items: center;
   width: min(100%, 27rem);
-  /* True centre — no manual offset. The old fixed translateX nudge read
-     as off-centre once the image grew, so it's removed. */
   transform: none;
 }
 
@@ -535,16 +533,16 @@ body:has(.cart-fab) .order-fab {
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(52svh, 28rem);
+  max-height: min(58svh, 30rem);
   object-fit: contain;
-  object-position: center bottom;
+  object-position: center center;
   animation: hero-fade 1.4s var(--ease) both;
 }
 
 .hero__tagline--under {
   position: relative;
   z-index: 3;
-  margin: 0.6rem 0 0;
+  margin: var(--space-1) 0 0;
   width: 100%;
   max-width: 18rem;
   padding: 0;
@@ -561,7 +559,6 @@ body:has(.cart-fab) .order-fab {
 .hero--photo .hero__content {
   position: relative;
   z-index: 1;
-  flex: 0 0 auto;
   width: 100%;
   max-width: 22rem;
   margin: 0 auto;
@@ -575,7 +572,7 @@ body:has(.cart-fab) .order-fab {
 
 .hero--photo .hero__actions {
   justify-content: center;
-  margin-top: 1.1rem;
+  margin-top: var(--space-2);
 }
 
 /* Book a table: a clear, comfortably-sized action — not the dominant

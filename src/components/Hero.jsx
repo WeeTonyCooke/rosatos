@@ -23,8 +23,8 @@ export function Hero({ venue }) {
               <img
                 src={venue.hero.image}
                 alt=""
-                width="1854"
-                height="1854"
+                width="1463"
+                height="1280"
                 fetchPriority="high"
               />
             </div>
