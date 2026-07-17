@@ -1,0 +1,61 @@
+{
+  "eyebrow": "What’s on",
+  "title": "What’s happening this week.",
+  "note": "Times and acts can change — check Instagram for the latest.",
+  "tonightOverride": "",
+  "lineup": [
+    {
+      "day": 3,
+      "dayLabel": "Wednesday",
+      "name": "Texas Hold’em",
+      "time": "21:30",
+      "kind": "poker",
+      "cue": "Texas Hold’em · 21:30",
+      "detail": "Texas Hold’em Poker Wednesdays · 21:30"
+    },
+    {
+      "day": 5,
+      "dayLabel": "Friday",
+      "name": "QuizKings",
+      "time": "22:00",
+      "kind": "quiz",
+      "cue": "Fun Quiz · 22:00",
+      "detail": "QuizKings Fun Quiz Fridays · 22:00"
+    },
+    {
+      "day": 6,
+      "dayLabel": "Saturday",
+      "name": "Seán Óg",
+      "time": "22:00",
+      "kind": "music",
+      "cue": "Seán Óg · 22:00",
+      "detail": "Seán Óg · Saturdays · 22:00"
+    }
+  ],
+  "board": [
+    {
+      "id": "poker",
+      "days": "3",
+      "label": "Poker",
+      "title": "Wednesday",
+      "detail": "Texas Hold’em · 21:30",
+      "href": "#whats-on"
+    },
+    {
+      "id": "quiz",
+      "days": "5",
+      "label": "Quiz",
+      "title": "Friday",
+      "detail": "QuizKings · 22:00",
+      "href": "#whats-on"
+    },
+    {
+      "id": "music",
+      "days": "6",
+      "label": "Music",
+      "title": "Saturday",
+      "detail": "Seán Óg · 22:00",
+      "href": "#whats-on"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+# Hybrid + Light — bar staff only edit Programme and Menu.
+# Quiet Objects owns venue.json (brand, booking, gift-card URL, layout).
+
+collections:
+  - name: programme
+    label: This week’s music
+    label_singular: Programme
+    files:
+      - name: programme
+        label: Programme & Tonight
+        file: content/programme.json
+        fields:
+          - { label: Section eyebrow, name: eyebrow, widget: string }
+          - { label: Section title, name: title, widget: string }
+          - {
+              label: Note under the list,
+              name: note,
+              widget: string,
+              hint: "Shown under the weekly list (e.g. line-ups can shift).",
+            }
+          - {
+              label: Tonight override,
+              name: tonightOverride,
+              widget: string,
+              required: false,
+              hint: "Leave blank to auto-build Tonight from today’s rows. Fill only to force a custom cue.",
+            }
+          - label: Weekly lineup
+            name: lineup
+            widget: list
+            summary: "{{dayLabel}} · {{name}} · {{time}}"
+            fields:
+              - {
+                  label: Day of week,
+                  name: day,
+                  widget: number,
+                  value_type: int,
+                  min: 0,
+                  max: 6,
+                  hint: "0 = Sunday, 1 = Monday … 6 = Saturday",
+                }
+              - { label: Day label, name: dayLabel, widget: string, hint: "Thu, Fri, Sat…" }
+              - { label: Artist / event name, name: name, widget: string }
+              - { label: Time, name: time, widget: string }
+              - {
+                  label: Kind,
+                  name: kind,
+                  widget: select,
+                  options: ["music", "quiz", "other"],
+                  default: music,
+                }
+              - {
+                  label: Header cue,
+                  name: cue,
+                  widget: string,
+                  required: false,
+                  hint: "Short Tonight line (optional).",
+                }
+              - {
+                  label: Detail,
+                  name: detail,
+                  widget: string,
+                  required: false,
+                  hint: "Longer board line (optional).",
+                }
+              - {
+                  label: Link target,
+                  name: href,
+                  widget: string,
+                  required: false,
+                  default: "#whats-on",
+                }
+          - label: Board cards
+            name: board
+            widget: list
+            required: false
+            summary: "{{label}} · {{title}}"
+            fields:
+              - { label: Id, name: id, widget: string }
+              - {
+                  label: Active days,
+                  name: days,
+                  widget: string,
+                  hint: "Comma-separated day numbers: 0=Sun … 6=Sat. Example: 0,3,4,5,6",
+                }
+              - { label: Label, name: label, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Detail, name: detail, widget: string }
+              - { label: Link, name: href, widget: string, default: "#whats-on" }
+
+  - name: menu
+    label: Menu (light)
+    label_singular: Menu
+    files:
+      - name: menu
+        label: Light menu
+        file: content/menu.json
+        fields:
+          - { label: Section eyebrow, name: eyebrow, widget: string }
+          - { label: Section title, name: title, widget: string }
+          - { label: Intro, name: intro, widget: text }
+          - {
+              label: Fee / service note,
+              name: feeNote,
+              widget: string,
+              required: false,
+            }
+          - label: Sections
+            name: sections
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { label: Id, name: id, widget: string, hint: "e.g. classics, specials, pizza" }
+              - { label: Section name, name: name, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                summary: "{{name}} · {{price}}"
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Description, name: description, widget: string, required: false }
+                  - { label: Price, name: price, widget: string, hint: "Number only, or “from 3.00”" }

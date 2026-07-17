@@ -1,0 +1,105 @@
+{
+  "name": "Rosato\u2019s",
+  "tagline": "A family-friendly bar serving great food.",
+  "footerLine": "Good food. Friendly service. Right in the heart of Moville.",
+  "place": "Moville, Co. Donegal",
+  "address": {
+    "street": "7 Malin Road",
+    "locality": "Moville",
+    "region": "Co. Donegal",
+    "postalCode": "F93 D519",
+    "country": "Ireland",
+    "landmark": "You’ll find us on Malin Road, just a short walk from Moville town centre."
+  },
+  "phone": "+353 74 938 5847",
+  "email": "rosatosmoville@gmail.com",
+  "bookingUrl": "#visit",
+  "bookingWidgetUrl": "https://booking.resdiary.com/widget/ThreeMonth/Rosatos/25888",
+  "bookingNote": "Bookings are for indoor dining only. Outdoor seating is walk-in.",
+  "bookingEnquiry": "Planning a meal or organising a group? Give us a call or send us an email and we’ll be happy to help.",
+  "mapEmbedUrl": "https://www.google.com/maps?q=Rosatos+Bar+%26+Restaurant,+7+Malin+Road,+Moville&output=embed",
+  "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=7+Malin+Road,+Moville,+Co.+Donegal",
+  "hours": [
+    {
+      "days": "Monday \u2013 Friday",
+      "time": "16:00 \u2013 21:00"
+    },
+    {
+      "days": "Saturday",
+      "time": "15:00 \u2013 21:00"
+    },
+    {
+      "days": "Sunday",
+      "time": "12:30 \u2013 21:00"
+    }
+  ],
+  "hoursSummary": "Kitchen from 16:00 weekdays \u00b7 from 15:00 Sat \u00b7 from 12:30 Sun",
+  "social": {
+    "instagram": "https://www.instagram.com/rosatosmoville/",
+    "facebook": "https://www.facebook.com/rosatos.bar/"
+  },
+  "giftCards": {
+    "label": "Gift cards",
+    "url": "https://rosatos.ie/product/gift-card/"
+  },
+  "hero": {
+    "image": "/images/hero.png",
+    "imageAlt": "Illustration of Rosato\u2019s red fa\u00e7ade on Malin Road, Moville"
+  },
+  "room": {
+    "eyebrow": "The room",
+    "title": "Good food, good company, and a warm welcome.",
+    "body": "A favourite with locals, a welcome stop for visitors, and a place where good food brings people together.",
+    "image": "/images/room.jpg",
+    "imageAlt": "Open fire in the stone hearth at Rosato\u2019s, with the bar in the foreground"
+  },
+  "pint": {
+    "title": "Great pints.",
+    "body": "",
+    "image": "/images/pint.jpg",
+    "imageAlt": "A pint of Guinness on the bar at Rosato\u2019s"
+  },
+  "visit": {
+    "eyebrow": "Visit",
+    "title": "Everything you need before you visit.",
+    "parkingTip": "Street parking along Malin Road; easier after the school run."
+  },
+  "ordering": {
+    "enabled": true,
+    "mode": "collection",
+    "eyebrow": "Order pizza",
+    "title": "Make it your own with extra toppings or leave off anything you don’t fancy.",
+    "intro": "Order online, customise your pizza and collect from Rosato’s. No delivery — pick up at the bar.",
+    "menuSectionId": "pizza",
+    "leadMinutes": 30,
+    "leadNote": "Usually ready in around 30 minutes.",
+    "kitchenCloses": "21:00",
+    "payNote": "Pay when you collect — card or cash.",
+    "minOrder": 0,
+    "successMessage": "Order received. We\u2019ll have it ready for collection.",
+    "customizations": {
+      "extraPrice": 1.5,
+      "extras": [
+        { "id": "cheese", "label": "Extra cheese" },
+        { "id": "pepperoni", "label": "Pepperoni" },
+        { "id": "jalapenos", "label": "Jalape\u00f1os" },
+        { "id": "mushroom", "label": "Mushroom" },
+        { "id": "onion", "label": "Onion" },
+        { "id": "peppers", "label": "Peppers" }
+      ],
+      "removals": [
+        { "id": "onion", "label": "Onion" },
+        { "id": "mushroom", "label": "Mushroom" },
+        { "id": "peppers", "label": "Peppers" },
+        { "id": "jalapenos", "label": "Jalape\u00f1os" },
+        { "id": "rocket", "label": "Rocket" },
+        { "id": "chilli", "label": "Chilli" }
+      ],
+      "notePlaceholder": "Anything else for this pizza?"
+    }
+  },
+  "credit": {
+    "label": "A Quiet Objects template",
+    "url": "https://quietobjects.ie"
+  }
+}

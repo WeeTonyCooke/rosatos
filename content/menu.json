@@ -1,0 +1,142 @@
+{
+  "eyebrow": "Eat & drink",
+  "title": "Fresh flavours, local favourites.",
+  "intro": "Starters, Inishowen beef, seafood from Greencastle, and 12\" stone-baked pizzas.",
+  "feeNote": "",
+  "sections": [
+    {
+      "id": "to-start",
+      "name": "To start",
+      "items": [
+        {
+          "name": "Breaded Mushrooms",
+          "description": "Lightly breaded, garlic mayo",
+          "price": "7.50"
+        },
+        {
+          "name": "Seafood Chowder",
+          "description": "Haddock, salmon & smoked fish, wheaten bread",
+          "price": "9.50"
+        },
+        {
+          "name": "BBQ Ribs",
+          "description": "Half rack, honey dipping sauce",
+          "price": "10.95"
+        },
+        {
+          "name": "Cheesy Pizza Garlic Bread",
+          "description": "9\" or 12\"",
+          "price": "8.50 / 13.50"
+        }
+      ]
+    },
+    {
+      "id": "mains",
+      "name": "Mains",
+      "items": [
+        {
+          "name": "Steak Burger",
+          "description": "Inishowen beef, applewood cheddar, Ballymaloe relish",
+          "price": "16.95"
+        },
+        {
+          "name": "Battered Haddock",
+          "description": "Light batter, mushy peas & tartare",
+          "price": "17.95"
+        },
+        {
+          "name": "Rosato’s Hot Pot",
+          "description": "Braised beef & vegetables, sliced potato",
+          "price": "16.95"
+        },
+        {
+          "name": "Chicken Italiano",
+          "description": "Pesto, sun-dried tomatoes, goat’s cheese & mozzarella",
+          "price": "18.90"
+        },
+        {
+          "name": "10oz Sirloin Steak",
+          "description": "Inishowen dry-aged beef, sauté onions",
+          "price": "31.95"
+        }
+      ]
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "items": [
+        {
+          "name": "Margherita",
+          "description": "Tomato sauce & mozzarella",
+          "price": "13.50"
+        },
+        {
+          "name": "Pepperoni",
+          "description": "Pepperoni & mozzarella",
+          "price": "14.50"
+        },
+        {
+          "name": "BBQ Chicken",
+          "description": "BBQ sauce, chicken & mozzarella",
+          "price": "14.95"
+        },
+        {
+          "name": "Taco Chicken",
+          "description": "Cajun chicken, rocket, taco sauce & mozzarella",
+          "price": "15.95"
+        },
+        {
+          "name": "Hot ’n’ Spicy Pepperoni",
+          "description": "Pepperoni, chilli flakes, jalapeños & mozzarella",
+          "price": "15.50"
+        },
+        {
+          "name": "Big Irish",
+          "description": "Bacon, egg, sausage, tomato & mozzarella",
+          "price": "15.50"
+        },
+        {
+          "name": "Meat Feast",
+          "description": "Pepperoni, salami, chorizo, sausage & mozzarella",
+          "price": "16.50"
+        },
+        {
+          "name": "Rosato’s Calzone Burst",
+          "description": "Folded pizza with beef Bolognese & mozzarella",
+          "price": "16.95"
+        },
+        {
+          "name": "Four Cheese",
+          "description": "Goat’s, Stilton, applewood cheddar & mozzarella",
+          "price": "15.50"
+        },
+        {
+          "name": "Veggie",
+          "description": "Onions, mushroom, peppers, sun-dried tomatoes & mozzarella",
+          "price": "15.50"
+        }
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": "From the bar",
+      "items": [
+        {
+          "name": "Guinness",
+          "description": "Pint",
+          "price": "5.50"
+        },
+        {
+          "name": "Soft drinks",
+          "description": "Coca-Cola, Football Special & more",
+          "price": "from 3.00"
+        },
+        {
+          "name": "Coffee & tea",
+          "description": "Ask at the bar",
+          "price": ""
+        }
+      ]
+    }
+  ]
+}

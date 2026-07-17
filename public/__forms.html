@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form detection</title>
+  </head>
+  <body>
+    <!-- Netlify build-time form detection for React-rendered forms -->
+    <form name="pizza-collection" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="pizza-collection" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="text" name="collectionTime" />
+      <textarea name="notes"></textarea>
+      <textarea name="order"></textarea>
+      <input type="text" name="total" />
+      <input type="text" name="mode" />
+    </form>
+  </body>
+</html>
