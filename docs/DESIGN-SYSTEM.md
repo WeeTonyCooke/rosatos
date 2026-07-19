@@ -7,73 +7,77 @@ is correct — update this doc to match, not the other way round.
 
 ## Color
 
-### Forest green
+### The palette
 
-`--forest` is a deliberately designed color, not a sampled or matched one.
-Early passes in this project tried to reverse-engineer "the real Rosato's
-green" from a logo screenshot, and separately checked whether Farrow & Ball
-had a paint that matched it. Neither turned out to be the right question:
-a compressed screenshot of a small logo isn't a reliable source of truth
-for a full-viewport UI color, and F&B's actual green range (Studio Green
-`#363c3c`, Carriage Green `#434d48`, and several others checked directly
-against real paint swatches) sit at 5–12% saturation — deliberately muted,
-olive-or-gray-toned darks, a different design language entirely from
-anything sampled from Rosato's branding.
-
-The working insight: a color that reads well as a small logo mark (very
-saturated) doesn't necessarily read well as a large flat background field
-(same saturation across an entire viewport can feel loud rather than
-premium — a well-established UI principle, not specific to this brand).
-So rather than continuing to chase "the one true green" from a source
-image, `--forest` (`#1f473d`) was designed directly: same hue family as
-Rosato's branding (a blue-leaning forest green, not a generic yellow-green
-"pub olive"), tuned to a saturation and lightness that hold up across
-large sections, headers, and buttons alike. It clears WCAG AAA against
-`--cream` at 8.97:1.
-
-If this is ever needed as a physical paint match for the building, that's
-a separate exercise — this token was designed for screens, not walls.
-Farrow & Ball still isn't the obvious source for it regardless (see above);
-a brand with more saturated greens (Little Greene, Coat, or a bespoke tint)
-would be the better starting point.
-
-### Full palette
+Six named colors, chosen deliberately as a complete set rather than
+derived one at a time — the earlier `--forest`/`--rosato-red`/`--brass`/
+`--putty` values in this project were each individually reverse-engineered
+(from a logo screenshot, matched against Farrow & Ball, computed from
+color theory) and it showed: pieces that were individually reasonable
+didn't necessarily relate to each other well as a set. **Forest, Stone,
+Cream, Bronze, Tomato, Charcoal** were provided together as one
+considered palette, which is why the tonal relationships (see Stone vs.
+Cream below) hold together better than the incremental version did.
 
 | Token | Hex | Role | Contrast vs. `--cream` |
 |---|---|---|---|
-| `--forest` | `#1f473d` | Primary brand color — headers, primary buttons, dark sections | 8.97:1 (AAA) |
-| `--cream` | `#f3eee6` | Base background | — |
-| `--charcoal` | `#2d3133` | Body text (`--ink`) | 11.37:1 (AAA) |
-| `--rosato-red` | `#e03145` | Accent — sampled from the façade brick. Sparing use only (today-highlight, small accents) | 3.87:1 — **fails AA below large-text size** |
-| `--brass` | `#b68a42` | Accent — borders, dividers, icons only | 2.71:1 vs cream, 3.31:1 vs forest — **never use as text on either background** |
-| `--signal-text` | `#8e1523` | Same hue as `--rosato-red`, darkened for small-text use (error messages, etc.) | 7.97:1 (AAA) |
-| `--putty` | `#ccbda4` | Mid-value warm neutral — same hue family as `--cream`/`--brass` (H37-40°), fills the value gap between them (cream L93%, brass L49%, nothing in between before this). Used for elevated surfaces — sheet/modal panels — so they read as a distinct layer above the page rather than flat cream-on-cream | 7.12:1 (charcoal text), 5.62:1 (forest text) — both pass AA |
+| `--forest` | `#234d43` | Primary brand color — headers, primary buttons, dark sections | 8.42:1 (AAA) |
+| `--cream` | `#f5f1ea` | Base background | — |
+| `--charcoal` | `#303336` | Body text (`--ink`) | 11.29:1 (AAA) |
+| `--tomato` | `#9e3b36` | Accent — today-highlight, small accents, error text | 5.95:1 — **passes AA at all text sizes**, including small body text |
+| `--bronze` | `#a98545` | Accent — borders, dividers, icons only | 3.04:1 vs cream, 2.77:1 vs forest — **never use as text on either background** |
+| `--stone` | `#c8bcab` | Mid-value warm neutral — same hue family as `--cream`/`--bronze` (H35-38°), fills the value gap between them. Used for elevated surfaces — sheet/modal panels, Menu section, cart-drawer empty state | 6.80:1 (charcoal text), 5.08:1 (forest text) — both AA/AAA |
 
-The prompt for this addition was looking at Farrow & Ball's own color-scheme
-pages (wall + trim + accent, presented together) and noting the site's
-existing five-color system jumped almost straight from very-dark-green to
-very-light-cream with nothing in between — thin rather than rich. The fix
-adopts F&B's *methodology* (a considered tonal ladder, not just two
-extremes) without adopting their actual hues, which stay in an unrelated
-muted-olive family (see the forest green rationale above).
+Tomato clearing AA at every text size (5.95:1) is a genuine improvement
+over the previous red (`#e03145`, 3.87:1, which failed below large-text
+size and needed a separate darkened `--signal-text` workaround token just
+for small error text). That workaround is gone — tomato itself is now
+safe everywhere, so `.cart-drawer__error` uses it directly.
 
-**Rule of thumb:** `--rosato-red` and `--brass` are accent colors, not text
-colors, except at large/bold sizes (≥1.17rem bold, or ≥1.5rem regular) where
-`--rosato-red` clears the 3:1 large-text threshold. Any small text that
-needs to read as "red" (errors, warnings) uses `--signal-text` instead —
-this was a real bug (`.cart-drawer__error` was using the brand red at
-`0.9rem`, failing AA) fixed as part of this pass.
+**Rule of thumb:** `--bronze` is an accent color, not a text color, at any
+size or background in this palette — keep it to borders, dividers, and
+icons. `--tomato` is now safe as text throughout, unlike its predecessor.
+
+### Why Stone-on-Cream works where the previous mid-tone didn't
+
+Stone (`L73%`) and Cream (`L94%`) are 21 lightness-points apart — on paper,
+a similar-looking gap to the one that failed in the previous iteration
+(Cream `L93%` vs. the old Putty `L72%`, which read as a "cliff" no
+gradient-fade could smooth over: Cream was so pale its warmth barely
+registered, so a visibly tan/beige mid-tone below it felt like two
+unrelated materials meeting, not one surface deepening). The difference
+this time is hue and saturation *tracking together* far more closely
+(Stone H35°/S21% vs. Cream H38°/S35% — both close in hue, and Stone's
+saturation drop is gentler relative to its lightness drop than the old
+Putty's was), which is what actually determines whether two tones read as
+"the same warm family at different depths" versus "two different colors."
+A gradient-fade was tried between sections (`.pint::after`, `.menu::before`)
+to ease the forest→cream→stone transition, and it did work in isolation —
+but it was removed. Every other section boundary on the page is a clean
+flat cut; having exactly one soft transition made that one boundary look
+like an unfinished accident rather than a deliberate choice. Consistency
+of *treatment* across section boundaries matters more than optimizing any
+one boundary in isolation — a clean hard edge between well-related colors
+(which Stone/Cream now are, see above) doesn't need a fade to not look
+amateurish; that critique applied to the *old*, poorly-related color pairs
+early in this project, not to a properly designed palette.
 
 ### Derived tokens
 
-Everything else is computed *from* the five primaries via `color-mix()`,
-deliberately — a hardcoded derived color (like the old `--accent-soft`
-and `--rosato-green-mid`) silently goes stale the next time the base color
-changes. That already happened once this session: `--accent-soft` was
-still pointing at the pre-rebrand green hex after `--forest` was updated,
-because `rgba()` can't reference a CSS variable's channels directly.
+Everything else is computed *from* the six primaries via `color-mix()`,
+deliberately — a hardcoded derived color silently goes stale the next
+time the base color changes, because `rgba()` can't reference a CSS
+variable's channels directly. This bit twice in this project: once with
+`--accent-soft` (still pointing at a pre-rebrand green after `--forest`
+changed), and more seriously during this palette finalization, when a
+full audit of the stylesheet found **eleven separate hardcoded `rgba()`
+values** still referencing the *original* pre-project colors — some
+dating back further than any color change made during this whole
+engagement, silently un-updated the entire time (shadows, overlays, hover
+states, the sticky header's ticker background, all quietly wrong).
 `color-mix()` fixes this permanently — derived tokens now track their
-source automatically.
+source automatically, so the next color change can't silently miss
+anything the way these did.
 
 ## Typography
 

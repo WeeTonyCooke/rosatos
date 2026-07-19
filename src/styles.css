@@ -4,17 +4,17 @@
 
 :root {
   /* Primaries — these five only */
-  --forest: #1f473d; /* deliberately designed, not sampled — see docs/DESIGN-SYSTEM.md */
-  --cream: #f3eee6;
-  --charcoal: #2d3133;
-  --rosato-red: #e03145; /* sampled from the façade brick */
-  --brass: #b68a42;
-  --putty: #ccbda4; /* mid-value warm neutral — same hue family as cream/brass, fills the gap between them for layered/elevated surfaces */
+  --forest: #234d43;
+  --cream: #f5f1ea;
+  --charcoal: #303336;
+  --tomato: #9e3b36;
+  --bronze: #a98545;
+  --stone: #c8bcab;
 
   /* Roles — alphas are still the five, just quieter */
   --bg: var(--cream);
   --bg-elevated: var(--cream);
-  --bg-soft: var(--putty); /* elevated/secondary surface — was a barely-there tint, now uses the real putty mid-tone */
+  --bg-soft: var(--stone); /* elevated/secondary surface — was a barely-there tint, now uses the real putty mid-tone */
   --rosato-green: var(--forest);
   --rosato-green-mid: color-mix(in srgb, var(--forest) 70%, white);
   --accent: var(--forest);
@@ -25,15 +25,14 @@
   --order-pop-border: var(--forest);
   --order-pop-hot: #efe8d8; /* cream + hint of brass */
   --ink: var(--charcoal);
-  --ink-muted: rgba(45, 49, 51, 0.72);
-  --ink-faint: rgba(45, 49, 51, 0.5);
-  --line: rgba(45, 49, 51, 0.12);
-  --line-strong: rgba(182, 138, 66, 0.55);
+  --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
+  --ink-faint: color-mix(in srgb, var(--charcoal) 50%, transparent);
+  --line: color-mix(in srgb, var(--charcoal) 12%, transparent);
+  --line-strong: color-mix(in srgb, var(--bronze) 55%, transparent);
   --on-accent: var(--cream);
   --hero-ink: var(--cream);
-  --metal: var(--brass);
-  --signal: var(--rosato-red);
-  --signal-text: #8e1523; /* same hue as --rosato-red, darkened for small-text contrast (7.97:1 vs cream — the brand red itself only manages 3.87:1, which fails AA below large-text size) */
+  --metal: var(--bronze);
+  --signal: var(--tomato);
 
   --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
@@ -148,7 +147,7 @@ input {
 }
 
 .site-header.is-scrolled {
-  background: rgba(243, 238, 230, 0.96);
+  background: color-mix(in srgb, var(--cream) 96%, transparent);
   color: var(--ink);
   box-shadow: 0 1px 0 var(--line);
   backdrop-filter: blur(12px);
@@ -164,15 +163,15 @@ input {
   padding: 0 1rem;
   overflow: hidden;
   text-decoration: none;
-  color: rgba(243, 238, 230, 0.78);
-  border-bottom: 1px solid rgba(243, 238, 230, 0.12);
-  background: rgba(15, 58, 49, 0.35);
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+  background: color-mix(in srgb, var(--forest) 35%, transparent);
   text-align: center;
 }
 
 .site-header.is-scrolled .events-cue {
   border-bottom-color: var(--line);
-  background: rgba(15, 58, 49, 0.04);
+  background: color-mix(in srgb, var(--forest) 4%, transparent);
   color: var(--forest);
 }
 
@@ -338,12 +337,12 @@ input {
   width: 3.85rem;
   height: 3.85rem;
   border-radius: 50%;
-  border: 1px solid rgba(15, 58, 49, 0.55);
+  border: 1px solid color-mix(in srgb, var(--forest) 55%, transparent);
   background: var(--order-pop);
   color: var(--order-pop-ink);
   text-decoration: none;
   text-align: center;
-  box-shadow: 0 4px 14px rgba(15, 58, 49, 0.16);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--forest) 16%, transparent);
   transition:
     transform 0.25s var(--ease),
     box-shadow 0.25s var(--ease),
@@ -370,7 +369,7 @@ body:has(.cart-fab) .order-fab {
 .order-fab:hover {
   transform: scale(1.04);
   background: var(--order-pop-hot);
-  box-shadow: 0 8px 20px rgba(15, 58, 49, 0.22);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--forest) 22%, transparent);
 }
 
 .order-fab__text {
@@ -391,8 +390,8 @@ body:has(.cart-fab) .order-fab {
   margin-left: -0.75rem;
   padding-left: calc(0.75rem - 2px);
   padding-right: 0.75rem;
-  border-left: 2px solid var(--rosato-red);
-  background: color-mix(in srgb, var(--rosato-red) 7%, transparent);
+  border-left: 2px solid var(--tomato);
+  background: color-mix(in srgb, var(--tomato) 7%, transparent);
 }
 
 
@@ -405,7 +404,7 @@ body:has(.cart-fab) .order-fab {
 }
 
 .programme__item.is-today .programme__day {
-  color: var(--rosato-red);
+  color: var(--tomato);
 }
 
 /* Mobile: brand only when scrolled — no hamburger / drawer on a short landing page */
@@ -560,7 +559,7 @@ body:has(.cart-fab) .order-fab {
   text-align: center;
   font-size: 0.9rem;
   line-height: 1.35;
-  color: rgba(243, 238, 230, 0.78);
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
 }
 
 .hero--photo .hero__veil {
@@ -589,7 +588,7 @@ body:has(.cart-fab) .order-fab {
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(243, 238, 230, 0.7);
+  color: color-mix(in srgb, var(--cream) 70%, transparent);
 }
 
 .hero--photo .hero__actions {
@@ -701,7 +700,7 @@ body:has(.cart-fab) .order-fab {
   max-width: 22rem;
   font-size: 1.1rem;
   line-height: 1.4;
-  color: rgba(243, 238, 230, 0.86);
+  color: color-mix(in srgb, var(--cream) 86%, transparent);
 }
 
 .hero__actions {
@@ -766,7 +765,7 @@ body:has(.cart-fab) .order-fab {
 }
 
 .btn--ghost {
-  border-color: rgba(243, 238, 230, 0.55);
+  border-color: color-mix(in srgb, var(--cream) 55%, transparent);
   background: transparent;
   color: var(--hero-ink);
 }
@@ -880,23 +879,11 @@ body:has(.cart-fab) .order-fab {
 /* Great pints — green field, one photo */
 
 .pint {
-  position: relative;
   max-width: none;
   margin: 0;
   padding: 0;
   background: var(--forest);
   color: var(--cream);
-}
-
-.pint::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: clamp(2.5rem, 6vw, 4.5rem);
-  background: linear-gradient(to bottom, transparent, var(--cream));
-  pointer-events: none;
 }
 
 .pint__inner {
@@ -921,7 +908,7 @@ body:has(.cart-fab) .order-fab {
 .pint__body {
   margin: var(--space-3) 0 0;
   max-width: 22rem;
-  color: rgba(243, 238, 230, 0.78);
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
   font-size: 1.15rem;
   line-height: 1.6;
 }
@@ -1509,7 +1496,7 @@ body:has(.cart-fab) .order-fab {
 .customize-sheet__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(45, 49, 51, 0.35);
+  background: color-mix(in srgb, var(--charcoal) 35%, transparent);
 }
 
 .customize-sheet__panel {
@@ -1521,10 +1508,10 @@ body:has(.cart-fab) .order-fab {
   max-height: 88svh;
   overflow-y: auto;
   padding: var(--space-3) var(--space-3) max(var(--space-3), env(safe-area-inset-bottom, 0px));
-  background: var(--putty);
-  border-top: 1px solid var(--brass);
+  background: var(--stone);
+  border-top: 1px solid var(--bronze);
   border-radius: 12px 12px 0 0;
-  box-shadow: 0 -10px 30px rgba(45, 49, 51, 0.18);
+  box-shadow: 0 -10px 30px color-mix(in srgb, var(--charcoal) 18%, transparent);
   animation: sheet-up 0.3s var(--ease) both;
 }
 
@@ -1549,9 +1536,9 @@ body:has(.customize-sheet.is-open) {
   .customize-sheet__panel {
     max-width: 30rem;
     max-height: 85vh;
-    border: 1px solid var(--brass);
+    border: 1px solid var(--bronze);
     border-radius: 8px;
-    box-shadow: 0 20px 50px rgba(45, 49, 51, 0.22);
+    box-shadow: 0 20px 50px color-mix(in srgb, var(--charcoal) 22%, transparent);
     animation: sheet-fade-in 0.25s var(--ease) both;
   }
 
@@ -1704,7 +1691,7 @@ body:has(.customize-sheet.is-open) {
   font: inherit;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(45, 49, 51, 0.18);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--charcoal) 18%, transparent);
   display: inline-flex;
   align-items: center;
 }
@@ -1744,7 +1731,7 @@ body:has(.customize-sheet.is-open) {
 .cart-drawer__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(45, 49, 51, 0.35);
+  background: color-mix(in srgb, var(--charcoal) 35%, transparent);
   opacity: 0;
   transition: opacity 0.3s var(--ease);
 }
@@ -1884,7 +1871,7 @@ body:has(.customize-sheet.is-open) {
 
 .cart-drawer__error {
   margin: 0;
-  color: var(--signal-text);
+  color: var(--tomato);
   font-size: 0.9rem;
 }
 
