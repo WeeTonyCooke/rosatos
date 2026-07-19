@@ -31,7 +31,7 @@ export function Room({ venue }) {
           </figure>
         ) : (
           <div className="room__swatch" aria-hidden="true">
-            <span>Card Room Green</span>
+            <span>{room.title || 'The room'}</span>
           </div>
         )}
       </div>
