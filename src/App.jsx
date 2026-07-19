@@ -4,6 +4,7 @@ import programme from '../content/programme.json'
 import menu from '../content/menu.json'
 import { mergeVenue } from './lib/programme.js'
 import { CartProvider } from './cart/CartContext.jsx'
+import { BookingProvider } from './booking/BookingContext.jsx'
 import { Header } from './components/Header.jsx'
 import { Hero } from './components/Hero.jsx'
 import { Room } from './components/Room.jsx'
@@ -11,6 +12,7 @@ import { Pint } from './components/Pint.jsx'
 import { Menu } from './components/Menu.jsx'
 import { OrderPizza } from './components/OrderPizza.jsx'
 import { CartDrawer } from './components/CartDrawer.jsx'
+import { BookingSheet } from './components/BookingSheet.jsx'
 import { WhatsOn } from './components/WhatsOn.jsx'
 import { Visit } from './components/Visit.jsx'
 import { Footer } from './components/Footer.jsx'
@@ -112,6 +114,7 @@ function AppShell() {
       </main>
       <Footer venue={venue} />
       <CartDrawer venue={venue} />
+      <BookingSheet venue={venue} />
     </>
   )
 }
@@ -119,7 +122,9 @@ function AppShell() {
 export default function App() {
   return (
     <CartProvider venue={venue}>
-      <AppShell />
+      <BookingProvider>
+        <AppShell />
+      </BookingProvider>
     </CartProvider>
   )
 }

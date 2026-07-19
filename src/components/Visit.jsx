@@ -1,3 +1,5 @@
+import { useBooking } from '../booking/BookingContext.jsx'
+
 export function Visit({ venue }) {
   const {
     visit,
@@ -11,6 +13,7 @@ export function Visit({ venue }) {
     mapEmbedUrl,
     directionsUrl,
   } = venue
+  const { setOpen: setBookingOpen } = useBooking()
 
   const phoneHref = `tel:${phone.replace(/\s/g, '')}`
 
@@ -67,14 +70,9 @@ export function Visit({ venue }) {
           <p className="visit__note">{bookingNote}</p>
 
           {bookingWidgetUrl ? (
-            <div className="book-widget">
-              <iframe
-                title={`Book a table at ${venue.name}`}
-                src={bookingWidgetUrl}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+            <button type="button" className="btn btn--primary" onClick={() => setBookingOpen(true)}>
+              Check availability
+            </button>
           ) : null}
 
           {bookingEnquiry ? (

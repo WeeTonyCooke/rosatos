@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { getTickerItems } from '../lib/programme.js'
+import { useBooking } from '../booking/BookingContext.jsx'
 
 function CueName({ name }) {
   const outerRef = useRef(null)
@@ -43,6 +44,7 @@ export function Header({ venue }) {
   const [now, setNow] = useState(() => new Date())
   const [index, setIndex] = useState(0)
   const canOrder = Boolean(venue.ordering?.enabled)
+  const { setOpen: setBookingOpen } = useBooking()
 
   const events = useMemo(() => getTickerItems(venue.programme, now), [venue.programme, now])
   const current = events[index] || null
@@ -144,9 +146,13 @@ export function Header({ venue }) {
               </div>
 
               <div className="site-nav__actions">
-                <a className="site-nav__primary" href={venue.bookingUrl}>
+                <button
+                  type="button"
+                  className="site-nav__primary"
+                  onClick={() => setBookingOpen(true)}
+                >
                   Book a table
-                </a>
+                </button>
               </div>
             </nav>
           </div>

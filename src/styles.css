@@ -1134,6 +1134,64 @@ body:has(.cart-fab) .order-fab {
   border: 0;
 }
 
+.book-widget--sheet {
+  border: 0;
+  background: transparent;
+}
+
+.book-widget--sheet iframe {
+  min-height: min(34rem, 65vh);
+  border-radius: var(--radius);
+}
+
+.booking-sheet__panel {
+  gap: var(--space-2);
+}
+
+.booking-sheet__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.booking-sheet__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.booking-sheet__note {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  max-width: 28rem;
+}
+
+.booking-sheet__close {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.booking-sheet__powered-by {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+}
+
+
 .visit__enquiry {
   margin: var(--space-3) 0 0;
   font-size: 0.95rem;

@@ -1,5 +1,8 @@
+import { useBooking } from '../booking/BookingContext.jsx'
+
 export function Hero({ venue }) {
   const hasPhoto = Boolean(venue.hero?.image)
+  const { setOpen: setBookingOpen } = useBooking()
 
   return (
     <section
@@ -13,9 +16,9 @@ export function Hero({ venue }) {
           <p className="hero__place hero__reveal">{venue.place}</p>
         ) : null}
         <div className="hero__actions hero__reveal">
-          <a className="btn btn--on-hero" href={venue.bookingUrl}>
+          <button type="button" className="btn btn--on-hero" onClick={() => setBookingOpen(true)}>
             Book a table
-          </a>
+          </button>
         </div>
       </div>
 
