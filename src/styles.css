@@ -14,7 +14,7 @@
   /* Roles — alphas are still the five, just quieter */
   --bg: var(--cream);
   --bg-elevated: var(--cream);
-  --bg-soft: #ebe6dc; /* cream edged toward forest */
+  --bg-soft: var(--putty); /* elevated/secondary surface — was a barely-there tint, now uses the real putty mid-tone */
   --rosato-green: var(--forest);
   --rosato-green-mid: color-mix(in srgb, var(--forest) 70%, white);
   --accent: var(--forest);
@@ -390,7 +390,9 @@ body:has(.cart-fab) .order-fab {
 .programme__item.is-today {
   margin-left: -0.75rem;
   padding-left: calc(0.75rem - 2px);
+  padding-right: 0.75rem;
   border-left: 2px solid var(--rosato-red);
+  background: color-mix(in srgb, var(--rosato-red) 7%, transparent);
 }
 
 
