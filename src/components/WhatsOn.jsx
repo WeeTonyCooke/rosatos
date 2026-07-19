@@ -23,7 +23,7 @@ export function WhatsOn({ venue }) {
             >
               <div>
                 <h3 className="programme__name">
-                  <span className="programme__day">{event.dayLabel}</span> {event.name}
+                  <span className="programme__day">{event.dayLabel}</span>{event.name}
                 </h3>
                 <p className="programme__when">{event.time}</p>
               </div>

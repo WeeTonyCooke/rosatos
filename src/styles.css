@@ -397,6 +397,13 @@ body:has(.cart-fab) .order-fab {
 
 
 
+.programme__day::after {
+  content: '|';
+  margin: 0 0.5em;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
 .programme__item.is-today .programme__day {
   color: var(--rosato-red);
 }
