@@ -69,14 +69,31 @@ function waitForServer(url, timeoutMs = 15000) {
 
 async function main() {
   let previewFailed = false
+  // detached: true puts vite preview in its own process group. `npx` spawns
+  // `vite` as a child of itself — killing just the npx process (as this
+  // script did before) does NOT kill that vite child, which keeps listening
+  // and keeps Node's event loop alive forever. Netlify's build hung for the
+  // full 18-minute timeout because of exactly this: the script had already
+  // finished its actual work and logged success, but the orphaned vite
+  // preview server never let the process exit. Killing the whole group
+  // (via the negative PID) takes the real vite process down with it.
   const previewProcess = spawn(
     'npx',
     ['vite', 'preview', '--port', String(PORT), '--strictPort'],
-    { cwd: rootDir, stdio: 'pipe' },
+    { cwd: rootDir, stdio: 'pipe', detached: true },
   )
   previewProcess.on('exit', (code) => {
     if (code !== null && code !== 0) previewFailed = true
   })
+
+  function killPreviewGroup() {
+    try {
+      process.kill(-previewProcess.pid)
+    } catch {
+      // Already dead, or platform doesn't support process groups (rare) —
+      // either way there's nothing left to clean up.
+    }
+  }
 
   let browser
   try {
@@ -116,11 +133,20 @@ async function main() {
     console.log(`[prerender] verified "${expectedName}" present, wrote rendered HTML to ${path.relative(rootDir, indexPath)}`)
   } finally {
     if (browser) await browser.close()
-    previewProcess.kill()
+    killPreviewGroup()
   }
 }
 
-main().catch((err) => {
-  console.error('[prerender] failed:', err.message)
-  process.exitCode = 1
-})
+main()
+  .then(() => {
+    // Guaranteed safeguard: even if some other handle is keeping the event
+    // loop alive (a lingering socket, timer, etc. we haven't spotted), force
+    // the process to exit now that the actual work is done. A prerender
+    // script hanging until Netlify's build timeout kills it 18 minutes later
+    // is a much worse failure mode than exiting a little too forcefully.
+    process.exit(0)
+  })
+  .catch((err) => {
+    console.error('[prerender] failed:', err.message)
+    process.exit(1)
+  })
