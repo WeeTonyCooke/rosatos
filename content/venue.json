@@ -67,7 +67,7 @@
     "enabled": true,
     "mode": "collection",
     "eyebrow": "Order pizza",
-    "title": "Make it your own with extra toppings or leave off anything you don’t fancy.",
+    "title": "Make it your own…",
     "intro": "Order online, customise your pizza and collect from Rosato’s. No delivery — pick up at the bar.",
     "menuSectionId": "pizza",
     "leadMinutes": 30,
