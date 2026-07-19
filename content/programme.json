@@ -30,6 +30,15 @@
       "kind": "music",
       "cue": "Seán Óg · 22:00",
       "detail": "Seán Óg · Saturdays · 22:00"
+    },
+    {
+      "day": 0,
+      "dayLabel": "Sunday",
+      "name": "Seán Furey",
+      "time": "22:00",
+      "kind": "music",
+      "cue": "Seán Furey · 22:00",
+      "detail": "Seán Furey · Sundays · 22:00"
     }
   ],
   "board": [
@@ -55,6 +64,14 @@
       "label": "Music",
       "title": "Saturday",
       "detail": "Seán Óg · 22:00",
+      "href": "#whats-on"
+    },
+    {
+      "id": "music-sunday",
+      "days": "0",
+      "label": "Music",
+      "title": "Sunday",
+      "detail": "Seán Furey · 22:00",
       "href": "#whats-on"
     }
   ]
