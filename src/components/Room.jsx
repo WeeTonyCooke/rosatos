@@ -12,13 +12,22 @@ export function Room({ venue }) {
         </div>
         {hasPhoto ? (
           <figure className="room__figure">
-            <img
-              src={room.image}
-              alt={room.imageAlt}
-              width="1400"
-              height="933"
-              loading="lazy"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="/images/room-480.webp 480w, /images/room-900.webp 900w, /images/room-1400.webp 1400w"
+                sizes="(min-width: 900px) 50vw, 90vw"
+              />
+              <img
+                src="/images/room-900.jpg"
+                srcSet="/images/room-480.jpg 480w, /images/room-900.jpg 900w, /images/room-1400.jpg 1400w"
+                sizes="(min-width: 900px) 50vw, 90vw"
+                alt={room.imageAlt}
+                width="1400"
+                height="933"
+                loading="lazy"
+              />
+            </picture>
           </figure>
         ) : (
           <div className="room__swatch" aria-hidden="true">
