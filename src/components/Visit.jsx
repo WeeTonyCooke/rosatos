@@ -5,6 +5,7 @@ export function Visit({ venue }) {
     visit,
     address,
     hours,
+    hoursHeading,
     phone,
     email,
     bookingNote,
@@ -28,7 +29,7 @@ export function Visit({ venue }) {
       <div className="visit__grid">
         <div className="visit__details">
           <div className="visit__block">
-            <h3>Hours</h3>
+            <h3>{hoursHeading || 'Hours'}</h3>
             <ul className="hours-list">
               {hours.map((row) => (
                 <li key={row.days}>
