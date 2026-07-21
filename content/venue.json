@@ -21,7 +21,11 @@
   "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=7+Malin+Road,+Moville,+Co.+Donegal",
   "hours": [
     {
-      "days": "Monday \u2013 Friday",
+      "days": "Monday \u2013 Thursday",
+      "time": "16:00 \u2013 21:00"
+    },
+    {
+      "days": "Friday",
       "time": "16:00 \u2013 21:00"
     },
     {
@@ -33,7 +37,7 @@
       "time": "12:30 \u2013 21:00"
     }
   ],
-  "hoursSummary": "Kitchen from 16:00 weekdays \u00b7 from 15:00 Sat \u00b7 from 12:30 Sun",
+  "hoursSummary": "Open 7 days \u00b7 Kitchen from 16:00 Mon\u2013Fri \u00b7 from 15:00 Sat \u00b7 from 12:30 Sun",
   "social": {
     "instagram": "https://www.instagram.com/rosatosmoville/",
     "facebook": "https://www.facebook.com/rosatos.bar/"
