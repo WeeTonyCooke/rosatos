@@ -44,8 +44,12 @@
     "facebook": "https://www.facebook.com/rosatos.bar/"
   },
   "giftCards": {
-    "label": "Gift cards",
-    "url": "https://rosatos.ie/product/gift-card/"
+    "eyebrow": "Gift cards",
+    "title": "Give the gift of Rosato\u2019s.",
+    "body": "Any amount, delivered by email \u2014 perfect for birthdays, thank-yous, or just because. Scan to buy, or tap the code on your own phone.",
+    "label": "Buy a gift card",
+    "url": "https://rosatos.ie/product/gift-card/",
+    "qrImage": "/images/gift-card-qr.svg"
   },
   "hero": {
     "image": "/images/hero.png"

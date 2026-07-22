@@ -14,6 +14,7 @@ import { OrderPizza } from './components/OrderPizza.jsx'
 import { CartDrawer } from './components/CartDrawer.jsx'
 import { BookingSheet } from './components/BookingSheet.jsx'
 import { WhatsOn } from './components/WhatsOn.jsx'
+import { GiftCard } from './components/GiftCard.jsx'
 import { Visit } from './components/Visit.jsx'
 import { Footer } from './components/Footer.jsx'
 import { useReveal } from './hooks/useReveal.js'
@@ -110,6 +111,7 @@ function AppShell() {
         <Menu venue={venue} />
         <OrderPizza />
         <WhatsOn venue={venue} />
+        <GiftCard venue={venue} />
         <Visit venue={venue} />
       </main>
       <Footer venue={venue} />
