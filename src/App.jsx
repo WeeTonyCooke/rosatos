@@ -107,8 +107,8 @@ function AppShell() {
       <main id="main">
         <Hero venue={venue} />
         <Room venue={venue} />
-        <Pint venue={venue} />
         <Menu venue={venue} />
+        <Pint venue={venue} />
         <OrderPizza />
         <WhatsOn venue={venue} />
         <GiftCard venue={venue} />
