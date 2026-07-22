@@ -11,6 +11,7 @@ export function WhatsOn({ venue }) {
       <div className="section__intro">
         <p className="eyebrow">{programme.eyebrow}</p>
         <h2 className="section__title">{programme.title}</h2>
+        {programme.body ? <p className="section__body">{programme.body}</p> : null}
       </div>
 
       <ul className="programme">

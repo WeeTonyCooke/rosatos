@@ -1,7 +1,6 @@
 {
   "name": "Rosato\u2019s",
-  "tagline": "A family-friendly bar serving great food.",
-  "footerLine": "Good food. Friendly service. Right in the heart of Moville.",
+  "tagline": "Great food, good company and a warm welcome.",
   "place": "Moville, Co. Donegal",
   "address": {
     "street": "7 Malin Road",
@@ -16,7 +15,7 @@
   "bookingUrl": "#visit",
   "bookingWidgetUrl": "https://booking.resdiary.com/widget/ThreeMonth/Rosatos/25888",
   "bookingNote": "Bookings are for indoor dining only. Outdoor seating is walk-in.",
-  "bookingEnquiry": "Planning a meal or organising a group? Give us a call or send us an email and we’ll be happy to help.",
+  "bookingEnquiry": "Planning a meal or organising a group? Give us a call or send us an email.",
   "mapEmbedUrl": "https://www.google.com/maps?q=Rosatos+Bar+%26+Restaurant,+7+Malin+Road,+Moville&output=embed",
   "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=7+Malin+Road,+Moville,+Co.+Donegal",
   "hours": [
@@ -56,8 +55,8 @@
   },
   "room": {
     "eyebrow": "The room",
-    "title": "Great food, good company and a warm welcome.",
-    "body": "A favourite with locals, a welcome stop for visitors, and a place where good food brings people together.",
+    "title": "A relaxed local for pints, dinner or a catch-up.",
+    "body": "Serving locals and visitors alike, Rosato\u2019s is a place to drop in for lunch, dinner, drinks or one of our popular stone-baked pizzas.",
     "image": "/images/room.jpg",
     "imageAlt": "Open fire in the stone hearth at Rosato\u2019s, with the bar in the foreground"
   },
@@ -80,9 +79,9 @@
     "intro": "Order online, customise your pizza and collect from Rosato’s. No delivery — pick up at the bar.",
     "menuSectionId": "pizza",
     "leadMinutes": 30,
-    "leadNote": "Usually ready in around 30 minutes.",
+    "leadNote": "Ready in around 30 minutes.",
     "kitchenCloses": "21:00",
-    "payNote": "Pay when you collect — card or cash.",
+    "payNote": "Pay on collection — card or cash.",
     "minOrder": 0,
     "successMessage": "Order received. We\u2019ll have it ready for collection.",
     "customizations": {
