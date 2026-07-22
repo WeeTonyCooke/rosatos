@@ -574,7 +574,6 @@ body:has(.cart-fab) .order-fab {
   max-width: 18rem;
   padding: 0;
   text-align: center;
-  font-style: italic;
   font-size: 0.9rem;
   line-height: 1.35;
   color: color-mix(in srgb, var(--cream) 78%, transparent);
