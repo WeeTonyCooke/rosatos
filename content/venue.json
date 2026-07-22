@@ -56,13 +56,13 @@
   "room": {
     "eyebrow": "The room",
     "title": "A relaxed local for pints, dinner or a catch-up.",
-    "body": "Serving locals and visitors alike, Rosato\u2019s is a place to drop in for lunch, dinner, drinks or one of our popular stone-baked pizzas.",
+    "body": "Serving locals and visitors alike, Rosato\u2019s is a place to drop in for lunch, dinner, drinks or a night out.",
     "image": "/images/room.jpg",
     "imageAlt": "Open fire in the stone hearth at Rosato\u2019s, with the bar in the foreground"
   },
   "pint": {
     "title": "Great pints.",
-    "body": "Good things come to those who wait…",
+    "body": "A wide range of beers, craft ales and wines.",
     "image": "/images/pint.jpg",
     "imageAlt": "A pint of Guinness on the bar at Rosato\u2019s"
   },
