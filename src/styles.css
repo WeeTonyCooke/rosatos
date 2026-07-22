@@ -153,7 +153,7 @@ input {
 
 /* Quiet fade — one event at a time, cream on forest */
 .events-cue {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   height: var(--ticker-h);
@@ -168,6 +168,7 @@ input {
 }
 
 .site-header.is-scrolled .events-cue {
+  display: flex;
   border-bottom-color: var(--line);
   background: color-mix(in srgb, var(--forest) 4%, transparent);
   color: var(--forest);
@@ -325,7 +326,7 @@ input {
    lower on the page. */
 .order-fab {
   position: fixed;
-  top: calc(var(--ticker-h) + 0.9rem + env(safe-area-inset-top, 0px));
+  top: calc(0.9rem + env(safe-area-inset-top, 0px));
   right: max(1.1rem, env(safe-area-inset-right, 0px));
   bottom: auto;
   z-index: 55;
@@ -341,11 +342,25 @@ input {
   text-decoration: none;
   text-align: center;
   box-shadow: 0 4px 14px color-mix(in srgb, var(--forest) 16%, transparent);
+  opacity: 0;
+  pointer-events: none;
   transition:
     transform 0.25s var(--ease),
     box-shadow 0.25s var(--ease),
     background 0.2s var(--ease),
-    opacity 0.25s var(--ease);
+    opacity 0.3s var(--ease),
+    top 0.35s var(--ease);
+}
+
+/* Only appears once scrolled past the hero — the hero itself keeps exactly
+   one CTA (Book a table); Order Pizza shows up once it's contextually
+   relevant rather than competing for attention on first load. Top offset
+   also shifts down here since the ticker (see .events-cue) only occupies
+   space in this same scrolled state. */
+.site-header.is-scrolled ~ .order-fab {
+  opacity: 1;
+  pointer-events: auto;
+  top: calc(var(--ticker-h) + 0.9rem + env(safe-area-inset-top, 0px));
 }
 
 /* Cart owns the lower-right while an order is in progress */
@@ -356,11 +371,15 @@ body:has(.cart-fab) .order-fab {
 
 @media (min-width: 901px) {
   .order-fab {
-    top: calc(var(--ticker-h) + 1rem + env(safe-area-inset-top, 0px));
+    top: calc(0.9rem + env(safe-area-inset-top, 0px));
     right: max(0.75rem, env(safe-area-inset-right, 0px));
     bottom: auto;
     width: 4.25rem;
     height: 4.25rem;
+  }
+
+  .site-header.is-scrolled ~ .order-fab {
+    top: calc(var(--ticker-h) + 1rem + env(safe-area-inset-top, 0px));
   }
 }
 
@@ -555,6 +574,7 @@ body:has(.cart-fab) .order-fab {
   max-width: 18rem;
   padding: 0;
   text-align: center;
+  font-style: italic;
   font-size: 0.9rem;
   line-height: 1.35;
   color: color-mix(in srgb, var(--cream) 78%, transparent);
