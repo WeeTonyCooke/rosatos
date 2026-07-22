@@ -37,7 +37,7 @@ export function Menu({ venue }) {
         <p className="section__body">{menu.intro}</p>
         {canOrder ? (
           <p className="menu__order-link">
-            <a href="#order">Order pizza for collection →</a>
+            <a className="text-link" href="#order">Order pizza for collection →</a>
           </p>
         ) : null}
       </div>

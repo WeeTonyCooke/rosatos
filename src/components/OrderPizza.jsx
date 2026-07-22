@@ -116,7 +116,7 @@ export function OrderPizza() {
                 <span className="order__item-price">{formatEuro(Number.parseFloat(pizza.price))}</span>
                 <button
                   type="button"
-                  className="btn btn--primary btn--small order__add"
+                  className="btn btn--ghost btn--small order__add"
                   onClick={() => handleAdd(pizza)}
                 >
                   Add

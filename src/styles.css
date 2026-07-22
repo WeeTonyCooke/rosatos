@@ -1,20 +1,19 @@
-/* Rosato’s — five-colour design language
-   Forest · Cream · Charcoal · Rosato Red · Brass
-   Red stays mostly with the building; accents are quiet. */
+/* Rosato's — four-colour design system
+   Hero Green · Warm Paper · Dark Ink · Muted Terracotta
+   Terracotta is the one accent — used sparingly, never as a background.
+   See docs/VISUAL-REFRESH.md for the full rationale. */
 
 :root {
-  /* Primaries — these five only */
-  --forest: #234d43;
-  --cream: #f5f1ea;
-  --charcoal: #303336;
-  --tomato: #9e3b36;
-  --bronze: #a98545;
-  --stone: #c8bcab;
+  /* Primaries — these four only */
+  --forest: #234d43;      /* Hero Green */
+  --cream: #f5f1ea;       /* Warm Paper */
+  --charcoal: #303336;    /* Dark Ink */
+  --terracotta: #814b37;  /* Muted Terracotta — inspired by the building, deliberately quiet */
 
-  /* Roles — alphas are still the five, just quieter */
+  /* Roles */
   --bg: var(--cream);
   --bg-elevated: var(--cream);
-  --bg-soft: var(--stone); /* elevated/secondary surface — was a barely-there tint, now uses the real putty mid-tone */
+  --bg-soft: var(--cream); /* no separate "elevated surface" colour — sections differentiate via whitespace, not background colour */
   --rosato-green: var(--forest);
   --rosato-green-mid: color-mix(in srgb, var(--forest) 70%, white);
   --accent: var(--forest);
@@ -23,16 +22,15 @@
   --order-pop: var(--cream);
   --order-pop-ink: var(--forest);
   --order-pop-border: var(--forest);
-  --order-pop-hot: #efe8d8; /* cream + hint of brass */
+  --order-pop-hot: color-mix(in srgb, var(--cream) 90%, var(--charcoal));
   --ink: var(--charcoal);
   --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
   --ink-faint: color-mix(in srgb, var(--charcoal) 50%, transparent);
   --line: color-mix(in srgb, var(--charcoal) 12%, transparent);
-  --line-strong: color-mix(in srgb, var(--bronze) 55%, transparent);
+  --line-strong: color-mix(in srgb, var(--charcoal) 28%, transparent); /* neutral, not colour-tinted — borders are structural, not decorative */
   --on-accent: var(--cream);
   --hero-ink: var(--cream);
-  --metal: var(--bronze);
-  --signal: var(--tomato);
+  --signal: var(--terracotta);
 
   --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
@@ -41,8 +39,8 @@
   --space-2: 1rem;
   --space-3: 1.5rem;
   --space-4: 2.5rem;
-  --space-5: 4rem;
-  --space-6: 7rem;
+  --space-5: 4.5rem;
+  --space-6: 9rem;
 
   --radius: 2px;
   --header-h: 4.25rem;
@@ -390,8 +388,8 @@ body:has(.cart-fab) .order-fab {
   margin-left: -0.75rem;
   padding-left: calc(0.75rem - 2px);
   padding-right: 0.75rem;
-  border-left: 2px solid var(--tomato);
-  background: color-mix(in srgb, var(--tomato) 7%, transparent);
+  border-left: 2px solid var(--terracotta);
+  background: color-mix(in srgb, var(--terracotta) 7%, transparent);
 }
 
 
@@ -404,7 +402,7 @@ body:has(.cart-fab) .order-fab {
 }
 
 .programme__item.is-today .programme__day {
-  color: var(--tomato);
+  color: var(--terracotta);
 }
 
 /* Mobile: brand only when scrolled — no hamburger / drawer on a short landing page */
@@ -765,14 +763,14 @@ body:has(.cart-fab) .order-fab {
 }
 
 .btn--ghost {
-  border-color: color-mix(in srgb, var(--cream) 55%, transparent);
+  border-color: var(--line-strong);
   background: transparent;
-  color: var(--hero-ink);
+  color: var(--ink);
 }
 
 .btn--ghost:hover {
-  border-color: var(--bg);
-  color: var(--bg);
+  border-color: var(--accent-deep);
+  color: var(--accent-deep);
 }
 
 .btn--small {
@@ -1037,7 +1035,7 @@ body:has(.cart-fab) .order-fab {
 /* Gift cards */
 
 .gift-card {
-  background: var(--stone);
+  background: var(--cream);
 }
 
 .gift-card__inner {
@@ -1137,7 +1135,13 @@ body:has(.cart-fab) .order-fab {
 .text-link {
   display: inline-block;
   margin-top: 0.75rem;
-  color: var(--accent) !important;
+  color: var(--accent-deep) !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
 }
 
 .hours-list {
@@ -1487,16 +1491,6 @@ body:has(.cart-fab) .order-fab {
   margin: var(--space-3) 0 0;
 }
 
-.menu__order-link a {
-  color: var(--accent-deep);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.menu__order-link a:hover {
-  text-decoration: underline;
-}
-
 .order__list {
   list-style: none;
   margin: 0;
@@ -1580,8 +1574,8 @@ body:has(.cart-fab) .order-fab {
   max-height: 88svh;
   overflow-y: auto;
   padding: var(--space-3) var(--space-3) max(var(--space-3), env(safe-area-inset-bottom, 0px));
-  background: var(--stone);
-  border-top: 1px solid var(--bronze);
+  background: var(--cream);
+  border-top: 1px solid var(--line-strong);
   border-radius: 12px 12px 0 0;
   box-shadow: 0 -10px 30px color-mix(in srgb, var(--charcoal) 18%, transparent);
   animation: sheet-up 0.3s var(--ease) both;
@@ -1608,9 +1602,9 @@ body:has(.customize-sheet.is-open) {
   .customize-sheet__panel {
     max-width: 30rem;
     max-height: 85vh;
-    border: 1px solid var(--bronze);
+    border: 1px solid var(--line-strong);
     border-radius: 8px;
-    box-shadow: 0 20px 50px color-mix(in srgb, var(--charcoal) 22%, transparent);
+    box-shadow: 0 16px 40px color-mix(in srgb, var(--charcoal) 16%, transparent);
     animation: sheet-fade-in 0.25s var(--ease) both;
   }
 
@@ -1943,7 +1937,7 @@ body:has(.customize-sheet.is-open) {
 
 .cart-drawer__error {
   margin: 0;
-  color: var(--tomato);
+  color: var(--terracotta);
   font-size: 0.9rem;
 }
 
