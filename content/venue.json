@@ -51,7 +51,8 @@
     "qrImage": "/images/gift-card-qr.svg"
   },
   "hero": {
-    "image": "/images/hero.png"
+    "image": "/images/hero.png",
+    "caption": "C\u00e9ad m\u00edle f\u00e1ilte."
   },
   "room": {
     "eyebrow": "The room",

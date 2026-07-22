@@ -34,7 +34,7 @@ export function Hero({ venue }) {
                 fetchPriority="high"
               />
             </div>
-            <p className="hero__tagline hero__tagline--under hero__reveal">{venue.tagline}</p>
+            <p className="hero__tagline hero__tagline--under hero__reveal">{venue.hero.caption}</p>
           </div>
           <div className="hero__veil" aria-hidden="true" />
         </div>
