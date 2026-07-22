@@ -342,24 +342,18 @@ input {
   text-decoration: none;
   text-align: center;
   box-shadow: 0 4px 14px color-mix(in srgb, var(--forest) 16%, transparent);
-  opacity: 0;
-  pointer-events: none;
   transition:
     transform 0.25s var(--ease),
     box-shadow 0.25s var(--ease),
     background 0.2s var(--ease),
-    opacity 0.3s var(--ease),
+    opacity 0.25s var(--ease),
     top 0.35s var(--ease);
 }
 
-/* Only appears once scrolled past the hero — the hero itself keeps exactly
-   one CTA (Book a table); Order Pizza shows up once it's contextually
-   relevant rather than competing for attention on first load. Top offset
-   also shifts down here since the ticker (see .events-cue) only occupies
-   space in this same scrolled state. */
+/* Ticker only occupies space once scrolled (see .events-cue) — the badge's
+   top offset needs to account for that extra height only in that state,
+   otherwise it floats with a gap where the (hidden) ticker used to be. */
 .site-header.is-scrolled ~ .order-fab {
-  opacity: 1;
-  pointer-events: auto;
   top: calc(var(--ticker-h) + 0.9rem + env(safe-area-inset-top, 0px));
 }
 
