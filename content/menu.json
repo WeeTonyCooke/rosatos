@@ -1,7 +1,7 @@
 {
   "eyebrow": "Eat & drink",
   "title": "Fresh flavours, local favourites.",
-  "intro": "Modern European cooking with an Irish influence, using the finest local produce \u2014 Inishowen beef, seafood from Greencastle, and stone-baked pizzas. Whole cuts of meat, fresh fish, seasonal vegetables from the grill, and hearty, satisfying dishes for every appetite.",
+  "intro": "Modern European cooking with an Irish influence, using the finest local produce — Inishowen beef, seafood from Greencastle, and stone-baked pizzas. Whole cuts of meat, fresh fish, seasonal vegetables from the grill, and hearty, satisfying dishes for every appetite.",
   "feeNote": "",
   "sections": [
     {
@@ -37,7 +37,7 @@
         {
           "name": "Steak Burger",
           "description": "Inishowen beef, applewood cheddar, Ballymaloe relish",
-          "price": "16.95"
+          "price": "17.50"
         },
         {
           "name": "Battered Haddock",
