@@ -16,7 +16,7 @@
         {
           "name": "Seafood Chowder",
           "description": "Haddock, salmon & smoked fish, wheaten bread",
-          "price": "9.50"
+          "price": "10.50"
         },
         {
           "name": "BBQ Ribs",
@@ -42,7 +42,7 @@
         {
           "name": "Battered Haddock",
           "description": "Light batter, mushy peas & tartare",
-          "price": "17.95"
+          "price": "18.95"
         },
         {
           "name": "Rosato’s Hot Pot",
@@ -68,7 +68,7 @@
         {
           "name": "Margherita",
           "description": "Tomato sauce & mozzarella",
-          "price": "13.50"
+          "price": "14.00"
         },
         {
           "name": "Pepperoni",
@@ -124,7 +124,7 @@
         {
           "name": "Guinness",
           "description": "Pint",
-          "price": "5.50"
+          "price": "5.80"
         },
         {
           "name": "Soft drinks",
