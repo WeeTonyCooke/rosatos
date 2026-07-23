@@ -6,6 +6,24 @@
   "tonightOverride": "",
   "lineup": [
     {
+      "day": 0,
+      "dayLabel": "Sunday",
+      "name": "Seán Furey",
+      "time": "22:00",
+      "kind": "music",
+      "cue": "Seán Furey · 22:00",
+      "detail": "Seán Furey · Sundays · 22:00"
+    },
+    {
+      "day": 1,
+      "dayLabel": "Monday",
+      "name": "Amy Bonnar",
+      "time": "21:00",
+      "kind": "music",
+      "cue": "Amy Bonnar · 21:00",
+      "detail": "Amy Bonnar · 21:00"
+    },
+    {
       "day": 3,
       "dayLabel": "Wednesday",
       "name": "Texas Hold’em",
@@ -31,20 +49,27 @@
       "kind": "music",
       "cue": "Seán Óg · 22:00",
       "detail": "Seán Óg · Saturdays · 22:00"
-    },
-    {
-      "day": 0,
-      "dayLabel": "Sunday",
-      "name": "Seán Furey",
-      "time": "22:00",
-      "kind": "music",
-      "cue": "Seán Furey · 22:00",
-      "detail": "Seán Furey · Sundays · 22:00"
     }
   ],
   "board": [
     {
-      "id": "poker",
+      "id": "music-0",
+      "days": "0",
+      "label": "Music",
+      "title": "Sunday",
+      "detail": "Seán Furey · 22:00",
+      "href": "#whats-on"
+    },
+    {
+      "id": "music-1",
+      "days": "1",
+      "label": "Music",
+      "title": "Monday",
+      "detail": "Amy Bonnar · 21:00",
+      "href": "#whats-on"
+    },
+    {
+      "id": "poker-3",
       "days": "3",
       "label": "Poker",
       "title": "Wednesday",
@@ -52,27 +77,19 @@
       "href": "#whats-on"
     },
     {
-      "id": "quiz",
+      "id": "quiz-5",
       "days": "5",
       "label": "Quiz",
       "title": "Friday",
-      "detail": "QuizKings · 22:00",
+      "detail": "Fun Quiz · 22:00",
       "href": "#whats-on"
     },
     {
-      "id": "music",
+      "id": "music-6",
       "days": "6",
       "label": "Music",
       "title": "Saturday",
       "detail": "Seán Óg · 22:00",
-      "href": "#whats-on"
-    },
-    {
-      "id": "music-sunday",
-      "days": "0",
-      "label": "Music",
-      "title": "Sunday",
-      "detail": "Seán Furey · 22:00",
       "href": "#whats-on"
     }
   ]
