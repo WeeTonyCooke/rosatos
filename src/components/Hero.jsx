@@ -12,8 +12,10 @@ export function Hero({ venue }) {
     >
       <div className="hero__content">
         <h1 className="hero__name hero__reveal">{venue.name}</h1>
-        {venue.place ? (
-          <p className="hero__place hero__reveal">{venue.place}</p>
+        {venue.subtitle || venue.place ? (
+          <p className="hero__place hero__reveal">
+            {[venue.subtitle, venue.place].filter(Boolean).join(' · ')}
+          </p>
         ) : null}
         <div className="hero__actions hero__reveal">
           <button type="button" className="btn btn--on-hero" onClick={() => setBookingOpen(true)}>

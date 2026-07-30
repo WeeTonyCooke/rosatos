@@ -7,7 +7,6 @@ import { CartProvider } from './cart/CartContext.jsx'
 import { BookingProvider } from './booking/BookingContext.jsx'
 import { Header } from './components/Header.jsx'
 import { Hero } from './components/Hero.jsx'
-import { Room } from './components/Room.jsx'
 import { Menu } from './components/Menu.jsx'
 import { OrderPizza } from './components/OrderPizza.jsx'
 import { CartDrawer } from './components/CartDrawer.jsx'
@@ -55,7 +54,10 @@ function buildLocalBusinessSchema(v) {
   return {
     '@context': 'https://schema.org',
     '@type': ['Restaurant', 'BarOrPub'],
-    name: v.name,
+    // Full trading name, not the short wordmark. This is what Google matches
+    // against the Business Profile, and "Rosato's" alone is ambiguous.
+    name: [v.name, v.subtitle].filter(Boolean).join(' '),
+    alternateName: v.name,
     description: v.tagline,
     telephone: v.phone,
     email: v.email,
@@ -76,10 +78,12 @@ function buildLocalBusinessSchema(v) {
       longitude: -7.0406,
     },
     url: origin || undefined,
-    // Room now references a manifest base rather than a literal path, so the
-    // widest generated variant is resolved here. This is the image Google and
-    // link-preview bots show, so it has to be a real deployed file.
-    image: v.room?.base ? `${origin}${largestVariant(v.room.base)}` : undefined,
+    // The menu intro's photo, resolved to its widest generated variant. This
+    // is the image Google and link-preview bots show, so it has to be a real
+    // deployed file — it moved here when the Room section was folded into the
+    // menu, and it previously read venue.room.image, a path that no longer
+    // existed and silently emitted undefined.
+    image: v.menu?.introPhoto?.base ? `${origin}${largestVariant(v.menu.introPhoto.base)}` : undefined,
     menu: origin ? `${origin}/#menu` : undefined,
     servesCuisine: ['Irish', 'Italian'],
     priceRange: '€€',
@@ -126,7 +130,6 @@ function AppShell() {
       <Header venue={venue} />
       <main id="main">
         <Hero venue={venue} />
-        <Room venue={venue} />
         <Menu venue={venue} />
         <OrderPizza />
         <WhatsOn venue={venue} />

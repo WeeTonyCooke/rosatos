@@ -1,7 +1,7 @@
 {
   "eyebrow": "Eat & drink",
   "title": "Inishowen beef, Greencastle seafood, stone-baked pizza.",
-  "intro": "Four courses below, from the chowder to the ten pizzas. Kitchen from 4pm Monday to Friday, 3pm Saturday, half twelve on Sunday.",
+  "intro": "Open fires, a quiet pint, and food served seven days a week. Drop in for a drink at the bar or take a table for dinner.\n\nKitchen open Mon–Fri from 4pm, Sat from 3pm, and Sun from 12:30pm. Locals and visitors, all the same welcome.",
   "feeNote": "",
   "sections": [
     {
@@ -150,5 +150,9 @@
       "alt": "A row of settled pints of Guinness along the bar top",
       "note": "A wide range of beers, craft ales and wines."
     }
-  ]
+  ],
+  "introPhoto": {
+    "base": "fire",
+    "alt": "The open fire burning in the stone hearth, bar stools along the counter"
+  }
 }

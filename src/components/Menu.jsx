@@ -40,14 +40,38 @@ export function Menu({ venue }) {
   const foodSections = menu.sections.filter((section) => section.id !== 'drinks')
   return (
     <section id="menu" className="section section--loose menu" data-reveal>
-      <div className="section__intro">
-        {menu.eyebrow ? <p className="eyebrow">{menu.eyebrow}</p> : null}
-        <h2 className="section__title">{menu.title}</h2>
-        <p className="section__body">{menu.intro}</p>
-        {canOrder ? (
-          <p className="menu__order-link">
-            <a className="text-link" href="#order">Order pizza for collection →</a>
-          </p>
+      {/* Intro and photo side by side. This absorbed the old standalone Room
+          section — the two were saying overlapping things one after the other,
+          and the fire photo belongs with the copy that describes the room. */}
+      <div className="menu__intro-grid">
+        <div className="section__intro menu__intro-copy">
+          {menu.eyebrow ? <p className="eyebrow">{menu.eyebrow}</p> : null}
+          <h2 className="section__title">{menu.title}</h2>
+          {/* Split on blank lines so the CMS field stays a plain textarea:
+              staff press return twice, they don't learn a syntax. */}
+          {String(menu.intro || '')
+            .split(/\n\s*\n/)
+            .filter(Boolean)
+            .map((para) => (
+              <p className="section__body" key={para}>
+                {para}
+              </p>
+            ))}
+          {canOrder ? (
+            <p className="menu__order-link">
+              <a className="text-link" href="#order">Order pizza for collection →</a>
+            </p>
+          ) : null}
+        </div>
+
+        {menu.introPhoto?.base ? (
+          <figure className="menu__intro-figure">
+            <Photo
+              base={menu.introPhoto.base}
+              alt={menu.introPhoto.alt || ''}
+              sizes="(min-width: 860px) 46vw, 92vw"
+            />
+          </figure>
         ) : null}
       </div>
 

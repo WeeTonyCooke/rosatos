@@ -59,13 +59,6 @@
     "caption": "Céad míle fáilte!",
     "base": "hero"
   },
-  "room": {
-    "eyebrow": "The room",
-    "title": "Pull up a stool by the fire.",
-    "body": "Open fires, a full bar, and the kitchen on seven days a week. Locals and visitors, drinks or dinner, all the same welcome.",
-    "imageAlt": "The open fire burning in the stone hearth, bar stools along the counter",
-    "base": "fire"
-  },
   "visit": {
     "eyebrow": "",
     "title": "7 Malin Road, a short walk from the town centre.",
@@ -178,5 +171,6 @@
       "label": "Privacy",
       "href": "/privacy/"
     }
-  ]
+  ],
+  "subtitle": "Bar & Restaurant"
 }

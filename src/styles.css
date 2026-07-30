@@ -23,7 +23,7 @@
      The rule now is simply alternation, top to bottom:
 
        forest  hero
-       cream   room + menu
+       cream   menu
        forest  the bar block closing the menu
        cream   order
        forest  what's on
@@ -947,52 +947,6 @@ body:has(.cart-fab) .order-fab {
   transform: none;
 }
 
-/* Room */
-
-.room {
-  padding-top: var(--space-5);
-}
-
-.room__grid {
-  display: grid;
-  gap: var(--space-4);
-  align-items: center;
-}
-
-.room__figure {
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--radius);
-}
-
-.room__figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  filter: saturate(0.9) contrast(1.05);
-}
-
-.room__swatch {
-  display: grid;
-  place-items: end start;
-  min-height: 18rem;
-  padding: var(--space-3);
-  background: var(--accent);
-  border-radius: var(--radius);
-  color: var(--hero-ink);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.room__grid--solo .room__swatch {
-  min-height: 14rem;
-}
-
-/* Great pints — green field, one photo */
-
 /* Menu */
 
 .menu {
@@ -1003,6 +957,32 @@ body:has(.cart-fab) .order-fab {
    Course-to-course spacing is deliberately smaller than the 9rem between
    top-level sections — the smaller step reads as "same section, next part"
    instead of making every block feel equally weighted. */
+/* Intro copy beside the fire photo, carried over from the Room section this
+   absorbed. The copy keeps its own measure rather than stretching to a grid
+   fraction — the mistake that left holes in the gift card row and the What's
+   On board. */
+.menu__intro-grid {
+  display: grid;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+  margin-bottom: clamp(2.5rem, 8vw, 5rem);
+}
+
+.menu__intro-copy {
+  margin-bottom: 0;
+}
+
+.menu__intro-figure {
+  margin: 0;
+}
+
+.menu__intro-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
 .menu__courses {
   display: grid;
   gap: clamp(2.5rem, 8vw, 4.5rem);
@@ -1683,6 +1663,14 @@ body:has(.cart-fab) .order-fab {
   margin: 0 0 0.75rem;
 }
 
+.site-footer__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--cream) 62%, transparent);
+}
+
 .site-footer__wordmark {
   margin: 0;
   font-family: var(--font-display);
@@ -1828,7 +1816,33 @@ body:has(.cart-fab) .order-fab {
     gap: var(--space-5);
   }
 
-  .menu__courses {
+  /* Intro copy beside the fire photo, carried over from the Room section this
+   absorbed. The copy keeps its own measure rather than stretching to a grid
+   fraction — the mistake that left holes in the gift card row and the What's
+   On board. */
+.menu__intro-grid {
+  display: grid;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+  margin-bottom: clamp(2.5rem, 8vw, 5rem);
+}
+
+.menu__intro-copy {
+  margin-bottom: 0;
+}
+
+.menu__intro-figure {
+  margin: 0;
+}
+
+.menu__intro-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.menu__courses {
     gap: var(--space-6);
   }
 

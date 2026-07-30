@@ -35,6 +35,9 @@ export function Footer({ venue }) {
             />
           ) : null}
           <p className="site-footer__wordmark">{venue.name}</p>
+          {venue.subtitle ? (
+            <p className="site-footer__subtitle">{venue.subtitle}</p>
+          ) : null}
         </div>
 
         <div className="site-footer__meta">
