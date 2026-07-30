@@ -14,22 +14,41 @@
   --bg: var(--cream);
   --bg-elevated: var(--cream);
   --bg-soft: var(--cream);
-  /* TWO-TONE. This used to read "sections differentiate via whitespace, not
-     background colour". That held while the page was one continuous cream
-     field, but it left the page reading as a stack of identical slabs. The
-     rule now: cream is the daytime half of the business — the room, the food,
-     the practicals. Forest is the night half — the bar and what's on. Colour
-     marks which of the two things this pub is, not visual hierarchy, and a
-     block only goes green if it genuinely belongs to the evening. */
+  /* TWO-TONE, ALTERNATING. This originally read "sections differentiate via
+     whitespace, not background colour", which left the page a stack of
+     identical slabs. It was then a day/night rule — cream for food, forest for
+     the bar — which was coherent but produced an uneven page: 29% green, a
+     3,640px cream run through the menu, and a long cream tail.
+
+     The rule now is simply alternation, top to bottom:
+
+       forest  hero
+       cream   room + menu
+       forest  the bar block closing the menu
+       cream   order
+       forest  what's on
+       cream   gift cards
+       forest  visit
+       cream   footer
+
+     Ground colour is rhythm, not meaning. Adding a section means picking the
+     colour its neighbours don't have. */
   --rosato-green: var(--forest);
   --rosato-green-mid: color-mix(in srgb, var(--forest) 70%, white);
   --accent: var(--forest);
   --accent-deep: var(--forest);
   --accent-soft: color-mix(in srgb, var(--forest) 10%, transparent);
-  --order-pop: var(--cream);
-  --order-pop-ink: var(--forest);
-  --order-pop-border: var(--forest);
-  --order-pop-hot: color-mix(in srgb, var(--cream) 90%, var(--charcoal));
+  /* The order badge is the page's one persistent call to action, and it was
+     cream-on-cream with a hairline ring — it vanished. Terracotta is the
+     palette's designated single accent ("seasoning, never a background") and
+     was going almost entirely unused; a 3.85rem badge is exactly the sparing
+     application it was reserved for. It also holds against BOTH grounds:
+     warm on cream, warm on forest, so it stays legible as the page
+     alternates beneath it. */
+  --order-pop: var(--terracotta);
+  --order-pop-ink: var(--cream);
+  --order-pop-border: color-mix(in srgb, var(--cream) 30%, transparent);
+  --order-pop-hot: color-mix(in srgb, var(--terracotta) 88%, var(--charcoal));
   --ink: var(--charcoal);
   --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
   --ink-faint: color-mix(in srgb, var(--charcoal) 50%, transparent);
@@ -343,12 +362,12 @@ input {
   width: 3.85rem;
   height: 3.85rem;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--forest) 55%, transparent);
+  border: 1px solid var(--order-pop-border);
   background: var(--order-pop);
   color: var(--order-pop-ink);
   text-decoration: none;
   text-align: center;
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--forest) 16%, transparent);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--charcoal) 28%, transparent);
   opacity: 0;
   pointer-events: none;
   transition:
@@ -1009,6 +1028,51 @@ body:has(.cart-fab) .order-fab {
 .section--dark .programme__item.is-today .programme__day,
 .section--dark .programme__note a {
   color: color-mix(in srgb, var(--cream) 92%, transparent);
+}
+
+/* Visit's own furniture on forest. Not folded into the rules above because
+   these are structural (rules, form controls, an embedded map) rather than
+   the text colours the generic block covers. */
+.section--dark .visit__block h3,
+.section--dark .visit__book h3,
+.section--dark .visit__address {
+  color: var(--on-accent);
+}
+
+.section--dark .hours-list li {
+  border-bottom-color: color-mix(in srgb, var(--cream) 18%, transparent);
+  color: color-mix(in srgb, var(--cream) 82%, transparent);
+}
+
+.section--dark .visit__tip,
+.section--dark .visit__note,
+.section--dark .visit__enquiry {
+  color: color-mix(in srgb, var(--cream) 68%, transparent);
+}
+
+.section--dark .visit__details a,
+.section--dark .visit__enquiry a,
+.section--dark .text-link {
+  color: color-mix(in srgb, var(--cream) 92%, transparent);
+}
+
+/* The primary button was forest-on-cream; on forest it needs inverting or it
+   disappears into its own background. */
+.section--dark .btn--primary {
+  background: var(--cream);
+  color: var(--forest);
+  border-color: var(--cream);
+}
+
+.section--dark .btn--primary:hover {
+  background: color-mix(in srgb, var(--cream) 88%, var(--charcoal));
+}
+
+/* Google's map iframe is a hard white rectangle we can't restyle. A hairline
+   in the ground colour stops it reading as a hole punched in the section. */
+.section--dark .visit__map iframe {
+  border: 1px solid color-mix(in srgb, var(--cream) 22%, transparent);
+  border-radius: var(--radius);
 }
 
 .menu__bar .menu__section-title,
