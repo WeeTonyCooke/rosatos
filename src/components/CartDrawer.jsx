@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useCart } from '../cart/CartContext.jsx'
+import { useDialog } from '../hooks/useDialog.js'
 import { getTodaysWindow } from '../lib/hours.js'
 
 function formatClock(date) {
@@ -86,6 +87,10 @@ export function CartDrawer({ venue }) {
   const [notes, setNotes] = useState('')
   const [status, setStatus] = useState('idle')
   const [error, setError] = useState('')
+  const panelRef = useRef(null)
+
+  const close = useCallback(() => setOpen(false), [setOpen])
+  useDialog(panelRef, { open: open && enabled && Boolean(ordering), onClose: close })
 
   const { slots, closed, reason } = useMemo(
     () =>
@@ -177,15 +182,16 @@ export function CartDrawer({ venue }) {
         aria-modal="true"
         aria-label="Pizza collection cart"
         hidden={!open}
+        data-dialog-root
       >
-        <div className="cart-drawer__backdrop" onClick={() => setOpen(false)} />
-        <div className="cart-drawer__panel">
+        <div className="cart-drawer__backdrop" onClick={close} />
+        <div className="cart-drawer__panel" ref={panelRef} tabIndex={-1}>
           <header className="cart-drawer__header">
             <div>
               <p className="eyebrow">Collection only</p>
               <h2>Your order</h2>
             </div>
-            <button type="button" className="cart-drawer__close" onClick={() => setOpen(false)}>
+            <button type="button" className="cart-drawer__close" onClick={close}>
               Close
             </button>
           </header>

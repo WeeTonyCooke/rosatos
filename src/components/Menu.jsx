@@ -49,12 +49,16 @@ export function Menu({ venue }) {
             <ul className="menu__list">
               {section.items.map((item) => {
                 const price = formatMenuPrice(item.price)
+                // replaceAll, not replace: range prices carry two euro signs,
+                // and the single-replace version announced the Cheesy Pizza
+                // Garlic Bread as "euro 8.50 / €13.50".
+                const spokenPrice = price ? price.replaceAll('€', 'euro ') : null
                 return (
                   <li className="menu__item" key={item.name}>
                     <div className="menu__item-main">
                       <span className="menu__item-name">{item.name}</span>
                       {price ? (
-                        <span className="menu__item-price" aria-label={price.replace('€', 'euro ')}>
+                        <span className="menu__item-price" aria-label={spokenPrice}>
                           {price}
                         </span>
                       ) : null}

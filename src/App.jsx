@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import venueBase from '../content/venue.json'
 import programme from '../content/programme.json'
 import menu from '../content/menu.json'
@@ -21,38 +20,32 @@ import { useReveal } from './hooks/useReveal.js'
 
 const venue = mergeVenue(venueBase, programme, menu)
 
-// Maps this venue's human-readable "days" strings to schema.org's expected
-// day-name format for openingHoursSpecification.
-const DAY_ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+/**
+ * Canonical site origin, read from the <link rel="canonical"> already in
+ * index.html.
+ *
+ * This used to be `window.location.origin`, which broke the prerender:
+ * scripts/prerender.mjs renders the page against `vite preview` on localhost,
+ * so the schema baked into dist/index.html advertised the business as living
+ * at http://localhost:43663 — and non-JS crawlers, the entire audience the
+ * prerender exists to serve, were the only ones who ever saw it.
+ *
+ * Reading the canonical link gives the same value during prerender and in the
+ * browser, which also keeps the JSON-LD byte-identical across hydration.
+ */
+const FALLBACK_ORIGIN = 'https://rosatos-moville.netlify.app'
 
-function daysToSchema(daysLabel) {
-  // "Monday – Friday" -> ["Monday", ..., "Friday"]; "Saturday" -> ["Saturday"]
-  const names = daysLabel
-    .split(/[–-]/)
-    .map((part) => part.trim())
-    .filter(Boolean)
-
-  if (names.length === 1) return names
-  const startIndex = DAY_ORDER.indexOf(names[0])
-  const endIndex = DAY_ORDER.indexOf(names[names.length - 1])
-  if (startIndex === -1 || endIndex === -1) return names
-  return DAY_ORDER.slice(startIndex, endIndex + 1)
+function resolveSiteUrl() {
+  if (typeof document === 'undefined') return FALLBACK_ORIGIN
+  const canonical = document.querySelector('link[rel="canonical"]')?.href
+  if (!canonical) return FALLBACK_ORIGIN
+  return canonical.replace(/\/+$/, '')
 }
 
-function buildOpeningHours(hours) {
-  return (hours || []).map((row) => {
-    const [opens, closes] = row.time.split(/[–-]/).map((t) => t.trim())
-    return {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: daysToSchema(row.days),
-      opens,
-      closes,
-    }
-  })
-}
+const SITE_URL = resolveSiteUrl()
 
 function buildLocalBusinessSchema(v) {
-  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  const origin = SITE_URL
   return {
     '@context': 'https://schema.org',
     '@type': ['Restaurant', 'BarOrPub'],
@@ -82,24 +75,42 @@ function buildLocalBusinessSchema(v) {
     servesCuisine: ['Irish', 'Italian'],
     priceRange: '€€',
     paymentAccepted: ['Cash', 'Credit Card'],
-    openingHoursSpecification: buildOpeningHours(v.hours),
+    // NO openingHoursSpecification, deliberately.
+    //
+    // venue.json's `hours` are *kitchen* hours (16:00–21:00 etc.), not bar
+    // opening hours — the footer and the ordering note both describe them
+    // that way, and the What's On listings run to 22:00, an hour after the
+    // "close" this block used to publish. Marking kitchen hours up as
+    // opening hours told Google the pub shuts at 21:00 on nights it has live
+    // music at 22:00.
+    //
+    // Omitting the property is the honest option: Google falls back to the
+    // Google Business Profile, which is the authoritative source for opening
+    // hours anyway. If real bar hours are ever added to venue.json as their
+    // own field, publish those here — not these.
     sameAs: [v.social?.instagram, v.social?.facebook].filter(Boolean),
   }
 }
 
+// Serialised once at module scope: the value is fully static, and computing it
+// during render would risk drift between the prerendered and hydrated markup.
+const SCHEMA_JSON = JSON.stringify(buildLocalBusinessSchema(venue))
+
 function AppShell() {
   useReveal()
 
-  useEffect(() => {
-    const script = document.createElement('script')
-    script.type = 'application/ld+json'
-    script.text = JSON.stringify(buildLocalBusinessSchema(venue))
-    document.head.appendChild(script)
-    return () => script.remove()
-  }, [])
-
   return (
     <>
+      {/* Rendered as static markup rather than injected into <head> from an
+          effect. The effect version ran *after* the prerender had already
+          baked its own copy into the HTML, so every live page ended up with
+          two competing LocalBusiness records carrying different url/image
+          values. JSON-LD is valid in <body>, and this way there is exactly
+          one block, present for non-JS crawlers, identical across hydration. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: SCHEMA_JSON }}
+      />
       <a className="skip-link" href="#main">
         Skip to content
       </a>

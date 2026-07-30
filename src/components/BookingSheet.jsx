@@ -1,15 +1,27 @@
+import { useCallback, useRef } from 'react'
 import { useBooking } from '../booking/BookingContext.jsx'
+import { useDialog } from '../hooks/useDialog.js'
 
 export function BookingSheet({ venue }) {
   const { open, setOpen } = useBooking()
   const { bookingWidgetUrl, bookingNote } = venue
+  const panelRef = useRef(null)
+
+  const close = useCallback(() => setOpen(false), [setOpen])
+  useDialog(panelRef, { open: open && Boolean(bookingWidgetUrl), onClose: close })
 
   if (!open || !bookingWidgetUrl) return null
 
   return (
-    <div className="customize-sheet is-open" role="dialog" aria-modal="true" aria-label="Book a table">
-      <div className="customize-sheet__backdrop" onClick={() => setOpen(false)} />
-      <div className="customize-sheet__panel booking-sheet__panel">
+    <div
+      className="customize-sheet is-open"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Book a table"
+      data-dialog-root
+    >
+      <div className="customize-sheet__backdrop" onClick={close} />
+      <div className="customize-sheet__panel booking-sheet__panel" ref={panelRef} tabIndex={-1}>
         <div className="booking-sheet__header">
           <div>
             <p className="booking-sheet__eyebrow">Book a table</p>
@@ -18,7 +30,7 @@ export function BookingSheet({ venue }) {
           <button
             type="button"
             className="booking-sheet__close"
-            onClick={() => setOpen(false)}
+            onClick={close}
             aria-label="Close booking"
           >
             ✕

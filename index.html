@@ -31,20 +31,36 @@
       rel="stylesheet"
     />
     <title>Rosato’s Bar &amp; Restaurant | Moville, Co. Donegal</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- The Netlify Identity widget deliberately does NOT load here by
+         default. It only exists to bounce a logged-in admin to /admin/, but
+         loading it unconditionally made every customer download the script
+         and take two injected iframes for a feature none of them can use.
+         The copy that matters lives in public/admin/index.html. -->
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
-          if (!user) {
-            window.netlifyIdentity.on('login', () => {
-              document.location.href = '/admin/'
-            })
-          }
-        })
+      // ...with one exception. Netlify Identity sends invite, confirmation
+      // and password-recovery links to the *site root* carrying a token in
+      // the hash, and it's the widget that has to pick those up and hand off
+      // to /admin/. Dropping the widget entirely would quietly break admin
+      // onboarding, so load it on demand for exactly those visits — which is
+      // Oran once, not every customer forever.
+      if (/\b(invite_token|confirmation_token|recovery_token|email_change_token)=/.test(window.location.hash)) {
+        var s = document.createElement('script')
+        s.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js'
+        s.onload = function () {
+          if (!window.netlifyIdentity) return
+          window.netlifyIdentity.on('init', function (user) {
+            if (!user) {
+              window.netlifyIdentity.on('login', function () {
+                document.location.href = '/admin/'
+              })
+            }
+          })
+        }
+        document.head.appendChild(s)
       }
     </script>
   </body>

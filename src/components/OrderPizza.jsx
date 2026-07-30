@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useCart } from '../cart/CartContext.jsx'
+import { useDialog } from '../hooks/useDialog.js'
 
 function emptyDraft() {
   return { extras: [], removals: [], note: '' }
@@ -21,11 +22,27 @@ const REMOVAL_ALIASES = {
   chilli: ['chilli', 'chili', 'chilli flakes'],
 }
 
+/**
+ * Whole-word test, not a substring test.
+ *
+ * This used to be `haystack.includes(alias)`, which meant the 'pepper' alias
+ * matched inside "pepperoni" — so Pepperoni, Hot 'n' Spicy Pepperoni and Meat
+ * Feast all offered "Leave off: Peppers" for peppers they don't contain.
+ *
+ * \b won't do here: it's defined over ASCII word characters, so it fails on
+ * the accented forms ("jalapeño"). Unicode letter classes give the same
+ * boundary behaviour while handling them correctly.
+ */
+function containsWord(haystack, word) {
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`(?<!\\p{L})${escaped}(?!\\p{L})`, 'iu').test(haystack)
+}
+
 function removersForPizza(pizza, removals) {
-  const haystack = `${pizza.name} ${pizza.description || ''}`.toLowerCase()
+  const haystack = `${pizza.name} ${pizza.description || ''}`
   return removals.filter((option) => {
-    const aliases = REMOVAL_ALIASES[option.id] || [option.label.toLowerCase()]
-    return aliases.some((alias) => haystack.includes(alias.toLowerCase()))
+    const aliases = REMOVAL_ALIASES[option.id] || [option.label]
+    return aliases.some((alias) => containsWord(haystack, alias))
   })
 }
 
@@ -55,6 +72,24 @@ export function OrderPizza() {
     return Number.parseFloat(activePizza.price) + draft.extras.length * extraPrice
   }, [activePizza, draft.extras.length, extraPrice])
 
+  const panelRef = useRef(null)
+
+  // Dismissing the sheet keeps the pizza exactly as it was added — the line is
+  // already in the cart by this point — so Escape and the backdrop both mean
+  // "keep as is", matching the button. Defined with useCallback because
+  // useDialog re-runs its effect whenever the close handler identity changes.
+  const keepAsIs = useCallback(() => {
+    setActiveName(null)
+    setPendingLineId(null)
+    setDraft(emptyDraft())
+    setOpen(true)
+  }, [setOpen])
+
+  useDialog(panelRef, {
+    open: Boolean(enabled && ordering && canCustomize && activePizza),
+    onClose: keepAsIs,
+  })
+
   if (!enabled || !ordering) return null
 
   function closeCustomize({ openCart = false } = {}) {
@@ -77,10 +112,6 @@ export function OrderPizza() {
     setPendingLineId(lineId)
     setActiveName(pizza.name)
     setDraft(emptyDraft())
-  }
-
-  function keepAsIs() {
-    closeCustomize({ openCart: true })
   }
 
   function saveCustomizations() {
@@ -128,9 +159,15 @@ export function OrderPizza() {
       </ul>
 
       {canCustomize && activePizza ? (
-        <div className="customize-sheet is-open" role="dialog" aria-modal="true" aria-label="Customize pizza">
+        <div
+          className="customize-sheet is-open"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Customize pizza"
+          data-dialog-root
+        >
           <div className="customize-sheet__backdrop" onClick={keepAsIs} />
-          <div className="customize-sheet__panel">
+          <div className="customize-sheet__panel" ref={panelRef} tabIndex={-1}>
             <p className="order__customize-lead">Added {activePizza.name}. Want to customize?</p>
 
             {leaveOffs.length > 0 ? (

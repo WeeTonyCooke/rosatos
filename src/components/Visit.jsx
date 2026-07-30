@@ -6,6 +6,7 @@ export function Visit({ venue }) {
     address,
     hours,
     hoursHeading,
+    hoursNote,
     phone,
     email,
     bookingNote,
@@ -28,8 +29,11 @@ export function Visit({ venue }) {
 
       <div className="visit__grid">
         <div className="visit__details">
+          {/* These are food-service hours, not bar closing times — the
+              programme runs to 22:00. Labelling them "Opening Hours" put a
+              21:00 close directly above a list of 22:00 events. */}
           <div className="visit__block">
-            <h3>{hoursHeading || 'Hours'}</h3>
+            <h3>{hoursHeading || 'Kitchen hours'}</h3>
             <ul className="hours-list">
               {hours.map((row) => (
                 <li key={row.days}>
@@ -38,6 +42,7 @@ export function Visit({ venue }) {
                 </li>
               ))}
             </ul>
+            {hoursNote ? <p className="visit__tip">{hoursNote}</p> : null}
           </div>
 
           <div className="visit__block">

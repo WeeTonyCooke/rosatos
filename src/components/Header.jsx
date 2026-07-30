@@ -41,13 +41,32 @@ function CueName({ name }) {
 
 export function Header({ venue }) {
   const [scrolled, setScrolled] = useState(false)
-  const [now, setNow] = useState(() => new Date())
+  // Starts null on purpose, and is only populated after mount.
+  //
+  // The ticker is day-dependent, and scripts/prerender.mjs bakes the markup
+  // at *build* time. Seeding this with `new Date()` meant the prerendered
+  // HTML carried the build day's cue while the client rendered today's — a
+  // guaranteed text mismatch that threw React error #418 on every single page
+  // load and made React discard and re-render the subtree, costing us the
+  // prerender's benefit and putting a red error in the console.
+  //
+  // Rendering nothing until mounted keeps server and client markup identical.
+  // The cue is decorative and duplicated by the What's On section below, so
+  // there's nothing lost by it appearing a frame late.
+  const [now, setNow] = useState(null)
   const [index, setIndex] = useState(0)
   const canOrder = Boolean(venue.ordering?.enabled)
   const { setOpen: setBookingOpen } = useBooking()
 
-  const events = useMemo(() => getTickerItems(venue.programme, now), [venue.programme, now])
+  const events = useMemo(
+    () => (now ? getTickerItems(venue.programme, now) : []),
+    [venue.programme, now],
+  )
   const current = events[index] || null
+
+  useEffect(() => {
+    setNow(new Date())
+  }, [])
 
   useEffect(() => {
     setIndex(0)
@@ -84,10 +103,12 @@ export function Header({ venue }) {
     return () => observer.disconnect()
   }, [])
 
+  // Keeps the cue correct for anyone who leaves the page open past midnight.
+  // `prev` is null until the mount effect above runs, hence the guard.
   useEffect(() => {
     const tick = () => {
       const next = new Date()
-      setNow((prev) => (prev.getDay() === next.getDay() ? prev : next))
+      setNow((prev) => (prev && prev.getDay() === next.getDay() ? prev : next))
     }
     const id = window.setInterval(tick, 60_000)
     return () => window.clearInterval(id)
