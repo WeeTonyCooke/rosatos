@@ -38,13 +38,23 @@
   --accent: var(--forest);
   --accent-deep: var(--forest);
   --accent-soft: color-mix(in srgb, var(--forest) 10%, transparent);
-  /* The order badge is the page's one persistent call to action, and it was
-     cream-on-cream with a hairline ring — it vanished. Terracotta is the
-     palette's designated single accent ("seasoning, never a background") and
-     was going almost entirely unused; a 3.85rem badge is exactly the sparing
-     application it was reserved for. It also holds against BOTH grounds:
-     warm on cream, warm on forest, so it stays legible as the page
-     alternates beneath it. */
+  /* The order badge is the page's one persistent call to action. It was
+     cream-on-cream with a hairline ring, on a cream page — invisible.
+
+     The fill colour is NOT what makes it visible, and an earlier version of
+     this comment claimed it was. The badge is fixed-position over a page that
+     alternates cream and forest, and no flat fill clears 3:1 against both:
+     cream sits at luminance 0.85, forest at 0.055, so the best any single
+     mid-value manages against both is ~2.9:1. Measured:
+
+       terracotta  6.23 on cream   1.35 on forest
+       facade red  9.01 on cream   1.07 on forest
+       brass       2.78 on cream   3.03 on forest
+       warm white  1.07 on cream   8.99 on forest
+
+     The ring in .order-fab does the work instead. That frees the fill to be
+     chosen on brand grounds alone — terracotta, the palette's designated
+     single accent, which was otherwise going unused. */
   --order-pop: var(--terracotta);
   --order-pop-ink: var(--cream);
   --order-pop-border: color-mix(in srgb, var(--cream) 30%, transparent);
@@ -362,12 +372,23 @@ input {
   width: 3.85rem;
   height: 3.85rem;
   border-radius: 50%;
-  border: 1px solid var(--order-pop-border);
+  border: 0;
   background: var(--order-pop);
   color: var(--order-pop-ink);
   text-decoration: none;
   text-align: center;
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--charcoal) 28%, transparent);
+  /* A cream ring, then a dark halo, then the drop shadow.
+     The badge is fixed and floats over both grounds, and no flat fill can
+     clear 3:1 against cream AND forest — that's arithmetic, not taste: cream
+     sits at luminance 0.85 and forest at 0.055, so the best any single
+     mid-value manages against both is about 2.9:1.
+     The ring solves it instead of the fill. Over forest the cream ring does
+     the separating (8.99:1); over cream the fill does it (6.23:1). Something
+     always contrasts, whatever is behind. */
+  box-shadow:
+    0 0 0 2px var(--cream),
+    0 0 0 3px color-mix(in srgb, var(--charcoal) 22%, transparent),
+    0 6px 20px color-mix(in srgb, var(--charcoal) 32%, transparent);
   opacity: 0;
   pointer-events: none;
   transition:
