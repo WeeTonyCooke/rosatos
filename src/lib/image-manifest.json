@@ -46,19 +46,22 @@
     "base": "pizzas",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900
     ],
-    "sourceWidth": 549,
-    "lowRes": true
+    "sourceWidth": 1086,
+    "lowRes": false
   },
   "guinness": {
     "base": "guinness",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900,
+      1400
     ],
-    "sourceWidth": 600,
-    "lowRes": true
+    "sourceWidth": 1402,
+    "lowRes": false
   },
   "prawns": {
     "base": "prawns",
@@ -90,23 +93,46 @@
     "sourceWidth": 1086,
     "lowRes": false
   },
+  "salmon-mash": {
+    "base": "salmon-mash",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900
+    ],
+    "sourceWidth": 1088,
+    "lowRes": false
+  },
+  "pizza-club": {
+    "base": "pizza-club",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900
+    ],
+    "sourceWidth": 1122,
+    "lowRes": false
+  },
   "fire": {
     "base": "fire",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900,
+      1400
     ],
-    "sourceWidth": 641,
-    "lowRes": true
+    "sourceWidth": 1402,
+    "lowRes": false
   },
   "cocktail": {
     "base": "cocktail",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900
     ],
-    "sourceWidth": 599,
-    "lowRes": true
+    "sourceWidth": 1085,
+    "lowRes": false
   },
   "music-snug": {
     "base": "music-snug",

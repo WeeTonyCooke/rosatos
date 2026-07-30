@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { useCart } from '../cart/CartContext.jsx'
+import { Photo } from './Photo.jsx'
 import { useDialog } from '../hooks/useDialog.js'
 
 function emptyDraft() {
@@ -127,10 +128,26 @@ export function OrderPizza() {
 
   return (
     <section id="order" className="section order" data-reveal>
-      <div className="section__intro">
-        <p className="eyebrow">{ordering.eyebrow}</p>
-        <h2 className="section__title">{ordering.title}</h2>
-        <p className="section__body">{ordering.intro}</p>
+      <div className="order__head">
+        <div className="section__intro">
+          <p className="eyebrow">{ordering.eyebrow}</p>
+          <h2 className="section__title">{ordering.title}</h2>
+          <p className="section__body">{ordering.intro}</p>
+        </div>
+
+        {/* The only photo on the site with people in it. Worth having: the
+            section is otherwise a price list, and the shirt happens to be
+            Rosato's own Pizza Club merch, so it earns its place here rather
+            than being decoration borrowed from somewhere else. */}
+        {ordering.photo?.base ? (
+          <figure className="order__figure">
+            <Photo
+              base={ordering.photo.base}
+              alt={ordering.photo.alt || ''}
+              sizes="(min-width: 860px) 42vw, 92vw"
+            />
+          </figure>
+        ) : null}
       </div>
 
       <ul className="order__list">

@@ -1,6 +1,8 @@
+import { Photo } from './Photo.jsx'
+
 export function Room({ venue }) {
   const { room } = venue
-  const hasPhoto = Boolean(room.image)
+  const hasPhoto = Boolean(room.base)
 
   return (
     <section id="room" className="section room" data-reveal>
@@ -12,22 +14,15 @@ export function Room({ venue }) {
         </div>
         {hasPhoto ? (
           <figure className="room__figure">
-            <picture>
-              <source
-                type="image/webp"
-                srcSet="/images/room-480.webp 480w, /images/room-900.webp 900w, /images/room-1400.webp 1400w"
-                sizes="(min-width: 900px) 50vw, 90vw"
-              />
-              <img
-                src="/images/room-900.jpg"
-                srcSet="/images/room-480.jpg 480w, /images/room-900.jpg 900w, /images/room-1400.jpg 1400w"
-                sizes="(min-width: 900px) 50vw, 90vw"
-                alt={room.imageAlt}
-                width="1400"
-                height="933"
-                loading="lazy"
-              />
-            </picture>
+            {/* Widths come from the generated manifest rather than a hardcoded
+                srcset — see Photo.jsx. The old markup pinned room-480/900/1400
+                by hand, which is the pattern that goes stale the moment a
+                better original lands under a different name. */}
+            <Photo
+              base={room.base}
+              alt={room.imageAlt || ''}
+              sizes="(min-width: 900px) 50vw, 90vw"
+            />
           </figure>
         ) : (
           <div className="room__swatch" aria-hidden="true">

@@ -59,8 +59,8 @@
     "eyebrow": "The room",
     "title": "A relaxed local for pints, dinner or a catch-up.",
     "body": "Serving locals and visitors alike, Rosato’s is a place to drop in for lunch, dinner, drinks or a night out.",
-    "image": "/images/room-1400.jpg",
-    "imageAlt": "Open fire in the stone hearth at Rosato’s, with the bar in the foreground"
+    "imageAlt": "The open fire burning in the stone hearth, bar stools along the counter",
+    "base": "fire"
   },
   "pint": {
     "title": "Great pints.",
@@ -145,6 +145,10 @@
         }
       ],
       "notePlaceholder": "Anything else for this pizza?"
+    },
+    "photo": {
+      "base": "pizza-club",
+      "alt": "Staff in a Rosato’s Pizza Club shirt at the bar, a pint of Guinness on the counter and diners behind"
     }
   },
   "credit": {

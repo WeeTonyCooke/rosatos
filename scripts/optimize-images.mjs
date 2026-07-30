@@ -68,6 +68,8 @@ const TARGETS = [
     'prawns',
     'exterior-dusk',
     'exterior-day',
+    'salmon-mash',
+    'pizza-club',
     'fire',
     'cocktail',
     'music-snug',

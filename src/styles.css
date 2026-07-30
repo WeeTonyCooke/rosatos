@@ -1597,6 +1597,12 @@ body:has(.cart-fab) .order-fab {
     margin: var(--space-6) calc(50% - 50vw);
   }
 
+  .order__head {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
   .visit__grid {
     grid-template-columns: 1fr 1.05fr;
     align-items: start;
@@ -1628,6 +1634,25 @@ body:has(.cart-fab) .order-fab {
 }
 
 /* Order pizza — collection only */
+
+/* Intro and photo share the top of the section, so the pizza list still
+   starts high rather than being pushed a full viewport down by the image. */
+.order__head {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.order__figure {
+  margin: 0;
+}
+
+.order__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
 
 .menu__order-link {
   margin: var(--space-3) 0 0;
