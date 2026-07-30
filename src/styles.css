@@ -807,6 +807,21 @@ body:has(.cart-fab) .order-fab {
   padding: var(--space-6) clamp(1rem, 3vw, 2rem);
 }
 
+/* Three-step rhythm.
+   Every section used to carry the same 9rem top and bottom, so the gap
+   between any two was identical — 18rem, seven times over. That reads as a
+   stack of equally weighted slabs rather than a page with a shape to it.
+   Tight keeps a section pinned to the one it continues from; loose gives a
+   real chapter break the air to register as one. */
+.section--tight {
+  padding-top: var(--space-5);
+}
+
+.section--loose {
+  padding-top: calc(var(--space-6) * 1.35);
+  padding-bottom: calc(var(--space-6) * 1.35);
+}
+
 .section__intro {
   max-width: 32rem;
   margin-bottom: var(--space-5);
@@ -894,67 +909,6 @@ body:has(.cart-fab) .order-fab {
 }
 
 /* Great pints — green field, one photo */
-
-.pint {
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  background: var(--forest);
-  color: var(--cream);
-}
-
-.pint__inner {
-  display: grid;
-  gap: var(--space-4);
-  align-items: center;
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: var(--space-6) clamp(1rem, 3vw, 2rem);
-}
-
-.pint__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5vw, 3.4rem);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-}
-
-.pint__body {
-  margin: var(--space-3) 0 0;
-  max-width: 22rem;
-  color: color-mix(in srgb, var(--cream) 78%, transparent);
-  font-size: 1.15rem;
-  line-height: 1.6;
-}
-
-.pint__figure {
-  margin: 0;
-  justify-self: stretch;
-}
-
-.pint__figure img {
-  display: block;
-  width: 100%;
-  max-height: min(70vh, 36rem);
-  object-fit: cover;
-  object-position: center;
-  border-radius: var(--radius);
-}
-
-@media (min-width: 780px) {
-  .pint__inner {
-    grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.15fr);
-    gap: var(--space-5);
-  }
-
-  .pint__figure {
-    justify-self: end;
-    width: min(100%, 28rem);
-  }
-}
 
 /* Menu */
 

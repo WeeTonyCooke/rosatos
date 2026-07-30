@@ -3,7 +3,7 @@ export function GiftCard({ venue }) {
   if (!giftCards?.url) return null
 
   return (
-    <section id="gift-cards" className="section gift-card" aria-label={giftCards.eyebrow || 'Gift cards'} data-reveal>
+    <section id="gift-cards" className="section section--tight gift-card" aria-label={giftCards.eyebrow || 'Gift cards'} data-reveal>
       <div className="gift-card__inner">
         <div className="gift-card__copy">
           {giftCards.eyebrow ? <p className="eyebrow">{giftCards.eyebrow}</p> : null}

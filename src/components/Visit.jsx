@@ -21,9 +21,9 @@ export function Visit({ venue }) {
   const phoneHref = `tel:${phone.replace(/\s/g, '')}`
 
   return (
-    <section id="visit" className="section visit" data-reveal>
+    <section id="visit" className="section section--loose visit" data-reveal>
       <div className="section__intro">
-        <p className="eyebrow">{visit.eyebrow}</p>
+        {visit.eyebrow ? <p className="eyebrow">{visit.eyebrow}</p> : null}
         <h2 className="section__title">{visit.title}</h2>
         <p className="section__body">{address.landmark}</p>
       </div>

@@ -2,12 +2,12 @@ import venueBase from '../content/venue.json'
 import programme from '../content/programme.json'
 import menu from '../content/menu.json'
 import { mergeVenue } from './lib/programme.js'
+import imageManifest from './lib/image-manifest.json'
 import { CartProvider } from './cart/CartContext.jsx'
 import { BookingProvider } from './booking/BookingContext.jsx'
 import { Header } from './components/Header.jsx'
 import { Hero } from './components/Hero.jsx'
 import { Room } from './components/Room.jsx'
-import { Pint } from './components/Pint.jsx'
 import { Menu } from './components/Menu.jsx'
 import { OrderPizza } from './components/OrderPizza.jsx'
 import { CartDrawer } from './components/CartDrawer.jsx'
@@ -44,6 +44,12 @@ function resolveSiteUrl() {
 
 const SITE_URL = resolveSiteUrl()
 
+function largestVariant(base) {
+  const entry = imageManifest[base]
+  if (!entry?.widths?.length) return ''
+  return `/images/${base}-${entry.widths[entry.widths.length - 1]}.${entry.ext}`
+}
+
 function buildLocalBusinessSchema(v) {
   const origin = SITE_URL
   return {
@@ -70,7 +76,10 @@ function buildLocalBusinessSchema(v) {
       longitude: -7.0406,
     },
     url: origin || undefined,
-    image: v.room?.image ? `${origin}${v.room.image}` : undefined,
+    // Room now references a manifest base rather than a literal path, so the
+    // widest generated variant is resolved here. This is the image Google and
+    // link-preview bots show, so it has to be a real deployed file.
+    image: v.room?.base ? `${origin}${largestVariant(v.room.base)}` : undefined,
     menu: origin ? `${origin}/#menu` : undefined,
     servesCuisine: ['Irish', 'Italian'],
     priceRange: '€€',
@@ -119,7 +128,6 @@ function AppShell() {
         <Hero venue={venue} />
         <Room venue={venue} />
         <Menu venue={venue} />
-        <Pint venue={venue} />
         <OrderPizza />
         <WhatsOn venue={venue} />
         <GiftCard venue={venue} />

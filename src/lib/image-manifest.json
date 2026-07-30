@@ -1,26 +1,4 @@
 {
-  "pint": {
-    "base": "pint",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900,
-      1200
-    ],
-    "sourceWidth": 3024,
-    "lowRes": false
-  },
-  "room": {
-    "base": "room",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900,
-      1400
-    ],
-    "sourceWidth": 1500,
-    "lowRes": false
-  },
   "hero": {
     "base": "hero",
     "ext": "png",

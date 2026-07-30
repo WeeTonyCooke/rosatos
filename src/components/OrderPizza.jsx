@@ -127,10 +127,10 @@ export function OrderPizza() {
   }
 
   return (
-    <section id="order" className="section order" data-reveal>
+    <section id="order" className="section section--tight order" data-reveal>
       <div className="order__head">
         <div className="section__intro">
-          <p className="eyebrow">{ordering.eyebrow}</p>
+          {ordering.eyebrow ? <p className="eyebrow">{ordering.eyebrow}</p> : null}
           <h2 className="section__title">{ordering.title}</h2>
           <p className="section__body">{ordering.intro}</p>
         </div>

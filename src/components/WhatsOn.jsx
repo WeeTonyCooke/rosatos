@@ -9,9 +9,9 @@ export function WhatsOn({ venue }) {
   const photos = Array.isArray(programme.photos) ? programme.photos : []
 
   return (
-    <section id="whats-on" className="section whats-on" data-reveal>
+    <section id="whats-on" className="section section--loose whats-on" data-reveal>
       <div className="section__intro">
-        <p className="eyebrow">{programme.eyebrow}</p>
+        {programme.eyebrow ? <p className="eyebrow">{programme.eyebrow}</p> : null}
         <h2 className="section__title">{programme.title}</h2>
         {programme.body ? <p className="section__body">{programme.body}</p> : null}
       </div>

@@ -45,9 +45,9 @@ export function Menu({ venue }) {
   const stripAfter = Math.min(2, foodSections.length - 1)
 
   return (
-    <section id="menu" className="section menu" data-reveal>
+    <section id="menu" className="section section--loose menu" data-reveal>
       <div className="section__intro">
-        <p className="eyebrow">{menu.eyebrow}</p>
+        {menu.eyebrow ? <p className="eyebrow">{menu.eyebrow}</p> : null}
         <h2 className="section__title">{menu.title}</h2>
         <p className="section__body">{menu.intro}</p>
         {canOrder ? (

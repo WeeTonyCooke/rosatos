@@ -1,8 +1,8 @@
-// Generates responsive WebP + compressed-fallback variants for the large
-// image assets (pint.jpg, room.jpg, hero.png). Run manually with:
+// Generates responsive WebP + compressed-fallback variants for the site's
+// image assets. Run manually with:
 //   node scripts/optimize-images.mjs
-// then update the JSX <img> tags to <picture> with the generated srcsets
-// (already done for Pint.jsx / Room.jsx / Hero.jsx).
+// Components read widths from the generated manifest via Photo.jsx — they
+// never hardcode a srcset.
 //
 // HERO: an earlier version of this script skipped hero.png on the assumption
 // that flat vector-style artwork wouldn't benefit from WebP. That assumption
@@ -21,12 +21,11 @@
 //
 // logo.png (38KB) is genuinely not worth a pipeline at its size.
 //
-// COLOR GRADE: the two source photos (pint.jpg, room.jpg) are un-graded
-// phone snapshots — different white balance/mood from the site's own
-// palette (cream #f3eee6, forest #0f3a31, brass #b68a42). A gentle warm
-// channel shift + slight desaturation nudges them toward that palette
-// without looking processed. This is deliberately subtle — the goal is
-// "feels like it belongs on this page," not a heavy filter.
+// COLOR GRADE: `graded: true` applies a gentle warm channel shift for raw,
+// un-graded phone snapshots. Nothing currently uses it — every venue photo is
+// either a camera original the venue already processed, or brand artwork. Left
+// in because the next batch of raw files will want it; see the `graded` note
+// on TARGETS for why it must stay off for processed sources.
 
 import { statSync, mkdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
@@ -57,8 +56,6 @@ const manifestPath = path.join(__dirname, '..', 'src', 'lib', 'image-manifest.js
 // original in under the same filename and re-run; the manifest and the markup
 // follow automatically.
 const TARGETS = [
-  { file: 'pint.jpg', base: 'pint', widths: [480, 900, 1200], kind: 'photo', graded: true },
-  { file: 'room.jpg', base: 'room', widths: [480, 900, 1400], kind: 'photo', graded: true },
   { file: 'hero.png', base: 'hero', widths: [736, 1104, 1463], kind: 'art', graded: false },
 
   ...[

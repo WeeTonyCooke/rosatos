@@ -44,7 +44,7 @@
     "facebook": "https://www.facebook.com/rosatos.bar/"
   },
   "giftCards": {
-    "eyebrow": "Gift cards",
+    "eyebrow": "",
     "title": "Give the gift of Rosato’s.",
     "body": "Any amount, delivered by email — perfect for birthdays, thank-yous, or just because. Scan to buy, or tap the code on your own phone.",
     "label": "Buy a gift card",
@@ -57,20 +57,14 @@
   },
   "room": {
     "eyebrow": "The room",
-    "title": "A relaxed local for pints, dinner or a catch-up.",
-    "body": "Serving locals and visitors alike, Rosato’s is a place to drop in for lunch, dinner, drinks or a night out.",
+    "title": "Pull up a stool by the fire.",
+    "body": "Open fires, a full bar, and the kitchen on seven days a week. Locals and visitors, drinks or dinner, all the same welcome.",
     "imageAlt": "The open fire burning in the stone hearth, bar stools along the counter",
     "base": "fire"
   },
-  "pint": {
-    "title": "Great pints.",
-    "body": "A wide range of beers, craft ales and wines.",
-    "image": "/images/pint-1200.jpg",
-    "imageAlt": "A pint of Guinness on the bar at Rosato’s"
-  },
   "visit": {
-    "eyebrow": "Visit",
-    "title": "Everything you need before you visit.",
+    "eyebrow": "",
+    "title": "7 Malin Road, a short walk from the town centre.",
     "parkingTip": "Street parking along Malin Road; easier after the school run.",
     "photo": {
       "base": "exterior-day",
@@ -80,9 +74,9 @@
   "ordering": {
     "enabled": true,
     "mode": "collection",
-    "eyebrow": "Order pizza",
-    "title": "Make it your own…",
-    "intro": "Order online, customise your pizza and collect from Rosato’s. No delivery — pick up at the bar.",
+    "eyebrow": "",
+    "title": "Order ahead, collect at the bar.",
+    "intro": "Ten stone-baked pizzas, built how you want them. Ready in about thirty minutes. Pay when you collect, card or cash — there’s no delivery.",
     "menuSectionId": "pizza",
     "leadMinutes": 30,
     "leadNote": "Ready in around 30 minutes.",
