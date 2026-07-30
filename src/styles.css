@@ -451,12 +451,15 @@ body:has(.cart-fab) .order-fab {
   box-shadow: 0 8px 20px color-mix(in srgb, var(--forest) 22%, transparent);
 }
 
+/* 0.62rem was under 10px — legible but timid for the page's one persistent
+   call to action. Letter-spacing eases back slightly as the size goes up;
+   tracking that helps a 10px label starts to loosen the word at 12px. */
 .order-fab__text {
   display: block;
-  max-width: 2.9rem;
-  font-size: 0.62rem;
+  max-width: 3.1rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   line-height: 1.15;
 }
