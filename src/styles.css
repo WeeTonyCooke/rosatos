@@ -801,30 +801,34 @@ body:has(.cart-fab) .order-fab {
 
 /* Sections */
 
+/* Section rhythm is fluid, not fixed.
+   These were flat rem values, so a phone got the same 9rem top AND bottom as
+   a 27-inch monitor — 288px of empty cream between every section on a 390px
+   screen, and 388px either side of a "loose" one. Desktop looked composed and
+   mobile looked broken. The vw term does the work; the rem bounds stop it
+   collapsing on small screens or running away on very large ones. */
 .section {
   max-width: var(--max);
   margin: 0 auto;
-  padding: var(--space-6) clamp(1rem, 3vw, 2rem);
+  padding: clamp(3.25rem, 10vw, 9rem) clamp(1rem, 3vw, 2rem);
 }
 
-/* Three-step rhythm.
-   Every section used to carry the same 9rem top and bottom, so the gap
-   between any two was identical — 18rem, seven times over. That reads as a
-   stack of equally weighted slabs rather than a page with a shape to it.
-   Tight keeps a section pinned to the one it continues from; loose gives a
-   real chapter break the air to register as one. */
+/* Three-step rhythm. Every section used to carry identical padding, so the gap
+   between any two was the same, seven times over — a stack of equally weighted
+   slabs rather than a page with a shape. Tight keeps a section pinned to the
+   one it continues from; loose gives a real chapter break room to register. */
 .section--tight {
-  padding-top: var(--space-5);
+  padding-top: clamp(2rem, 5vw, 4.5rem);
 }
 
 .section--loose {
-  padding-top: calc(var(--space-6) * 1.35);
-  padding-bottom: calc(var(--space-6) * 1.35);
+  padding-top: clamp(4rem, 13.5vw, 12.15rem);
+  padding-bottom: clamp(4rem, 13.5vw, 12.15rem);
 }
 
 .section__intro {
   max-width: 32rem;
-  margin-bottom: var(--space-5);
+  margin-bottom: clamp(2rem, 6vw, 4.5rem);
 }
 
 .eyebrow {
@@ -922,7 +926,7 @@ body:has(.cart-fab) .order-fab {
    instead of making every block feel equally weighted. */
 .menu__courses {
   display: grid;
-  gap: var(--space-5);
+  gap: clamp(2.5rem, 8vw, 4.5rem);
 }
 
 .menu__course {
@@ -958,7 +962,7 @@ body:has(.cart-fab) .order-fab {
    dusk frontage arrived. It's the one place the menu breaks the container,
    which is what stops the section reading as a stack of equal blocks. */
 .menu__band {
-  margin: var(--space-5) calc(50% - 50vw);
+  margin: clamp(2.5rem, 7vw, 4.5rem) calc(50% - 50vw);
 }
 
 .menu__band-img {
@@ -973,8 +977,9 @@ body:has(.cart-fab) .order-fab {
    page changes ground colour, which is what makes it read as arrival at a
    different room rather than another list. */
 .menu__bar {
-  margin: var(--space-6) calc(50% - 50vw) calc(var(--space-6) * -1);
-  padding: var(--space-6) calc(50vw - 50% + var(--space-3));
+  --bar-pad: clamp(3.25rem, 10vw, 9rem);
+  margin: var(--bar-pad) calc(50% - 50vw) calc(var(--bar-pad) * -1);
+  padding: var(--bar-pad) calc(50vw - 50% + var(--space-3));
   background: var(--forest);
   color: var(--on-accent);
 }
@@ -1061,7 +1066,7 @@ body:has(.cart-fab) .order-fab {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-2);
-  margin-bottom: var(--space-5);
+  margin-bottom: clamp(2rem, 6vw, 4.5rem);
 }
 
 .whats-on__photos img {
@@ -1118,7 +1123,7 @@ body:has(.cart-fab) .order-fab {
 
 .gift-card__inner {
   display: grid;
-  gap: var(--space-5);
+  gap: clamp(2rem, 6vw, 4.5rem);
   align-items: center;
 }
 
@@ -1178,7 +1183,7 @@ body:has(.cart-fab) .order-fab {
 @media (min-width: 700px) {
   .gift-card__inner {
     grid-template-columns: 1.3fr auto;
-    gap: var(--space-6);
+    gap: clamp(3rem, 8vw, 9rem);
   }
 }
 
@@ -1570,6 +1575,8 @@ body:has(.cart-fab) .order-fab {
 
   .menu__band {
     margin: var(--space-6) calc(50% - 50vw);
+    max-height: 34rem;
+    overflow: hidden;
   }
 
   .order__head {
