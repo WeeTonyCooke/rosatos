@@ -27,12 +27,19 @@
        forest  the bar block closing the menu
        cream   order
        forest  what's on
-       cream   gift cards
-       forest  visit
-       cream   footer
+       cream   gift cards + visit
+       forest  footer
 
      Ground colour is rhythm, not meaning. Adding a section means picking the
-     colour its neighbours don't have. */
+     colour its neighbours don't have.
+
+     Visit was briefly forest and it did not work. It is the most
+     furniture-heavy section on the site — hours table, booking panel, buttons,
+     and a Google Maps iframe that is a hard white rectangle we cannot restyle.
+     Each of those had to be fought onto the dark ground and the map never
+     resolved. The footer carries the closing green instead: it is text and
+     links, so it inverts cleanly. Prefer the simple section when choosing
+     which one takes a colour. */
   --rosato-green: var(--forest);
   --rosato-green-mid: color-mix(in srgb, var(--forest) 70%, white);
   --accent: var(--forest);
@@ -53,12 +60,20 @@
        warm white  1.07 on cream   8.99 on forest
 
      The ring in .order-fab does the work instead. That frees the fill to be
-     chosen on brand grounds alone — terracotta, the palette's designated
-     single accent, which was otherwise going unused. */
-  --order-pop: var(--terracotta);
+     chosen on brand grounds alone.
+
+     It is NOT --terracotta. That token sits at hue 16 and only 40% saturation,
+     which is measurably brown rather than red — fine as the quiet accent it
+     was defined to be, wrong for the one control we want noticed. This is the
+     same family pushed to hue 9 and 69% saturation: still a muted brick, but
+     it reads red, and it is closer to the actual colour of the building
+     (sampled from the daylight photo at #890105). Text on it stays at
+     5.87:1. --terracotta is deliberately left untouched so nothing else on
+     the site shifts. */
+  --order-pop: #a8341f;
   --order-pop-ink: var(--cream);
   --order-pop-border: color-mix(in srgb, var(--cream) 30%, transparent);
-  --order-pop-hot: color-mix(in srgb, var(--terracotta) 88%, var(--charcoal));
+  --order-pop-hot: color-mix(in srgb, var(--order-pop) 88%, var(--charcoal));
   --ink: var(--charcoal);
   --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
   --ink-faint: color-mix(in srgb, var(--charcoal) 50%, transparent);
@@ -1056,6 +1071,58 @@ body:has(.cart-fab) .order-fab {
   color: color-mix(in srgb, var(--cream) 92%, transparent);
 }
 
+/* Full-bleed forest sections — the evening half of the page.
+   Full-bleed rather than contained: a colour block that stops at the container
+   edge reads as a card sitting on the page, not as the page itself changing. */
+.menu__bar {
+  --bar-pad: clamp(3.25rem, 10vw, 9rem);
+  margin: var(--bar-pad) calc(50% - 50vw) calc(var(--bar-pad) * -1);
+  padding: var(--bar-pad) calc(50vw - 50% + var(--space-3));
+  background: var(--forest);
+  color: var(--on-accent);
+}
+
+/* A whole section on forest, bleeding past the container.
+   `box-shadow` rather than negative margins: the section is already a
+   max-width centred block, and giving it horizontal bleed via margins fights
+   the centring and can introduce a scrollbar at some widths. A spread shadow
+   in the same colour paints the gutters with no layout effect at all. */
+.section--dark {
+  background: var(--forest);
+  color: var(--on-accent);
+  box-shadow: 0 0 0 100vmax var(--forest);
+  clip-path: inset(0 -100vmax);
+}
+
+.section--dark .eyebrow {
+  color: color-mix(in srgb, var(--cream) 55%, transparent);
+}
+
+.section--dark .section__title,
+.section--dark .programme__name {
+  color: var(--on-accent);
+}
+
+.section--dark .section__body,
+.section--dark .programme__when,
+.section--dark .programme__note {
+  color: color-mix(in srgb, var(--cream) 74%, transparent);
+}
+
+.section--dark .programme,
+.section--dark .programme__item {
+  border-color: color-mix(in srgb, var(--cream) 20%, transparent);
+}
+
+.section--dark .programme__day {
+  color: color-mix(in srgb, var(--cream) 60%, transparent);
+}
+
+.section--dark .programme__item.is-today .programme__day,
+.section--dark .programme__note a {
+  color: color-mix(in srgb, var(--cream) 92%, transparent);
+}
+
 /* Visit's own furniture on forest. Not folded into the rules above because
    these are structural (rules, form controls, an embedded map) rather than
    the text colours the generic block covers. */
@@ -1505,10 +1572,47 @@ body:has(.cart-fab) .order-fab {
 
 /* Footer */
 
+/* The footer carries the page's last green rather than Visit.
+   Visit is the most furniture-heavy section on the site — an hours table, a
+   booking panel, buttons, and a Google Maps iframe that is a hard white
+   rectangle we cannot restyle. Every one of those had to be fought onto a dark
+   ground, and the map never resolved. The footer is text and links, so it
+   inverts cleanly and still closes the page dark. */
 .site-footer {
-  border-top: 1px solid var(--line-strong);
-  background: var(--bg-elevated);
-  color: var(--ink);
+  background: var(--forest);
+  color: var(--on-accent);
+}
+
+.site-footer__nav a,
+.site-footer__meta p,
+.site-footer__meta a {
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
+}
+
+.site-footer__nav a:hover,
+.site-footer__meta a:hover {
+  color: var(--cream);
+}
+
+.site-footer__wordmark {
+  color: var(--cream);
+}
+
+.site-footer__copyright {
+  color: color-mix(in srgb, var(--cream) 55%, transparent) !important;
+}
+
+.site-footer__credit {
+  border-top-color: color-mix(in srgb, var(--cream) 18%, transparent);
+  color: color-mix(in srgb, var(--cream) 55%, transparent);
+}
+
+.site-footer__credit a {
+  color: color-mix(in srgb, var(--cream) 55%, transparent);
+}
+
+.site-footer__credit a:hover {
+  color: var(--cream);
 }
 
 /* Stacks on mobile; becomes nav | wordmark | contact at 860px below. */
