@@ -49,13 +49,17 @@ const manifestPath = path.join(__dirname, '..', 'src', 'lib', 'image-manifest.js
 //         The venue's own Instagram exports are already processed — running the
 //         grade over them a second time overcooks the reds badly.
 //
-// STRAIGHTENING: pizzas.jpg was shot with a ~2.5 degree roll — the shed's
-// vertical posts leaned noticeably against the site's hard-ruled layout. It's
-// corrected in the source file, not here, because rotation has to be followed
-// by an inset crop to remove the black corner wedges, and that costs pixels:
-// 1086x1448 becomes 1025x1367. Doing it once at the source keeps the loss to
-// a single pass. Measured by cross-correlating the back wall's plank edges
-// left against right, rather than by eye.
+// STRAIGHTENING: pizzas.jpg was shot with a ~2.5 degree roll. Corrected in the
+// source file (1086x1448 -> 1025x1367), not here, because rotation needs an
+// inset crop to remove the black corner wedges and that costs pixels — doing it
+// once at the source keeps the loss to a single pass.
+//
+// Measure roll from VERTICAL features, not horizontal ones. The first attempt
+// read the back wall's plank edges, got the sign backwards, and shipped an
+// image tilted further than the original. That wall recedes in perspective, so
+// its "horizontals" aren't horizontal. The corner posts are genuinely plumb in
+// the world, so their lean is the roll. Then verify by sweeping the rotation
+// and re-measuring residual at each step rather than trusting one number.
 //
 // VENUE PHOTOS: a mix of camera originals and Instagram exports, being
 // upgraded to originals over time. Ask for the full width ladder regardless —
@@ -115,11 +119,15 @@ const TARGETS = [
     crop: { aspect: 4 / 3, position: 'attention' },
   },
 
-  // The menu's full-bleed band. This was originally planned as a wide band,
-  // dropped when every available photo turned out to be 4:5 portrait — a
-  // letterbox crop of a good vertical throws most of it away — and reinstated
-  // once a landscape original of the dusk frontage arrived. 2:1 keeps the
-  // sunset down the street, the signage and the benches all in frame.
+  // NOT rendered by any section — this is the og:image, and it must keep
+  // being generated.
+  //
+  // It began as the menu's full-bleed band and was cut from the page: once the
+  // page went two-tone, the green sections did the chapter-break job the band
+  // had been doing, and a second full-bleed element on top of them was one
+  // interruption too many. The 2:1 crop survives because link previews render
+  // at roughly 1.91:1, so it is the right shape for exactly that job and
+  // nothing else. Deleting it silently breaks every shared link.
   {
     file: 'photos/exterior-dusk.jpg',
     base: 'exterior-dusk-band',

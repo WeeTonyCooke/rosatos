@@ -38,12 +38,6 @@ export function Menu({ venue }) {
   // menu a definite end rather than trailing off.
   const barSection = menu.sections.find((section) => section.id === 'drinks')
   const foodSections = menu.sections.filter((section) => section.id !== 'drinks')
-  const atmosphere = menu.atmosphere
-
-  // Drop the band in after the second course so it interrupts the two-column
-  // rhythm partway down rather than bookending it.
-  const stripAfter = Math.min(2, foodSections.length - 1)
-
   return (
     <section id="menu" className="section section--loose menu" data-reveal>
       <div className="section__intro">
@@ -58,34 +52,21 @@ export function Menu({ venue }) {
       </div>
 
       <div className="menu__courses">
-        {foodSections.map((section, index) => (
-          <div key={section.id}>
-            <div className="menu__course" id={section.id}>
-              {section.base ? (
-                <figure className="menu__course-figure">
-                  <Photo base={section.base} alt={section.alt || ''} sizes={COURSE_SIZES} />
-                </figure>
-              ) : null}
-
-              <div className="menu__course-body">
-                <div className="menu__course-head">
-                  <h3 className="menu__section-title">{section.name}</h3>
-                  {section.note ? <p className="menu__course-note">{section.note}</p> : null}
-                </div>
-                <MenuList items={section.items} />
-              </div>
-            </div>
-
-            {atmosphere?.band?.base && index === stripAfter ? (
-              <div className="menu__band">
-                <Photo
-                  base={atmosphere.band.base}
-                  alt={atmosphere.band.alt || ''}
-                  sizes="100vw"
-                  className="menu__band-img"
-                />
-              </div>
+        {foodSections.map((section) => (
+          <div className="menu__course" id={section.id} key={section.id}>
+            {section.base ? (
+              <figure className="menu__course-figure">
+                <Photo base={section.base} alt={section.alt || ''} sizes={COURSE_SIZES} />
+              </figure>
             ) : null}
+
+            <div className="menu__course-body">
+              <div className="menu__course-head">
+                <h3 className="menu__section-title">{section.name}</h3>
+                {section.note ? <p className="menu__course-note">{section.note}</p> : null}
+              </div>
+              <MenuList items={section.items} />
+            </div>
           </div>
         ))}
       </div>

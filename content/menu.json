@@ -150,12 +150,5 @@
       "alt": "A row of settled pints of Guinness along the bar top",
       "note": "A wide range of beers, craft ales and wines."
     }
-  ],
-  "atmosphere": {
-    "eyebrow": "The room",
-    "band": {
-      "base": "exterior-dusk-band",
-      "alt": "Rosato’s red frontage at dusk, benches along Malin Road and the sunset down the street"
-    }
-  }
+  ]
 }

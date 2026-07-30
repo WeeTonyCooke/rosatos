@@ -963,23 +963,6 @@ body:has(.cart-fab) .order-fab {
   color: var(--ink-faint);
 }
 
-/* Full-bleed 2:1 band. Originally planned, then dropped when every venue
-   photo turned out to be 4:5 portrait — a letterbox crop of a good vertical
-   throws most of it away — and reinstated once a landscape original of the
-   dusk frontage arrived. It's the one place the menu breaks the container,
-   which is what stops the section reading as a stack of equal blocks. */
-.menu__band {
-  margin: clamp(2.5rem, 7vw, 4.5rem) calc(50% - 50vw);
-}
-
-.menu__band-img {
-  display: block;
-  width: 100vw;
-  height: auto;
-  aspect-ratio: 2 / 1;
-  object-fit: cover;
-}
-
 /* Full-bleed forest sections — the evening half of the page.
    Full-bleed rather than contained: a colour block that stops at the container
    edge reads as a card sitting on the page, not as the page itself changing. */
@@ -1617,11 +1600,6 @@ body:has(.cart-fab) .order-fab {
     order: 2;
   }
 
-  .menu__band {
-    margin: var(--space-6) calc(50% - 50vw);
-    max-height: 34rem;
-    overflow: hidden;
-  }
 
   .order__head {
     grid-template-columns: 1.05fr 0.95fr;

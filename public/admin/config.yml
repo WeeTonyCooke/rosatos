@@ -88,20 +88,13 @@ collections:
             widget: list
             required: false
             summary: "{{base}}"
-            hint: "Two shots shown above the weekly list. Cropped to 4:3 by scripts/optimize-images.mjs."
+            hint: "Two shots shown above the weekly list. Sizes come from the generated image manifest, not from here."
             fields:
               - {
                   label: Image basename,
                   name: base,
                   widget: string,
                   hint: "Without size or extension, e.g. music-snug-wide",
-                }
-              - {
-                  label: Largest width,
-                  name: width,
-                  widget: number,
-                  value_type: int,
-                  hint: "The biggest generated variant, e.g. 660",
                 }
               - {
                   label: Alt text,
@@ -147,28 +140,8 @@ collections:
             }
 
           # As with the programme photos above: undeclared keys are dropped on
-          # save, so the atmosphere strip and the per-course images have to be
-          # described here or a menu edit would quietly delete them.
-          - label: Atmosphere band
-            name: atmosphere
-            widget: object
-            required: false
-            collapsed: true
-            hint: "Full-width photo shown partway down the menu."
-            fields:
-              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-              - label: Band image
-                name: band
-                widget: object
-                fields:
-                  - {
-                      label: Image basename,
-                      name: base,
-                      widget: string,
-                      hint: "Needs a 2:1 crop generating — see scripts/optimize-images.mjs",
-                    }
-                  - { label: Alt text, name: alt, widget: string }
-
+          # save, so the per-course images have to be described here or a menu
+          # edit would quietly delete them.
           - label: Sections
             name: sections
             widget: list
