@@ -38,16 +38,17 @@ export function WhatsOn({ venue }) {
         {lineup.map((event) => {
           const isToday = Number(event.day) === tonight.day
           return (
+            // Day, act and time are siblings rather than a nested block, so
+            // they can be laid out as columns of a board on wide screens and
+            // stack on narrow ones. Previously all three were bundled inside
+            // one div, which forced the whole row into a single measure.
             <li
               className={`programme__item${isToday ? ' is-today' : ''}`}
               key={`${event.day}-${event.name}-${event.time}`}
             >
-              <div>
-                <h3 className="programme__name">
-                  <span className="programme__day">{event.dayLabel}</span>{event.name}
-                </h3>
-                <p className="programme__when">{event.time}</p>
-              </div>
+              <span className="programme__day">{event.dayLabel}</span>
+              <h3 className="programme__name">{event.name}</h3>
+              <p className="programme__when">{event.time}</p>
             </li>
           )
         })}

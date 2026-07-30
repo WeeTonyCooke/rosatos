@@ -460,11 +460,12 @@ body:has(.cart-fab) .order-fab {
 
 
 
-.programme__day::after {
-  content: '|';
-  margin: 0 0.5em;
+.programme__day {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
   color: var(--ink-faint);
-  font-weight: 400;
 }
 
 .programme__item.is-today .programme__day {
@@ -1046,6 +1047,10 @@ body:has(.cart-fab) .order-fab {
   border-color: color-mix(in srgb, var(--cream) 20%, transparent);
 }
 
+.section--dark .programme__day {
+  color: color-mix(in srgb, var(--cream) 60%, transparent);
+}
+
 .section--dark .programme__item.is-today .programme__day,
 .section--dark .programme__note a {
   color: color-mix(in srgb, var(--cream) 92%, transparent);
@@ -1199,13 +1204,20 @@ body:has(.cart-fab) .order-fab {
   border-top: 1px solid var(--line);
 }
 
+/* A listings board, not a paragraph.
+   Day / act / time as columns, with the time on the right rail. On narrow
+   screens it collapses to day-and-time on one line with the act beneath. */
 .programme__item {
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 1rem;
+  align-items: baseline;
   padding: 1.35rem 0;
   border-bottom: 1px solid var(--line);
 }
 
 .programme__name {
+  grid-column: 1 / -1;
   margin: 0;
   font-family: var(--font-display);
   font-size: 1.35rem;
@@ -1213,8 +1225,10 @@ body:has(.cart-fab) .order-fab {
 }
 
 .programme__when {
-  margin: 0.25rem 0 0;
+  margin: 0;
   color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .programme__note {
@@ -1720,8 +1734,15 @@ body:has(.cart-fab) .order-fab {
     max-width: 44rem;
   }
 
-  .programme {
-    max-width: 36rem;
+  .programme__item {
+    grid-template-columns: 12rem 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.6rem 0;
+  }
+
+  .programme__name {
+    grid-column: auto;
   }
 
   .whats-on__photos {
