@@ -883,8 +883,21 @@ body:has(.cart-fab) .order-fab {
    between any two was the same, seven times over — a stack of equally weighted
    slabs rather than a page with a shape. Tight keeps a section pinned to the
    one it continues from; loose gives a real chapter break room to register. */
+/* A small section, eased at both ends. This previously only reduced
+   padding-top, so gift cards sat tight under What's On and then left a full
+   9rem beneath it — the modifier fixed one side of the block and not the
+   other. */
 .section--tight {
   padding-top: clamp(2rem, 5vw, 4.5rem);
+  padding-bottom: clamp(2rem, 5vw, 4.5rem);
+}
+
+/* Adjacent padding compounds: a tight section's bottom plus a loose section's
+   top came to 338px of empty ground between gift cards and Visit — the largest
+   gap on the page, between its two least important sections. A loose section
+   following a tight one drops back to the normal step. */
+.section--tight + .section--loose {
+  padding-top: clamp(3.25rem, 10vw, 9rem);
 }
 
 .section--loose {
@@ -1323,6 +1336,10 @@ body:has(.cart-fab) .order-fab {
   align-items: center;
 }
 
+.gift-card__qr {
+  justify-self: start;
+}
+
 .gift-card__title {
   margin: 0 0 var(--space-2);
   font-family: var(--font-display);
@@ -1378,8 +1395,12 @@ body:has(.cart-fab) .order-fab {
 
 @media (min-width: 700px) {
   .gift-card__inner {
-    grid-template-columns: 1.3fr auto;
-    gap: clamp(3rem, 8vw, 9rem);
+    /* Sized to the copy's own 32rem measure rather than a fraction of the
+       container, so the QR sits beside the text instead of being pushed to
+       the far edge with dead ground between them. */
+    grid-template-columns: minmax(0, 32rem) auto;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    justify-content: start;
   }
 }
 
