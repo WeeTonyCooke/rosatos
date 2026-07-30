@@ -998,23 +998,21 @@ body:has(.cart-fab) .order-fab {
   color: var(--ink-faint);
 }
 
-/* Three portraits rather than one letterbox: every venue photo we have is
-   4:5, and cropping a good vertical shot into a wide band throws away most
-   of it. The strip still does the job of interrupting the column rhythm. */
-.menu__strip {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2);
-  margin: var(--space-5) 0;
+/* Full-bleed 2:1 band. Originally planned, then dropped when every venue
+   photo turned out to be 4:5 portrait — a letterbox crop of a good vertical
+   throws most of it away — and reinstated once a landscape original of the
+   dusk frontage arrived. It's the one place the menu breaks the container,
+   which is what stops the section reading as a stack of equal blocks. */
+.menu__band {
+  margin: var(--space-5) calc(50% - 50vw);
 }
 
-.menu__strip-img {
+.menu__band-img {
   display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 4 / 5;
+  width: 100vw;
+  height: auto;
+  aspect-ratio: 2 / 1;
   object-fit: cover;
-  border-radius: var(--radius);
 }
 
 /* The bar block breaks to full-bleed forest green. It is the one place the
@@ -1595,10 +1593,8 @@ body:has(.cart-fab) .order-fab {
     order: 2;
   }
 
-  .menu__strip {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-3);
-    margin: var(--space-6) 0;
+  .menu__band {
+    margin: var(--space-6) calc(50% - 50vw);
   }
 
   .visit__grid {

@@ -28,7 +28,6 @@ function formatMenuPrice(raw) {
 }
 
 const COURSE_SIZES = '(min-width: 860px) 45vw, 92vw'
-const STRIP_SIZES = '(min-width: 860px) 31vw, 80vw'
 
 export function Menu({ venue }) {
   const { menu } = venue
@@ -41,7 +40,7 @@ export function Menu({ venue }) {
   const foodSections = menu.sections.filter((section) => section.id !== 'drinks')
   const atmosphere = menu.atmosphere
 
-  // Drop the strip in after the second course so it interrupts the two-column
+  // Drop the band in after the second course so it interrupts the two-column
   // rhythm partway down rather than bookending it.
   const stripAfter = Math.min(2, foodSections.length - 1)
 
@@ -77,17 +76,14 @@ export function Menu({ venue }) {
               </div>
             </div>
 
-            {atmosphere && index === stripAfter ? (
-              <div className="menu__strip" aria-label={atmosphere.eyebrow || 'The room'}>
-                {atmosphere.images.map((image) => (
-                  <Photo
-                    key={image.base}
-                    base={image.base}
-                    alt={image.alt || ''}
-                    sizes={STRIP_SIZES}
-                    className="menu__strip-img"
-                  />
-                ))}
+            {atmosphere?.band?.base && index === stripAfter ? (
+              <div className="menu__band">
+                <Photo
+                  base={atmosphere.band.base}
+                  alt={atmosphere.band.alt || ''}
+                  sizes="100vw"
+                  className="menu__band-img"
+                />
               </div>
             ) : null}
           </div>

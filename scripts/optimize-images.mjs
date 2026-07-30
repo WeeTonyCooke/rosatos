@@ -107,6 +107,20 @@ const TARGETS = [
     graded: false,
     crop: { aspect: 4 / 3, position: 'attention' },
   },
+
+  // The menu's full-bleed band. This was originally planned as a wide band,
+  // dropped when every available photo turned out to be 4:5 portrait — a
+  // letterbox crop of a good vertical throws most of it away — and reinstated
+  // once a landscape original of the dusk frontage arrived. 2:1 keeps the
+  // sunset down the street, the signage and the benches all in frame.
+  {
+    file: 'photos/exterior-dusk.jpg',
+    base: 'exterior-dusk-band',
+    widths: [640, 1100, 1400],
+    kind: 'photo',
+    graded: false,
+    crop: { aspect: 2, position: 'centre' },
+  },
 ]
 
 function humanKB(bytes) {

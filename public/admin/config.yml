@@ -149,20 +149,24 @@ collections:
           # As with the programme photos above: undeclared keys are dropped on
           # save, so the atmosphere strip and the per-course images have to be
           # described here or a menu edit would quietly delete them.
-          - label: Atmosphere strip
+          - label: Atmosphere band
             name: atmosphere
             widget: object
             required: false
             collapsed: true
-            hint: "Three photos shown partway down the menu."
+            hint: "Full-width photo shown partway down the menu."
             fields:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-              - label: Images
-                name: images
-                widget: list
-                summary: "{{base}}"
+              - label: Band image
+                name: band
+                widget: object
                 fields:
-                  - { label: Image basename, name: base, widget: string }
+                  - {
+                      label: Image basename,
+                      name: base,
+                      widget: string,
+                      hint: "Needs a 2:1 crop generating — see scripts/optimize-images.mjs",
+                    }
                   - { label: Alt text, name: alt, widget: string }
 
           - label: Sections

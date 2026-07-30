@@ -153,19 +153,9 @@
   ],
   "atmosphere": {
     "eyebrow": "The room",
-    "images": [
-      {
-        "base": "exterior-dusk",
-        "alt": "Rosato's red frontage and signage at dusk, benches along the footpath"
-      },
-      {
-        "base": "fire",
-        "alt": "The open fire lit beside the bar, stools along the counter"
-      },
-      {
-        "base": "cocktail",
-        "alt": "A raspberry cocktail on an outdoor table in front of the pub"
-      }
-    ]
+    "band": {
+      "base": "exterior-dusk-band",
+      "alt": "Rosato’s red frontage at dusk, benches along Malin Road and the sunset down the street"
+    }
   }
 }

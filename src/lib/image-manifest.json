@@ -73,10 +73,12 @@
     "base": "exterior-dusk",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900,
+      1400
     ],
-    "sourceWidth": 606,
-    "lowRes": true
+    "sourceWidth": 1402,
+    "lowRes": false
   },
   "exterior-day": {
     "base": "exterior-day",
@@ -163,5 +165,16 @@
     ],
     "sourceWidth": 636,
     "lowRes": true
+  },
+  "exterior-dusk-band": {
+    "base": "exterior-dusk-band",
+    "ext": "jpg",
+    "widths": [
+      640,
+      1100,
+      1400
+    ],
+    "sourceWidth": 1402,
+    "lowRes": false
   }
 }
