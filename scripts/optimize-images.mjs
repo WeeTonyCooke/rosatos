@@ -49,6 +49,14 @@ const manifestPath = path.join(__dirname, '..', 'src', 'lib', 'image-manifest.js
 //         The venue's own Instagram exports are already processed — running the
 //         grade over them a second time overcooks the reds badly.
 //
+// STRAIGHTENING: pizzas.jpg was shot with a ~2.5 degree roll — the shed's
+// vertical posts leaned noticeably against the site's hard-ruled layout. It's
+// corrected in the source file, not here, because rotation has to be followed
+// by an inset crop to remove the black corner wedges, and that costs pixels:
+// 1086x1448 becomes 1025x1367. Doing it once at the source keeps the loss to
+// a single pass. Measured by cross-correlating the back wall's plank edges
+// left against right, rather than by eye.
+//
 // VENUE PHOTOS: a mix of camera originals and Instagram exports, being
 // upgraded to originals over time. Ask for the full width ladder regardless —
 // processImage drops any width the source can't actually supply, and the run
