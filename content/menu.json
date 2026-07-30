@@ -28,7 +28,10 @@
           "description": "9\" or 12\"",
           "price": "8.50 / 13.50"
         }
-      ]
+      ],
+      "base": "prawns",
+      "alt": "A seafood starter plated with lemon and lime, the dining room behind",
+      "note": "Small plates and the chowder, from open."
     },
     {
       "id": "mains",
@@ -59,7 +62,10 @@
           "description": "Inishowen dry-aged beef, sauté onions",
           "price": "31.95"
         }
-      ]
+      ],
+      "base": "haddock",
+      "alt": "Battered haddock with mushy peas, tartare sauce and lemon",
+      "note": "Inishowen beef, Greencastle seafood."
     },
     {
       "id": "pizza",
@@ -115,7 +121,10 @@
           "description": "Onions, mushroom, peppers, sun-dried tomatoes & mozzarella",
           "price": "15.50"
         }
-      ]
+      ],
+      "base": "pizzas",
+      "alt": "Two stone-baked pizzas on the wooden table in the outdoor shelter",
+      "note": "Stone-baked. Available for collection."
     },
     {
       "id": "drinks",
@@ -136,7 +145,27 @@
           "description": "Ask at the bar",
           "price": ""
         }
-      ]
+      ],
+      "base": "guinness",
+      "alt": "A row of settled pints of Guinness along the bar top",
+      "note": "A wide range of beers, craft ales and wines."
     }
-  ]
+  ],
+  "atmosphere": {
+    "eyebrow": "The room",
+    "images": [
+      {
+        "base": "exterior-dusk",
+        "alt": "Rosato's red frontage and signage at dusk, benches along the footpath"
+      },
+      {
+        "base": "fire",
+        "alt": "The open fire lit beside the bar, stools along the counter"
+      },
+      {
+        "base": "cocktail",
+        "alt": "A raspberry cocktail on an outdoor table in front of the pub"
+      }
+    ]
+  }
 }

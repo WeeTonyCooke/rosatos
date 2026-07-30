@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rosato’s — menu section preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Standalone preview of the implemented Menu.jsx / styles.css changes.
+         Open directly in a browser — image paths are relative to ../public.
+         The real thing is live under `npm run dev`; this exists so the layout
+         can be checked without running the app. */
+      :root {
+        --forest: #234d43;
+        --cream: #f5f1ea;
+        --charcoal: #303336;
+        --terracotta: #814b37;
+        --ink: var(--charcoal);
+        --ink-faint: color-mix(in srgb, var(--charcoal) 50%, transparent);
+        --line: color-mix(in srgb, var(--charcoal) 12%, transparent);
+        --on-accent: var(--cream);
+        --accent-deep: var(--forest);
+        --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+        --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+        --space-1: .5rem; --space-2: 1rem; --space-3: 1.5rem;
+        --space-4: 2.5rem; --space-5: 4.5rem; --space-6: 9rem;
+        --radius: 2px; --max: 72rem;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: var(--cream); color: var(--ink);
+        font-family: var(--font-body); font-size: 1.125rem; line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      .section { max-width: var(--max); margin: 0 auto; padding: var(--space-6) var(--space-3); }
+      .section__intro { max-width: 34rem; margin-bottom: var(--space-5); }
+      .eyebrow {
+        font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
+        color: var(--ink-faint); margin: 0 0 var(--space-2); font-weight: 600;
+      }
+      .section__title {
+        font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 600; line-height: 1.08; margin: 0 0 var(--space-2);
+        letter-spacing: -.01em;
+      }
+      .section__body { margin: 0; color: color-mix(in srgb, var(--charcoal) 72%, transparent); }
+      .menu__order-link { margin-top: var(--space-3); }
+      .menu__order-link a {
+        color: var(--forest); text-decoration: none;
+        border-bottom: 1px solid currentColor; padding-bottom: 2px; font-weight: 600;
+      }
+
+      .menu__courses { display: grid; gap: var(--space-5); }
+      .menu__course { display: grid; gap: var(--space-3); align-items: start; }
+      .menu__course-figure { margin: 0; }
+      .menu__course-figure img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+      .menu__course-head { margin-bottom: var(--space-3); }
+      .menu__course-note { margin: .4rem 0 0; font-size: .95rem; color: var(--ink-faint); }
+
+      .menu__section-title {
+        margin: 0 0 var(--space-3); padding-bottom: var(--space-1);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--font-display); font-size: 1.5rem; font-weight: 600;
+      }
+      .menu__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.15rem; }
+      .menu__item-main { display: flex; justify-content: space-between; gap: var(--space-2); align-items: baseline; }
+      .menu__item-name { font-weight: 600; }
+      .menu__item-price { flex-shrink: 0; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--accent-deep); }
+      .menu__item-desc { margin: .2rem 0 0; font-size: .95rem; color: var(--ink-faint); }
+
+      .menu__strip { display: grid; grid-template-columns: 1fr; gap: var(--space-2); margin: var(--space-5) 0; }
+      .menu__strip-img {
+        display: block; width: 100%; height: 100%;
+        aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius);
+      }
+
+      .menu__bar {
+        margin: var(--space-6) calc(50% - 50vw) calc(var(--space-6) * -1);
+        padding: var(--space-6) calc(50vw - 50% + var(--space-3));
+        background: var(--forest); color: var(--on-accent);
+      }
+      .menu__bar .menu__section-title, .menu__bar .menu__item-name { color: var(--on-accent); }
+      .menu__bar .menu__section-title { border-bottom-color: color-mix(in srgb, var(--cream) 22%, transparent); }
+      .menu__bar .menu__item-price { color: color-mix(in srgb, var(--cream) 92%, transparent); }
+      .menu__bar .menu__item-desc, .menu__bar .menu__course-note { color: color-mix(in srgb, var(--cream) 72%, transparent); }
+
+      @media (min-width: 860px) {
+        .menu__courses { gap: var(--space-6); }
+        .menu__course { grid-template-columns: .9fr 1.1fr; gap: var(--space-5); }
+        .menu__course:nth-of-type(even) .menu__course-figure { order: 2; }
+        .menu__strip { grid-template-columns: repeat(3, 1fr); gap: var(--space-3); margin: var(--space-6) 0; }
+      }
+
+      .flag { background: var(--terracotta); color: var(--cream); padding: 1.25rem var(--space-3); }
+      .flag div { max-width: var(--max); margin: 0 auto; font-size: .95rem; }
+    </style>
+  </head>
+  <body>
+    <div class="flag">
+      <div>
+        <strong>Preview only.</strong> Photos are Instagram exports at ~600px
+        wide — fine here, soft on a retina display at full width. Replace with
+        camera originals before this ships.
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section__intro">
+        <p class="eyebrow">Eat &amp; drink</p>
+        <h2 class="section__title">Fresh flavours, local favourites.</h2>
+        <p class="section__body">
+          Modern European cooking with an Irish influence, using the finest local
+          produce — Inishowen beef, seafood from Greencastle, and stone-baked pizzas.
+        </p>
+        <p class="menu__order-link"><a href="#order">Order pizza for collection →</a></p>
+      </div>
+
+      <div class="menu__courses">
+        <div class="menu__course">
+          <figure class="menu__course-figure">
+            <picture>
+              <source type="image/webp" srcset="../public/images/prawns-480.webp 480w, ../public/images/prawns-600.webp 600w" sizes="(min-width: 860px) 45vw, 92vw" />
+              <img src="../public/images/prawns-600.jpg" alt="A seafood starter plated with lemon and lime, the dining room behind" loading="lazy" />
+            </picture>
+          </figure>
+          <div>
+            <div class="menu__course-head">
+              <h3 class="menu__section-title">To start</h3>
+              <p class="menu__course-note">Small plates and the chowder, from open.</p>
+            </div>
+            <ul class="menu__list">
+              <li><div class="menu__item-main"><span class="menu__item-name">Breaded Mushrooms</span><span class="menu__item-price">€7.50</span></div><p class="menu__item-desc">Lightly breaded, garlic mayo</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Seafood Chowder</span><span class="menu__item-price">€10.50</span></div><p class="menu__item-desc">Haddock, salmon &amp; smoked fish, wheaten bread</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">BBQ Ribs</span><span class="menu__item-price">€10.95</span></div><p class="menu__item-desc">Half rack, honey dipping sauce</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Cheesy Pizza Garlic Bread</span><span class="menu__item-price">€8.50 / €13.50</span></div><p class="menu__item-desc">9" or 12"</p></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="menu__course">
+          <figure class="menu__course-figure">
+            <picture>
+              <source type="image/webp" srcset="../public/images/haddock-480.webp 480w, ../public/images/haddock-600.webp 600w" sizes="(min-width: 860px) 45vw, 92vw" />
+              <img src="../public/images/haddock-600.jpg" alt="Battered haddock with mushy peas, tartare sauce and lemon" loading="lazy" />
+            </picture>
+          </figure>
+          <div>
+            <div class="menu__course-head">
+              <h3 class="menu__section-title">Mains</h3>
+              <p class="menu__course-note">Inishowen beef, Greencastle seafood.</p>
+            </div>
+            <ul class="menu__list">
+              <li><div class="menu__item-main"><span class="menu__item-name">Steak Burger</span><span class="menu__item-price">€17.50</span></div><p class="menu__item-desc">Inishowen beef, applewood cheddar, Ballymaloe relish</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Battered Haddock</span><span class="menu__item-price">€18.95</span></div><p class="menu__item-desc">Light batter, mushy peas &amp; tartare</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Rosato’s Hot Pot</span><span class="menu__item-price">€16.95</span></div><p class="menu__item-desc">Braised beef &amp; vegetables, sliced potato</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Chicken Italiano</span><span class="menu__item-price">€18.90</span></div><p class="menu__item-desc">Pesto, sun-dried tomatoes, goat’s cheese &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">10oz Sirloin Steak</span><span class="menu__item-price">€31.95</span></div><p class="menu__item-desc">Inishowen dry-aged beef, sauté onions</p></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="menu__strip">
+          <img class="menu__strip-img" src="../public/images/exterior-dusk-600.jpg" alt="Rosato’s red frontage and signage at dusk, benches along the footpath" loading="lazy" />
+          <img class="menu__strip-img" src="../public/images/fire-600.jpg" alt="The open fire lit beside the bar, stools along the counter" loading="lazy" />
+          <img class="menu__strip-img" src="../public/images/cocktail-600.jpg" alt="A raspberry cocktail on an outdoor table in front of the pub" loading="lazy" />
+        </div>
+
+        <div class="menu__course">
+          <figure class="menu__course-figure">
+            <picture>
+              <source type="image/webp" srcset="../public/images/pizzas-480.webp 480w, ../public/images/pizzas-600.webp 600w" sizes="(min-width: 860px) 45vw, 92vw" />
+              <img src="../public/images/pizzas-600.jpg" alt="Two stone-baked pizzas on the wooden table in the outdoor shelter" loading="lazy" />
+            </picture>
+          </figure>
+          <div>
+            <div class="menu__course-head">
+              <h3 class="menu__section-title">Pizza</h3>
+              <p class="menu__course-note">Stone-baked. Available for collection.</p>
+            </div>
+            <ul class="menu__list">
+              <li><div class="menu__item-main"><span class="menu__item-name">Margherita</span><span class="menu__item-price">€14.00</span></div><p class="menu__item-desc">Tomato sauce &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Pepperoni</span><span class="menu__item-price">€14.50</span></div><p class="menu__item-desc">Pepperoni &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">BBQ Chicken</span><span class="menu__item-price">€14.95</span></div><p class="menu__item-desc">BBQ sauce, chicken &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Taco Chicken</span><span class="menu__item-price">€15.95</span></div><p class="menu__item-desc">Cajun chicken, rocket, taco sauce &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Hot ’n’ Spicy Pepperoni</span><span class="menu__item-price">€15.50</span></div><p class="menu__item-desc">Pepperoni, chilli flakes, jalapeños &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Big Irish</span><span class="menu__item-price">€15.50</span></div><p class="menu__item-desc">Bacon, egg, sausage, tomato &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Meat Feast</span><span class="menu__item-price">€16.50</span></div><p class="menu__item-desc">Pepperoni, salami, chorizo, sausage &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Rosato’s Calzone Burst</span><span class="menu__item-price">€16.95</span></div><p class="menu__item-desc">Folded pizza with beef Bolognese &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Four Cheese</span><span class="menu__item-price">€15.50</span></div><p class="menu__item-desc">Goat’s, Stilton, applewood cheddar &amp; mozzarella</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Veggie</span><span class="menu__item-price">€15.50</span></div><p class="menu__item-desc">Onions, mushroom, peppers, sun-dried tomatoes &amp; mozzarella</p></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu__bar">
+        <div class="menu__course">
+          <figure class="menu__course-figure">
+            <picture>
+              <source type="image/webp" srcset="../public/images/guinness-480.webp 480w, ../public/images/guinness-600.webp 600w" sizes="(min-width: 860px) 45vw, 92vw" />
+              <img src="../public/images/guinness-600.jpg" alt="A row of settled pints of Guinness along the bar top" loading="lazy" />
+            </picture>
+          </figure>
+          <div>
+            <div class="menu__course-head">
+              <h3 class="menu__section-title">From the bar</h3>
+              <p class="menu__course-note">A wide range of beers, craft ales and wines.</p>
+            </div>
+            <ul class="menu__list">
+              <li><div class="menu__item-main"><span class="menu__item-name">Guinness</span><span class="menu__item-price">€5.80</span></div><p class="menu__item-desc">Pint</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Soft drinks</span><span class="menu__item-price">From €3.00</span></div><p class="menu__item-desc">Coca-Cola, Football Special &amp; more</p></li>
+              <li><div class="menu__item-main"><span class="menu__item-name">Coffee &amp; tea</span><span class="menu__item-price"></span></div><p class="menu__item-desc">Ask at the bar</p></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

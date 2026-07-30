@@ -962,9 +962,87 @@ body:has(.cart-fab) .order-fab {
   background: var(--bg-soft);
 }
 
-.menu__sections {
+/* Courses stack on mobile; the two-column pairing arrives at 860px below.
+   Course-to-course spacing is deliberately smaller than the 9rem between
+   top-level sections — the smaller step reads as "same section, next part"
+   instead of making every block feel equally weighted. */
+.menu__courses {
   display: grid;
   gap: var(--space-5);
+}
+
+.menu__course {
+  display: grid;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.menu__course-figure {
+  margin: 0;
+}
+
+.menu__course-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.menu__course-head {
+  margin-bottom: var(--space-3);
+}
+
+.menu__course-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+}
+
+/* Three portraits rather than one letterbox: every venue photo we have is
+   4:5, and cropping a good vertical shot into a wide band throws away most
+   of it. The strip still does the job of interrupting the column rhythm. */
+.menu__strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin: var(--space-5) 0;
+}
+
+.menu__strip-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* The bar block breaks to full-bleed forest green. It is the one place the
+   page changes ground colour, which is what makes it read as arrival at a
+   different room rather than another list. */
+.menu__bar {
+  margin: var(--space-6) calc(50% - 50vw) calc(var(--space-6) * -1);
+  padding: var(--space-6) calc(50vw - 50% + var(--space-3));
+  background: var(--forest);
+  color: var(--on-accent);
+}
+
+.menu__bar .menu__section-title,
+.menu__bar .menu__item-name {
+  color: var(--on-accent);
+}
+
+.menu__bar .menu__section-title {
+  border-bottom-color: color-mix(in srgb, var(--cream) 22%, transparent);
+}
+
+.menu__bar .menu__item-price {
+  color: color-mix(in srgb, var(--cream) 92%, transparent);
+}
+
+.menu__bar .menu__item-desc,
+.menu__bar .menu__course-note {
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
 }
 
 .menu__section-title {
@@ -1473,10 +1551,25 @@ body:has(.cart-fab) .order-fab {
     gap: var(--space-5);
   }
 
-  .menu__sections {
-    grid-template-columns: 1fr 1fr;
-    column-gap: var(--space-5);
-    row-gap: var(--space-5);
+  .menu__courses {
+    gap: var(--space-6);
+  }
+
+  .menu__course {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--space-5);
+  }
+
+  /* Alternate which side the photo sits on, so the eye zig-zags down the
+     page instead of running down a single rail of images. */
+  .menu__course:nth-of-type(even) .menu__course-figure {
+    order: 2;
+  }
+
+  .menu__strip {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin: var(--space-6) 0;
   }
 
   .visit__grid {

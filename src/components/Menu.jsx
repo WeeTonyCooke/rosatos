@@ -25,9 +25,48 @@ function formatMenuPrice(raw) {
   return `€${value}`
 }
 
+/**
+ * Venue photos are generated at 480w and 600w by scripts/optimize-images.mjs
+ * (see the note there — the sources are Instagram exports, so 600w is the
+ * ceiling until camera originals are available).
+ */
+function Photo({ base, alt, sizes, className }) {
+  return (
+    <picture>
+      <source
+        type="image/webp"
+        srcSet={`/images/${base}-480.webp 480w, /images/${base}-600.webp 600w`}
+        sizes={sizes}
+      />
+      <img
+        className={className}
+        src={`/images/${base}-600.jpg`}
+        srcSet={`/images/${base}-480.jpg 480w, /images/${base}-600.jpg 600w`}
+        sizes={sizes}
+        alt={alt}
+        loading="lazy"
+      />
+    </picture>
+  )
+}
+
+const COURSE_SIZES = '(min-width: 860px) 45vw, 92vw'
+const STRIP_SIZES = '(min-width: 860px) 31vw, 80vw'
+
 export function Menu({ venue }) {
   const { menu } = venue
   const canOrder = Boolean(venue.ordering?.enabled)
+
+  // The bar is pulled out of the ordinary flow and rendered on forest green:
+  // it reads as a different room because it is one, and it gives the long
+  // menu a definite end rather than trailing off.
+  const barSection = menu.sections.find((section) => section.id === 'drinks')
+  const foodSections = menu.sections.filter((section) => section.id !== 'drinks')
+  const atmosphere = menu.atmosphere
+
+  // Drop the strip in after the second course so it interrupts the two-column
+  // rhythm partway down rather than bookending it.
+  const stripAfter = Math.min(2, foodSections.length - 1)
 
   return (
     <section id="menu" className="section menu" data-reveal>
@@ -42,37 +81,87 @@ export function Menu({ venue }) {
         ) : null}
       </div>
 
-      <div className="menu__sections">
-        {menu.sections.map((section) => (
-          <div className="menu__section" key={section.id} id={section.id}>
-            <h3 className="menu__section-title">{section.name}</h3>
-            <ul className="menu__list">
-              {section.items.map((item) => {
-                const price = formatMenuPrice(item.price)
-                // replaceAll, not replace: range prices carry two euro signs,
-                // and the single-replace version announced the Cheesy Pizza
-                // Garlic Bread as "euro 8.50 / €13.50".
-                const spokenPrice = price ? price.replaceAll('€', 'euro ') : null
-                return (
-                  <li className="menu__item" key={item.name}>
-                    <div className="menu__item-main">
-                      <span className="menu__item-name">{item.name}</span>
-                      {price ? (
-                        <span className="menu__item-price" aria-label={spokenPrice}>
-                          {price}
-                        </span>
-                      ) : null}
-                    </div>
-                    {item.description ? (
-                      <p className="menu__item-desc">{item.description}</p>
-                    ) : null}
-                  </li>
-                )
-              })}
-            </ul>
+      <div className="menu__courses">
+        {foodSections.map((section, index) => (
+          <div key={section.id}>
+            <div className="menu__course" id={section.id}>
+              {section.base ? (
+                <figure className="menu__course-figure">
+                  <Photo base={section.base} alt={section.alt || ''} sizes={COURSE_SIZES} />
+                </figure>
+              ) : null}
+
+              <div className="menu__course-body">
+                <div className="menu__course-head">
+                  <h3 className="menu__section-title">{section.name}</h3>
+                  {section.note ? <p className="menu__course-note">{section.note}</p> : null}
+                </div>
+                <MenuList items={section.items} />
+              </div>
+            </div>
+
+            {atmosphere && index === stripAfter ? (
+              <div className="menu__strip" aria-label={atmosphere.eyebrow || 'The room'}>
+                {atmosphere.images.map((image) => (
+                  <Photo
+                    key={image.base}
+                    base={image.base}
+                    alt={image.alt || ''}
+                    sizes={STRIP_SIZES}
+                    className="menu__strip-img"
+                  />
+                ))}
+              </div>
+            ) : null}
           </div>
         ))}
       </div>
+
+      {barSection ? (
+        <div className="menu__bar" id={barSection.id}>
+          <div className="menu__course">
+            {barSection.base ? (
+              <figure className="menu__course-figure">
+                <Photo base={barSection.base} alt={barSection.alt || ''} sizes={COURSE_SIZES} />
+              </figure>
+            ) : null}
+            <div className="menu__course-body">
+              <div className="menu__course-head">
+                <h3 className="menu__section-title">{barSection.name}</h3>
+                {barSection.note ? <p className="menu__course-note">{barSection.note}</p> : null}
+              </div>
+              <MenuList items={barSection.items} />
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
+  )
+}
+
+function MenuList({ items }) {
+  return (
+    <ul className="menu__list">
+      {items.map((item) => {
+        const price = formatMenuPrice(item.price)
+        // replaceAll, not replace: range prices carry two euro signs, and the
+        // single-replace version announced the Cheesy Pizza Garlic Bread as
+        // "euro 8.50 / €13.50".
+        const spokenPrice = price ? price.replaceAll('€', 'euro ') : null
+        return (
+          <li className="menu__item" key={item.name}>
+            <div className="menu__item-main">
+              <span className="menu__item-name">{item.name}</span>
+              {price ? (
+                <span className="menu__item-price" aria-label={spokenPrice}>
+                  {price}
+                </span>
+              ) : null}
+            </div>
+            {item.description ? <p className="menu__item-desc">{item.description}</p> : null}
+          </li>
+        )
+      })}
+    </ul>
   )
 }
