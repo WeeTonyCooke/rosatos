@@ -78,6 +78,32 @@ const TARGETS = [
     kind: 'photo',
     graded: false,
   })),
+
+  // What's On pairs two live-music shots side by side, so they need a shared
+  // landscape aspect — mixing 4:5 and 4:3 in one row looks like an accident.
+  //
+  // `position` is set per image rather than left to sharp's attention
+  // strategy. On music-snug, attention locked onto the lit Heineken sign and
+  // the wall lamp and cropped the singer down to a sliver at the bottom edge;
+  // anchoring to the bottom keeps her and the stonework. On music-mono the
+  // subject is isolated against black, which is exactly the case attention
+  // handles well.
+  {
+    file: 'photos/music-snug.jpg',
+    base: 'music-snug-wide',
+    widths: [480, 660],
+    kind: 'photo',
+    graded: false,
+    crop: { aspect: 4 / 3, position: 'bottom' },
+  },
+  {
+    file: 'photos/music-mono.jpg',
+    base: 'music-mono-wide',
+    widths: [480, 636],
+    kind: 'photo',
+    graded: false,
+    crop: { aspect: 4 / 3, position: 'attention' },
+  },
 ]
 
 function humanKB(bytes) {
@@ -96,10 +122,12 @@ function grade(image) {
     .linear([1.04, 1.0, 0.95], [2, 0, -2])
 }
 
-async function processImage({ file, base, widths, kind, graded }) {
+async function processImage({ file, base, widths, kind, graded, crop }) {
   const inputPath = path.join(sourceDir, file)
   const originalSize = statSync(inputPath).size
-  console.log(`\n${file} (original: ${humanKB(originalSize)}, ${kind}${graded ? ', graded' : ''})`)
+  console.log(
+    `\n${file} → ${base} (original: ${humanKB(originalSize)}, ${kind}${graded ? ', graded' : ''}${crop ? ', cropped' : ''})`,
+  )
 
   const isArt = kind === 'art'
 
@@ -109,11 +137,22 @@ async function processImage({ file, base, widths, kind, graded }) {
     const fallbackPath = path.join(imagesDir, `${base}-${width}.${fallbackExt}`)
 
     const prep = () => {
-      // withoutEnlargement: sources smaller than the requested width are left
-      // at native size rather than upscaled. Upscaling only inflates the file
-      // while making the image softer.
-      const resized = sharp(inputPath).resize({ width, withoutEnlargement: true })
-      return graded ? grade(resized) : resized
+      let pipeline = sharp(inputPath)
+      if (crop) {
+        pipeline = pipeline.resize({
+          width,
+          height: Math.round(width / crop.aspect),
+          fit: 'cover',
+          position: crop.position === 'attention' ? sharp.strategy.attention : crop.position,
+          withoutEnlargement: true,
+        })
+      } else {
+        // withoutEnlargement: sources smaller than the requested width are left
+        // at native size rather than upscaled. Upscaling only inflates the file
+        // while making the image softer.
+        pipeline = pipeline.resize({ width, withoutEnlargement: true })
+      }
+      return graded ? grade(pipeline) : pipeline
     }
 
     await prep()

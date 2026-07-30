@@ -92,5 +92,17 @@
       "detail": "Seán Óg · 22:00",
       "href": "#whats-on"
     }
+  ],
+  "photos": [
+    {
+      "base": "music-snug-wide",
+      "width": 660,
+      "alt": "A singer with an acoustic guitar performing beside the stone fireplace in the snug"
+    },
+    {
+      "base": "music-mono-wide",
+      "width": 636,
+      "alt": "A guitarist singing into the microphone during a live session"
+    }
   ]
 }

@@ -1092,6 +1092,24 @@ body:has(.cart-fab) .order-fab {
   text-align: left;
 }
 
+/* Both shots are cropped to a shared 4:3 by optimize-images.mjs — mixing
+   aspect ratios across a two-up row reads as a mistake rather than a choice. */
+.whats-on__photos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.whats-on__photos img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
 .programme {
   list-style: none;
   margin: 0;
@@ -1594,6 +1612,11 @@ body:has(.cart-fab) .order-fab {
 
   .programme {
     max-width: 36rem;
+  }
+
+  .whats-on__photos {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
   }
 }
 
