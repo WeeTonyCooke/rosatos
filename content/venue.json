@@ -1,5 +1,5 @@
 {
-  "name": "Rosato\u2019s",
+  "name": "Rosato’s",
   "tagline": "Great food, good company and a warm welcome.",
   "place": "Moville, Co. Donegal",
   "address": {
@@ -20,58 +20,62 @@
   "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=7+Malin+Road,+Moville,+Co.+Donegal",
   "hours": [
     {
-      "days": "Monday \u2013 Thursday",
-      "time": "16:00 \u2013 21:00"
+      "days": "Monday – Thursday",
+      "time": "16:00 – 21:00"
     },
     {
       "days": "Friday",
-      "time": "16:00 \u2013 21:00"
+      "time": "16:00 – 21:00"
     },
     {
       "days": "Saturday",
-      "time": "15:00 \u2013 21:00"
+      "time": "15:00 – 21:00"
     },
     {
       "days": "Sunday",
-      "time": "12:30 \u2013 21:00"
+      "time": "12:30 – 21:00"
     }
   ],
   "hoursHeading": "Kitchen hours",
-  "hoursNote": "Bar stays open later \u2014 see What\u2019s on for tonight\u2019s music and quiz times.",
-  "hoursSummary": "Open 7 days \u00b7 Kitchen from 16:00 Mon\u2013Fri \u00b7 from 15:00 Sat \u00b7 from 12:30 Sun",
+  "hoursNote": "Bar stays open later — see What’s on for tonight’s music and quiz times.",
+  "hoursSummary": "Open 7 days · Kitchen from 16:00 Mon–Fri · from 15:00 Sat · from 12:30 Sun",
   "social": {
     "instagram": "https://www.instagram.com/rosatosmoville/",
     "facebook": "https://www.facebook.com/rosatos.bar/"
   },
   "giftCards": {
     "eyebrow": "Gift cards",
-    "title": "Give the gift of Rosato\u2019s.",
-    "body": "Any amount, delivered by email \u2014 perfect for birthdays, thank-yous, or just because. Scan to buy, or tap the code on your own phone.",
+    "title": "Give the gift of Rosato’s.",
+    "body": "Any amount, delivered by email — perfect for birthdays, thank-yous, or just because. Scan to buy, or tap the code on your own phone.",
     "label": "Buy a gift card",
     "url": "https://rosatos.ie/product/gift-card/",
     "qrImage": "/images/gift-card-qr.svg"
   },
   "hero": {
     "image": "/images/hero-1463.png",
-    "caption": "C\u00e9ad m\u00edle f\u00e1ilte!"
+    "caption": "Céad míle fáilte!"
   },
   "room": {
     "eyebrow": "The room",
     "title": "A relaxed local for pints, dinner or a catch-up.",
-    "body": "Serving locals and visitors alike, Rosato\u2019s is a place to drop in for lunch, dinner, drinks or a night out.",
+    "body": "Serving locals and visitors alike, Rosato’s is a place to drop in for lunch, dinner, drinks or a night out.",
     "image": "/images/room-1400.jpg",
-    "imageAlt": "Open fire in the stone hearth at Rosato\u2019s, with the bar in the foreground"
+    "imageAlt": "Open fire in the stone hearth at Rosato’s, with the bar in the foreground"
   },
   "pint": {
     "title": "Great pints.",
     "body": "A wide range of beers, craft ales and wines.",
     "image": "/images/pint-1200.jpg",
-    "imageAlt": "A pint of Guinness on the bar at Rosato\u2019s"
+    "imageAlt": "A pint of Guinness on the bar at Rosato’s"
   },
   "visit": {
     "eyebrow": "Visit",
     "title": "Everything you need before you visit.",
-    "parkingTip": "Street parking along Malin Road; easier after the school run."
+    "parkingTip": "Street parking along Malin Road; easier after the school run.",
+    "photo": {
+      "base": "exterior-day",
+      "alt": "Rosato’s red frontage on Malin Road in sunshine, benches along the footpath"
+    }
   },
   "ordering": {
     "enabled": true,
@@ -85,24 +89,60 @@
     "kitchenCloses": "21:00",
     "payNote": "Pay on collection — card or cash.",
     "minOrder": 0,
-    "successMessage": "Order received. We\u2019ll have it ready for collection.",
+    "successMessage": "Order received. We’ll have it ready for collection.",
     "customizations": {
       "extraPrice": 1.5,
       "extras": [
-        { "id": "cheese", "label": "Extra cheese" },
-        { "id": "pepperoni", "label": "Pepperoni" },
-        { "id": "jalapenos", "label": "Jalape\u00f1os" },
-        { "id": "mushroom", "label": "Mushroom" },
-        { "id": "onion", "label": "Onion" },
-        { "id": "peppers", "label": "Peppers" }
+        {
+          "id": "cheese",
+          "label": "Extra cheese"
+        },
+        {
+          "id": "pepperoni",
+          "label": "Pepperoni"
+        },
+        {
+          "id": "jalapenos",
+          "label": "Jalapeños"
+        },
+        {
+          "id": "mushroom",
+          "label": "Mushroom"
+        },
+        {
+          "id": "onion",
+          "label": "Onion"
+        },
+        {
+          "id": "peppers",
+          "label": "Peppers"
+        }
       ],
       "removals": [
-        { "id": "onion", "label": "Onion" },
-        { "id": "mushroom", "label": "Mushroom" },
-        { "id": "peppers", "label": "Peppers" },
-        { "id": "jalapenos", "label": "Jalape\u00f1os" },
-        { "id": "rocket", "label": "Rocket" },
-        { "id": "chilli", "label": "Chilli" }
+        {
+          "id": "onion",
+          "label": "Onion"
+        },
+        {
+          "id": "mushroom",
+          "label": "Mushroom"
+        },
+        {
+          "id": "peppers",
+          "label": "Peppers"
+        },
+        {
+          "id": "jalapenos",
+          "label": "Jalapeños"
+        },
+        {
+          "id": "rocket",
+          "label": "Rocket"
+        },
+        {
+          "id": "chilli",
+          "label": "Chilli"
+        }
       ],
       "notePlaceholder": "Anything else for this pizza?"
     }

@@ -1,3 +1,5 @@
+import { Photo } from './Photo.jsx'
+
 /**
  * Menu prices come from CMS-edited JSON as free text, so they aren't
  * always a clean decimal: ranges ("8.50 / 13.50"), prefixed ("from 3.00"),
@@ -23,31 +25,6 @@ function formatMenuPrice(raw) {
   }
 
   return `€${value}`
-}
-
-/**
- * Venue photos are generated at 480w and 600w by scripts/optimize-images.mjs
- * (see the note there — the sources are Instagram exports, so 600w is the
- * ceiling until camera originals are available).
- */
-function Photo({ base, alt, sizes, className }) {
-  return (
-    <picture>
-      <source
-        type="image/webp"
-        srcSet={`/images/${base}-480.webp 480w, /images/${base}-600.webp 600w`}
-        sizes={sizes}
-      />
-      <img
-        className={className}
-        src={`/images/${base}-600.jpg`}
-        srcSet={`/images/${base}-480.jpg 480w, /images/${base}-600.jpg 600w`}
-        sizes={sizes}
-        alt={alt}
-        loading="lazy"
-      />
-    </picture>
-  )
 }
 
 const COURSE_SIZES = '(min-width: 860px) 45vw, 92vw'

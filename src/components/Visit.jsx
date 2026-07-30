@@ -1,4 +1,5 @@
 import { useBooking } from '../booking/BookingContext.jsx'
+import { Photo } from './Photo.jsx'
 
 export function Visit({ venue }) {
   const {
@@ -55,6 +56,19 @@ export function Visit({ venue }) {
             <p className="visit__tip">{visit.parkingTip}</p>
           </div>
         </div>
+
+        {/* Daylight, not the dusk shot the menu strip uses. This one is doing
+            a practical job — showing someone what to look for on Malin Road —
+            so legibility of the frontage beats atmosphere. */}
+        {visit.photo?.base ? (
+          <figure className="visit__photo">
+            <Photo
+              base={visit.photo.base}
+              alt={visit.photo.alt || ''}
+              sizes="(min-width: 900px) 45vw, 92vw"
+            />
+          </figure>
+        ) : null}
 
         <div className="visit__book">
           <h3>Book a table</h3>

@@ -1094,6 +1094,17 @@ body:has(.cart-fab) .order-fab {
 
 /* Both shots are cropped to a shared 4:3 by optimize-images.mjs — mixing
    aspect ratios across a two-up row reads as a mistake rather than a choice. */
+.visit__photo {
+  margin: 0 0 var(--space-4);
+}
+
+.visit__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
 .whats-on__photos {
   display: grid;
   grid-template-columns: 1fr;

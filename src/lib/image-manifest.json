@@ -1,0 +1,167 @@
+{
+  "pint": {
+    "base": "pint",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900,
+      1200
+    ],
+    "sourceWidth": 3024,
+    "lowRes": false
+  },
+  "room": {
+    "base": "room",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900,
+      1400
+    ],
+    "sourceWidth": 1500,
+    "lowRes": false
+  },
+  "hero": {
+    "base": "hero",
+    "ext": "png",
+    "widths": [
+      736,
+      1104,
+      1463
+    ],
+    "sourceWidth": 1463,
+    "lowRes": false
+  },
+  "haddock": {
+    "base": "haddock",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900
+    ],
+    "sourceWidth": 1370,
+    "lowRes": false
+  },
+  "pizzas": {
+    "base": "pizzas",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 549,
+    "lowRes": true
+  },
+  "guinness": {
+    "base": "guinness",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 600,
+    "lowRes": true
+  },
+  "prawns": {
+    "base": "prawns",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 600,
+    "lowRes": true
+  },
+  "exterior-dusk": {
+    "base": "exterior-dusk",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 606,
+    "lowRes": true
+  },
+  "exterior-day": {
+    "base": "exterior-day",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900
+    ],
+    "sourceWidth": 1086,
+    "lowRes": false
+  },
+  "fire": {
+    "base": "fire",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 641,
+    "lowRes": true
+  },
+  "cocktail": {
+    "base": "cocktail",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 599,
+    "lowRes": true
+  },
+  "music-snug": {
+    "base": "music-snug",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900
+    ],
+    "sourceWidth": 1147,
+    "lowRes": false
+  },
+  "music-mono": {
+    "base": "music-mono",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 636,
+    "lowRes": true
+  },
+  "hake-noodles": {
+    "base": "hake-noodles",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900,
+      1400
+    ],
+    "sourceWidth": 1405,
+    "lowRes": false
+  },
+  "fish-noodles": {
+    "base": "fish-noodles",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 600,
+    "lowRes": true
+  },
+  "music-snug-wide": {
+    "base": "music-snug-wide",
+    "ext": "jpg",
+    "widths": [
+      480,
+      900
+    ],
+    "sourceWidth": 1147,
+    "lowRes": false
+  },
+  "music-mono-wide": {
+    "base": "music-mono-wide",
+    "ext": "jpg",
+    "widths": [
+      480
+    ],
+    "sourceWidth": 636,
+    "lowRes": true
+  }
+}

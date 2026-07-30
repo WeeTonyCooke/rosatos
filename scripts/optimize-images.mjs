@@ -28,7 +28,7 @@
 // without looking processed. This is deliberately subtle — the goal is
 // "feels like it belongs on this page," not a heavy filter.
 
-import { statSync, mkdirSync } from 'node:fs'
+import { statSync, mkdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -41,6 +41,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // requests — the components reference only the variants.
 const sourceDir = path.join(__dirname, '..', 'assets', 'source')
 const imagesDir = path.join(__dirname, '..', 'public', 'images')
+const manifestPath = path.join(__dirname, '..', 'src', 'lib', 'image-manifest.json')
 
 // [filename, output basename, widths to generate]
 // kind: 'photo' → JPEG fallback
@@ -49,11 +50,12 @@ const imagesDir = path.join(__dirname, '..', 'public', 'images')
 //         The venue's own Instagram exports are already processed — running the
 //         grade over them a second time overcooks the reds badly.
 //
-// VENUE PHOTOS: sourced from @rosatosmoville, so they arrive at roughly 600px
-// wide. That is UNDER what the layout wants (a half-column figure renders near
-// 500px, so 1000px for a 2x display). withoutEnlargement below stops us
-// upscaling into mush, but these should be replaced with camera originals when
-// they can be pulled off the phone — the difference will be visible.
+// VENUE PHOTOS: a mix of camera originals and Instagram exports, being
+// upgraded to originals over time. Ask for the full width ladder regardless —
+// processImage drops any width the source can't actually supply, and the run
+// log lists everything still coming from a sub-1000px source. Drop a better
+// original in under the same filename and re-run; the manifest and the markup
+// follow automatically.
 const TARGETS = [
   { file: 'pint.jpg', base: 'pint', widths: [480, 900, 1200], kind: 'photo', graded: true },
   { file: 'room.jpg', base: 'room', widths: [480, 900, 1400], kind: 'photo', graded: true },
@@ -65,6 +67,7 @@ const TARGETS = [
     'guinness',
     'prawns',
     'exterior-dusk',
+    'exterior-day',
     'fire',
     'cocktail',
     'music-snug',
@@ -74,7 +77,7 @@ const TARGETS = [
   ].map((name) => ({
     file: `photos/${name}.jpg`,
     base: name,
-    widths: [480, 600],
+    widths: [480, 900, 1400],
     kind: 'photo',
     graded: false,
   })),
@@ -91,7 +94,7 @@ const TARGETS = [
   {
     file: 'photos/music-snug.jpg',
     base: 'music-snug-wide',
-    widths: [480, 660],
+    widths: [480, 900, 1320],
     kind: 'photo',
     graded: false,
     crop: { aspect: 4 / 3, position: 'bottom' },
@@ -99,7 +102,7 @@ const TARGETS = [
   {
     file: 'photos/music-mono.jpg',
     base: 'music-mono-wide',
-    widths: [480, 636],
+    widths: [480, 900, 1320],
     kind: 'photo',
     graded: false,
     crop: { aspect: 4 / 3, position: 'attention' },
@@ -125,13 +128,31 @@ function grade(image) {
 async function processImage({ file, base, widths, kind, graded, crop }) {
   const inputPath = path.join(sourceDir, file)
   const originalSize = statSync(inputPath).size
+  const meta = await sharp(inputPath).metadata()
+
+  // Only generate widths the source can actually supply.
+  //
+  // The alternative — asking for 1200w from a 600px source with
+  // withoutEnlargement — writes a file *named* `-1200` that is really 600px
+  // wide. srcset takes those names as a promise about pixel width, so the
+  // browser picks the "1200w" file for a 1200px slot, gets 600px of image,
+  // and has no way to know it was lied to. Filtering here keeps the filename
+  // and the actual width in agreement.
+  const usable = widths.filter((w) => w <= meta.width)
+  if (!usable.length) usable.push(meta.width)
+  const skipped = widths.filter((w) => w > meta.width)
+
   console.log(
-    `\n${file} → ${base} (original: ${humanKB(originalSize)}, ${kind}${graded ? ', graded' : ''}${crop ? ', cropped' : ''})`,
+    `\n${file} → ${base} (${meta.width}x${meta.height}, ${humanKB(originalSize)}, ${kind}${graded ? ', graded' : ''}${crop ? ', cropped' : ''})`,
   )
+  if (skipped.length) {
+    console.log(`  ! source too small for ${skipped.join('w, ')}w — skipped, no upscaling`)
+  }
 
   const isArt = kind === 'art'
+  const produced = []
 
-  for (const width of widths) {
+  for (const width of usable) {
     const webpPath = path.join(imagesDir, `${base}-${width}.webp`)
     const fallbackExt = isArt ? 'png' : 'jpg'
     const fallbackPath = path.join(imagesDir, `${base}-${width}.${fallbackExt}`)
@@ -144,13 +165,9 @@ async function processImage({ file, base, widths, kind, graded, crop }) {
           height: Math.round(width / crop.aspect),
           fit: 'cover',
           position: crop.position === 'attention' ? sharp.strategy.attention : crop.position,
-          withoutEnlargement: true,
         })
       } else {
-        // withoutEnlargement: sources smaller than the requested width are left
-        // at native size rather than upscaled. Upscaling only inflates the file
-        // while making the image softer.
-        pipeline = pipeline.resize({ width, withoutEnlargement: true })
+        pipeline = pipeline.resize({ width })
       }
       return graded ? grade(pipeline) : pipeline
     }
@@ -171,15 +188,43 @@ async function processImage({ file, base, widths, kind, graded, crop }) {
     console.log(
       `  ${width}w  webp: ${humanKB(webpSize)}   ${fallbackExt}: ${humanKB(fallbackSize)}`,
     )
+    produced.push(width)
+  }
+
+  return {
+    base,
+    ext: isArt ? 'png' : 'jpg',
+    widths: produced,
+    sourceWidth: meta.width,
+    // Flagged so the site can be audited for images still coming from
+    // low-resolution sources without anyone having to remember which is which.
+    lowRes: meta.width < 1000,
   }
 }
 
 async function main() {
   mkdirSync(imagesDir, { recursive: true })
+
+  const manifest = {}
   for (const target of TARGETS) {
-    await processImage(target)
+    const entry = await processImage(target)
+    manifest[entry.base] = entry
   }
-  console.log('\nDone. Update <img> markup to <picture> with srcset — see Pint.jsx / Room.jsx.')
+
+  // The manifest is what the components build srcset from, rather than widths
+  // hand-copied into content JSON. Swapping a low-res source for a camera
+  // original then upgrades the markup by re-running this script — no hunting
+  // through JSX and JSON for stale numbers, and no way for the two to drift.
+  writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
+
+  const lowRes = Object.values(manifest).filter((entry) => entry.lowRes)
+  console.log(`\nWrote ${path.relative(path.join(__dirname, '..'), manifestPath)}`)
+  if (lowRes.length) {
+    console.log(`\n${lowRes.length} image(s) still from sources under 1000px — replace when originals are available:`)
+    for (const entry of lowRes) {
+      console.log(`  ${entry.base.padEnd(20)} ${entry.sourceWidth}px`)
+    }
+  }
 }
 
 main().catch((err) => {

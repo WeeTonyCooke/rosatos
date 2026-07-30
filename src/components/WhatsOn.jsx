@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { getTonight } from '../lib/programme.js'
+import { Photo } from './Photo.jsx'
 
 export function WhatsOn({ venue }) {
   const { programme, social } = venue
@@ -23,20 +24,12 @@ export function WhatsOn({ venue }) {
       {photos.length ? (
         <div className="whats-on__photos">
           {photos.map((photo) => (
-            <picture key={photo.base}>
-              <source
-                type="image/webp"
-                srcSet={`/images/${photo.base}-480.webp 480w, /images/${photo.base}-${photo.width}.webp ${photo.width}w`}
-                sizes="(min-width: 860px) 46vw, 92vw"
-              />
-              <img
-                src={`/images/${photo.base}-${photo.width}.jpg`}
-                srcSet={`/images/${photo.base}-480.jpg 480w, /images/${photo.base}-${photo.width}.jpg ${photo.width}w`}
-                sizes="(min-width: 860px) 46vw, 92vw"
-                alt={photo.alt || ''}
-                loading="lazy"
-              />
-            </picture>
+            <Photo
+              key={photo.base}
+              base={photo.base}
+              alt={photo.alt || ''}
+              sizes="(min-width: 860px) 46vw, 92vw"
+            />
           ))}
         </div>
       ) : null}
