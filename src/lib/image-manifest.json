@@ -67,10 +67,11 @@
     "base": "prawns",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900
     ],
-    "sourceWidth": 600,
-    "lowRes": true
+    "sourceWidth": 1122,
+    "lowRes": false
   },
   "exterior-dusk": {
     "base": "exterior-dusk",
@@ -148,10 +149,11 @@
     "base": "music-mono",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900
     ],
-    "sourceWidth": 636,
-    "lowRes": true
+    "sourceWidth": 1378,
+    "lowRes": false
   },
   "hake-noodles": {
     "base": "hake-noodles",
@@ -187,10 +189,12 @@
     "base": "music-mono-wide",
     "ext": "jpg",
     "widths": [
-      480
+      480,
+      900,
+      1320
     ],
-    "sourceWidth": 636,
-    "lowRes": true
+    "sourceWidth": 1378,
+    "lowRes": false
   },
   "exterior-dusk-band": {
     "base": "exterior-dusk-band",
