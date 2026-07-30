@@ -1,0 +1,101 @@
+/* Standalone stylesheet for /terms and /privacy.
+   These are plain static pages outside the React bundle — there's no reason
+   to boot the app to read a page of text — so they carry their own small
+   sheet rather than importing the site's. Tokens mirror src/styles.css. */
+:root {
+  --forest: #234d43;
+  --cream: #f5f1ea;
+  --charcoal: #303336;
+  --terracotta: #814b37;
+  --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
+  --line: color-mix(in srgb, var(--charcoal) 12%, transparent);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.legal {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+
+.legal__back {
+  display: inline-block;
+  margin-bottom: 3rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-muted);
+}
+
+.legal__back:hover {
+  color: var(--forest);
+}
+
+h1 {
+  margin: 0 0 2rem;
+  font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  margin: 2.75rem 0 0.75rem;
+  font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p,
+li {
+  color: var(--ink-muted);
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+ul {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+a {
+  color: var(--forest);
+  text-underline-offset: 0.18em;
+}
+
+code {
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--charcoal) 6%, transparent);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+/* The demo caveat needs to read as a caveat, not as body copy. */
+.legal__note {
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  border-left: 2px solid var(--terracotta);
+  background: color-mix(in srgb, var(--terracotta) 5%, transparent);
+  font-size: 0.95rem;
+}

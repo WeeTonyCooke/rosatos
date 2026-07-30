@@ -1,48 +1,74 @@
+/**
+ * Three-column footer: navigation left, wordmark centred, contact right.
+ *
+ * Deliberately quieter than the old stacked layout — links are small tracked
+ * uppercase, the wordmark carries the only display type, and a single hairline
+ * separates the studio credit beneath. The page has done its talking by this
+ * point; the footer's job is orientation, not another pitch.
+ */
 export function Footer({ venue }) {
   const year = new Date().getFullYear()
   const gift = venue.giftCards
+  const links = Array.isArray(venue.footerLinks) ? venue.footerLinks : []
+  const credit = venue.credit
 
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
-        <div className="site-footer__brand">
-          <strong>{venue.name}</strong>
-          <p>{venue.footerLine || venue.tagline}</p>
-        </div>
+        <nav className="site-footer__nav" aria-label="Footer">
+          {links.map((link) => (
+            <a key={link.href} href={link.href}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <p className="site-footer__wordmark">{venue.name}</p>
 
         <div className="site-footer__meta">
           <p>
-            {venue.address.street}, {venue.address.locality}
+            <a href={`mailto:${venue.email}`}>{venue.email}</a>
           </p>
           <p>
             <a href={`tel:${venue.phone.replace(/\s/g, '')}`}>{venue.phone}</a>
           </p>
-          <p className="site-footer__hours">{venue.hoursSummary}</p>
-        </div>
-
-        <div className="site-footer__social">
-          <a href={venue.social.instagram} target="_blank" rel="noreferrer">
-            Instagram
-          </a>
-          <a href={venue.social.facebook} target="_blank" rel="noreferrer">
-            Facebook
-          </a>
-          {gift?.url ? (
-            <a href={gift.url} target="_blank" rel="noreferrer">
-              {gift.label || 'Gift cards'}
+          <p>
+            {venue.address.street}, {venue.address.locality}, {venue.address.region}
+          </p>
+          <p className="site-footer__social">
+            <a href={venue.social.instagram} target="_blank" rel="noreferrer">
+              Instagram
             </a>
-          ) : null}
+            {' · '}
+            <a href={venue.social.facebook} target="_blank" rel="noreferrer">
+              Facebook
+            </a>
+            {gift?.url ? (
+              <>
+                {' · '}
+                <a href={gift.url} target="_blank" rel="noreferrer">
+                  {gift.label || 'Gift cards'}
+                </a>
+              </>
+            ) : null}
+          </p>
+          <p className="site-footer__copyright">
+            © {year} {venue.name}
+          </p>
         </div>
       </div>
 
       <div className="site-footer__credit">
-        <span>
-          © {year} {venue.name}
-        </span>
-        {venue.credit ? (
-          <a href={venue.credit.url} target="_blank" rel="noreferrer">
-            {venue.credit.label}
-          </a>
+        {/* Plain text when no URL is set, rather than linking somewhere
+            guessed. Fill in credit.url in venue.json to make it a link. */}
+        {credit?.label ? (
+          credit.url ? (
+            <a href={credit.url} target="_blank" rel="noreferrer">
+              {credit.label}
+            </a>
+          ) : (
+            <span>{credit.label}</span>
+          )
         ) : null}
       </div>
     </footer>

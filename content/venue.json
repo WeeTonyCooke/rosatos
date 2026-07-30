@@ -152,7 +152,33 @@
     }
   },
   "credit": {
-    "label": "A Quiet Objects template",
-    "url": "https://quietobjects.ie"
-  }
+    "label": "Website by MCA",
+    "url": ""
+  },
+  "footerLinks": [
+    {
+      "label": "Menu",
+      "href": "#menu"
+    },
+    {
+      "label": "What’s on",
+      "href": "#whats-on"
+    },
+    {
+      "label": "Gift cards",
+      "href": "#gift-cards"
+    },
+    {
+      "label": "Visit",
+      "href": "#visit"
+    },
+    {
+      "label": "Terms",
+      "href": "/terms/"
+    },
+    {
+      "label": "Privacy",
+      "href": "/privacy/"
+    }
+  ]
 }

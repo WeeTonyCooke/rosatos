@@ -1426,56 +1426,77 @@ body:has(.cart-fab) .order-fab {
   color: var(--ink);
 }
 
+/* Stacks on mobile; becomes nav | wordmark | contact at 860px below. */
 .site-footer__inner {
   display: grid;
   gap: var(--space-4);
+  align-items: start;
   max-width: var(--max);
   margin: 0 auto;
   padding: var(--space-5) clamp(1rem, 3vw, 2rem) var(--space-4);
 }
 
-.site-footer__brand strong {
+.site-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.75rem;
+}
+
+.site-footer__nav a {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-muted);
+}
+
+.site-footer__nav a:hover {
+  color: var(--accent-deep);
+}
+
+.site-footer__wordmark {
+  margin: 0;
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--accent-deep);
 }
 
-.site-footer__brand p,
 .site-footer__meta p {
-  margin: 0.4rem 0 0;
+  margin: 0;
+  font-size: 0.9rem;
   color: var(--ink-muted);
 }
 
-.site-footer__social {
-  display: flex;
-  gap: 1.25rem;
-}
-
-.site-footer__social a {
+.site-footer__meta a {
   text-decoration: none;
-  color: var(--ink-muted);
+  color: inherit;
 }
 
-.site-footer__social a:hover {
+.site-footer__meta a:hover {
   color: var(--accent-deep);
 }
 
+.site-footer__copyright {
+  margin-top: 0.4rem !important;
+  color: var(--ink-faint) !important;
+}
+
+/* One hairline, then the studio credit alone on the right. */
 .site-footer__credit {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.75rem;
+  justify-content: flex-end;
   max-width: var(--max);
   margin: 0 auto;
   padding: var(--space-3) clamp(1rem, 3vw, 2rem) var(--space-4);
   border-top: 1px solid var(--line);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
   color: var(--ink-faint);
 }
 
 .site-footer__credit a {
-  color: var(--ink-muted);
+  color: var(--ink-faint);
   text-decoration: none;
 }
 
@@ -1613,8 +1634,16 @@ body:has(.cart-fab) .order-fab {
   }
 
   .site-footer__inner {
-    grid-template-columns: 1.2fr 1fr auto;
-    align-items: start;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .site-footer__wordmark {
+    text-align: center;
+  }
+
+  .site-footer__meta {
+    text-align: right;
   }
 }
 
