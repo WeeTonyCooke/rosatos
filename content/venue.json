@@ -46,7 +46,10 @@
   "giftCards": {
     "eyebrow": "",
     "title": "Give the gift of Rosato’s.",
-    "body": "Any amount, delivered by email — perfect for birthdays, thank-yous, or just because. Scan to buy, or tap the code on your own phone.",
+    "body": [
+      "Any amount, delivered by email — perfect for birthdays, thank-yous, or just because.",
+      "Scan the code to buy, or tap it on your own phone."
+    ],
     "label": "Buy a gift card",
     "url": "https://rosatos.ie/product/gift-card/",
     "qrImage": "/images/gift-card-qr.svg"

@@ -8,7 +8,13 @@ export function GiftCard({ venue }) {
         <div className="gift-card__copy">
           {giftCards.eyebrow ? <p className="eyebrow">{giftCards.eyebrow}</p> : null}
           {giftCards.title ? <h2 className="gift-card__title">{giftCards.title}</h2> : null}
-          {giftCards.body ? <p className="gift-card__body">{giftCards.body}</p> : null}
+          {/* Accepts a string or an array, so the copy can break into
+              paragraphs without the component caring which it was given. */}
+          {[].concat(giftCards.body || []).map((para) => (
+            <p className="gift-card__body" key={para}>
+              {para}
+            </p>
+          ))}
           <a className="btn btn--primary gift-card__cta" href={giftCards.url} target="_blank" rel="noreferrer">
             {giftCards.label || 'Buy a gift card'}
           </a>

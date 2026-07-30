@@ -44,17 +44,13 @@ export function Visit({ venue }) {
               ))}
             </ul>
             {hoursNote ? <p className="visit__tip">{hoursNote}</p> : null}
+            {visit.parkingTip ? <p className="visit__tip">{visit.parkingTip}</p> : null}
           </div>
 
-          <div className="visit__block">
-            <h3>Contact</h3>
-            <p>
-              <a href={phoneHref}>{phone}</a>
-              <br />
-              <a href={`mailto:${email}`}>{email}</a>
-            </p>
-            <p className="visit__tip">{visit.parkingTip}</p>
-          </div>
+          {/* No separate Contact block. Phone and email appeared three times
+              within two screens — here, in the booking panel's enquiry line
+              below, and again in the footer. The parking tip belongs with the
+              hours it qualifies. */}
         </div>
 
         {/* Photo and booking panel share the right column.

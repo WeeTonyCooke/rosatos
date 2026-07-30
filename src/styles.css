@@ -1252,13 +1252,20 @@ body:has(.cart-fab) .order-fab {
 /* Both shots are cropped to a shared 4:3 by optimize-images.mjs — mixing
    aspect ratios across a two-up row reads as a mistake rather than a choice. */
 .visit__photo {
-  margin: 0 0 var(--space-4);
+  margin: 0;
 }
 
+/* Capped and cropped rather than free-standing. This photo is doing an
+   orientation job — here's what to look for on Malin Road — so it needs to be
+   recognisable, not large. At full height on a phone it filled most of the
+   viewport and pushed the hours and booking panel off the bottom. */
 .visit__photo img {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 15rem;
+  object-fit: cover;
+  object-position: center 40%;
   border-radius: var(--radius);
 }
 
@@ -1288,19 +1295,28 @@ body:has(.cart-fab) .order-fab {
 }
 
 /* A listings board, not a paragraph.
-   Day / act / time as columns, with the time on the right rail. On narrow
-   screens it collapses to day-and-time on one line with the act beneath. */
+   Mobile: day and time share the top row — they're both metadata and they
+   belong on the same baseline — with the act on its own line beneath. The time
+   previously sat alone on a third line, right-aligned against nothing, which
+   is what made the column look broken.
+   Desktop (960px): day / act / time as three columns. */
 .programme__item {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 0.15rem 1rem;
+  grid-template-areas:
+    'day time'
+    'name name';
+  gap: 0.35rem 1rem;
   align-items: baseline;
   padding: 1.35rem 0;
   border-bottom: 1px solid var(--line);
 }
 
+.programme__day { grid-area: day; }
+.programme__when { grid-area: time; }
+.programme__name { grid-area: name; }
+
 .programme__name {
-  grid-column: 1 / -1;
   margin: 0;
   font-family: var(--font-display);
   font-size: 1.35rem;
@@ -1336,9 +1352,6 @@ body:has(.cart-fab) .order-fab {
   align-items: center;
 }
 
-.gift-card__qr {
-  justify-self: start;
-}
 
 .gift-card__title {
   margin: 0 0 var(--space-2);
@@ -1361,7 +1374,9 @@ body:has(.cart-fab) .order-fab {
 }
 
 .gift-card__qr {
-  justify-self: center;
+  /* start, not center: the CTA above it is left-aligned, and a centred code
+     beside a left-aligned button reads as a mistake. */
+  justify-self: start;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -1649,6 +1664,16 @@ body:has(.cart-fab) .order-fab {
   color: var(--cream);
 }
 
+/* Centred at every width. This was only centred inside the desktop media
+   query, so on a phone the mark and wordmark sat hard left against a
+   left-aligned nav above them. */
+.site-footer__brandblock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 /* The illustrated facade, small, above the wordmark — the brand mark the
    hero carries, reused at the close. */
 .site-footer__mark {
@@ -1839,12 +1864,6 @@ body:has(.cart-fab) .order-fab {
     align-items: center;
   }
 
-  .site-footer__brandblock {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .site-footer__wordmark {
     text-align: center;
   }
@@ -1861,13 +1880,9 @@ body:has(.cart-fab) .order-fab {
 
   .programme__item {
     grid-template-columns: 12rem 1fr auto;
+    grid-template-areas: 'day name time';
     gap: 1.5rem;
-    align-items: baseline;
     padding: 1.6rem 0;
-  }
-
-  .programme__name {
-    grid-column: auto;
   }
 
   .whats-on__photos {
