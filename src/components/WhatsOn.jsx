@@ -9,7 +9,7 @@ export function WhatsOn({ venue }) {
   const photos = Array.isArray(programme.photos) ? programme.photos : []
 
   return (
-    <section id="whats-on" className="section section--loose whats-on" data-reveal>
+    <section id="whats-on" className="section section--loose section--dark whats-on" data-reveal>
       <div className="section__intro">
         {programme.eyebrow ? <p className="eyebrow">{programme.eyebrow}</p> : null}
         <h2 className="section__title">{programme.title}</h2>

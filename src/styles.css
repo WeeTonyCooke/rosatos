@@ -13,7 +13,14 @@
   /* Roles */
   --bg: var(--cream);
   --bg-elevated: var(--cream);
-  --bg-soft: var(--cream); /* no separate "elevated surface" colour — sections differentiate via whitespace, not background colour */
+  --bg-soft: var(--cream);
+  /* TWO-TONE. This used to read "sections differentiate via whitespace, not
+     background colour". That held while the page was one continuous cream
+     field, but it left the page reading as a stack of identical slabs. The
+     rule now: cream is the daytime half of the business — the room, the food,
+     the practicals. Forest is the night half — the bar and what's on. Colour
+     marks which of the two things this pub is, not visual hierarchy, and a
+     block only goes green if it genuinely belongs to the evening. */
   --rosato-green: var(--forest);
   --rosato-green-mid: color-mix(in srgb, var(--forest) 70%, white);
   --accent: var(--forest);
@@ -973,15 +980,52 @@ body:has(.cart-fab) .order-fab {
   object-fit: cover;
 }
 
-/* The bar block breaks to full-bleed forest green. It is the one place the
-   page changes ground colour, which is what makes it read as arrival at a
-   different room rather than another list. */
+/* Full-bleed forest sections — the evening half of the page.
+   Full-bleed rather than contained: a colour block that stops at the container
+   edge reads as a card sitting on the page, not as the page itself changing. */
 .menu__bar {
   --bar-pad: clamp(3.25rem, 10vw, 9rem);
   margin: var(--bar-pad) calc(50% - 50vw) calc(var(--bar-pad) * -1);
   padding: var(--bar-pad) calc(50vw - 50% + var(--space-3));
   background: var(--forest);
   color: var(--on-accent);
+}
+
+/* A whole section on forest, bleeding past the container.
+   `box-shadow` rather than negative margins: the section is already a
+   max-width centred block, and giving it horizontal bleed via margins fights
+   the centring and can introduce a scrollbar at some widths. A spread shadow
+   in the same colour paints the gutters with no layout effect at all. */
+.section--dark {
+  background: var(--forest);
+  color: var(--on-accent);
+  box-shadow: 0 0 0 100vmax var(--forest);
+  clip-path: inset(0 -100vmax);
+}
+
+.section--dark .eyebrow {
+  color: color-mix(in srgb, var(--cream) 55%, transparent);
+}
+
+.section--dark .section__title,
+.section--dark .programme__name {
+  color: var(--on-accent);
+}
+
+.section--dark .section__body,
+.section--dark .programme__when,
+.section--dark .programme__note {
+  color: color-mix(in srgb, var(--cream) 74%, transparent);
+}
+
+.section--dark .programme,
+.section--dark .programme__item {
+  border-color: color-mix(in srgb, var(--cream) 20%, transparent);
+}
+
+.section--dark .programme__item.is-today .programme__day,
+.section--dark .programme__note a {
+  color: color-mix(in srgb, var(--cream) 92%, transparent);
 }
 
 .menu__bar .menu__section-title,
