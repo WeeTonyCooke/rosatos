@@ -1,3 +1,5 @@
+import { Photo } from './Photo.jsx'
+
 /**
  * Three-column footer: navigation left, wordmark centred, contact right.
  *
@@ -23,7 +25,17 @@ export function Footer({ venue }) {
           ))}
         </nav>
 
-        <p className="site-footer__wordmark">{venue.name}</p>
+        <div className="site-footer__brandblock">
+          {venue.hero?.base ? (
+            <Photo
+              base={venue.hero.base}
+              alt=""
+              sizes="88px"
+              className="site-footer__mark"
+            />
+          ) : null}
+          <p className="site-footer__wordmark">{venue.name}</p>
+        </div>
 
         <div className="site-footer__meta">
           <p>

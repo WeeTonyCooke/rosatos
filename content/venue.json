@@ -53,7 +53,8 @@
   },
   "hero": {
     "image": "/images/hero-1463.png",
-    "caption": "Céad míle fáilte!"
+    "caption": "Céad míle fáilte!",
+    "base": "hero"
   },
   "room": {
     "eyebrow": "The room",

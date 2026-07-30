@@ -1607,32 +1607,14 @@ body:has(.cart-fab) .order-fab {
   color: var(--on-accent);
 }
 
-.site-footer__nav a,
-.site-footer__meta p,
-.site-footer__meta a {
-  color: color-mix(in srgb, var(--cream) 78%, transparent);
-}
-
-.site-footer__nav a:hover,
-.site-footer__meta a:hover {
-  color: var(--cream);
-}
-
-.site-footer__wordmark {
-  color: var(--cream);
-}
-
-.site-footer__copyright {
-  color: color-mix(in srgb, var(--cream) 55%, transparent) !important;
-}
 
 .site-footer__credit {
   border-top-color: color-mix(in srgb, var(--cream) 18%, transparent);
-  color: color-mix(in srgb, var(--cream) 55%, transparent);
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
 }
 
 .site-footer__credit a {
-  color: color-mix(in srgb, var(--cream) 55%, transparent);
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
 }
 
 .site-footer__credit a:hover {
@@ -1660,11 +1642,20 @@ body:has(.cart-fab) .order-fab {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--ink-muted);
+  color: color-mix(in srgb, var(--cream) 80%, transparent);
 }
 
 .site-footer__nav a:hover {
-  color: var(--accent-deep);
+  color: var(--cream);
+}
+
+/* The illustrated facade, small, above the wordmark — the brand mark the
+   hero carries, reused at the close. */
+.site-footer__mark {
+  display: block;
+  width: 5.5rem;
+  height: auto;
+  margin: 0 0 0.75rem;
 }
 
 .site-footer__wordmark {
@@ -1672,13 +1663,13 @@ body:has(.cart-fab) .order-fab {
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 600;
-  color: var(--accent-deep);
+  color: var(--cream);
 }
 
 .site-footer__meta p {
   margin: 0;
   font-size: 0.9rem;
-  color: var(--ink-muted);
+  color: color-mix(in srgb, var(--cream) 80%, transparent);
 }
 
 .site-footer__meta a {
@@ -1687,12 +1678,12 @@ body:has(.cart-fab) .order-fab {
 }
 
 .site-footer__meta a:hover {
-  color: var(--accent-deep);
+  color: var(--cream);
 }
 
 .site-footer__copyright {
   margin-top: 0.4rem !important;
-  color: var(--ink-faint) !important;
+  color: color-mix(in srgb, var(--cream) 72%, transparent) !important;
 }
 
 /* One hairline, then the studio credit alone on the right. */
@@ -1845,6 +1836,12 @@ body:has(.cart-fab) .order-fab {
 
   .site-footer__inner {
     grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .site-footer__brandblock {
+    display: flex;
+    flex-direction: column;
     align-items: center;
   }
 
