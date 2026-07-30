@@ -8,20 +8,45 @@ it's that none of it is on the website.
 Nothing below needs a new shoot. Every shot named here already exists on the
 Instagram grid.
 
-## Priority order
+## Now in place
 
-| # | Slot | Shot | Why this one |
+Nine photos are live in the build, sourced from the Instagram grid.
+
+| Slot | Image | Component |
+|---|---|---|
+| Menu → To start | `prawns` | `Menu.jsx` |
+| Menu → Mains | `haddock` | `Menu.jsx` |
+| Menu → atmosphere strip | `exterior-dusk`, `fire`, `cocktail` | `Menu.jsx` |
+| Menu → Pizza | `pizzas` | `Menu.jsx` |
+| Menu → From the bar | `guinness` | `Menu.jsx` |
+| What's on | `music-snug-wide`, `music-mono-wide` | `WhatsOn.jsx` |
+
+Generated but unused, available if a slot appears: `hake-noodles`,
+`fish-noodles`.
+
+### Resolution caveat
+
+All of these are Instagram exports at roughly 600px wide. A half-column figure
+renders near 500px, so a 2x display wants 1000px — **they will look soft.**
+`withoutEnlargement` in the pipeline stops them being upscaled into mush, but
+the fix is camera originals off the phone, which will be 3000px+. Drop them
+into `assets/source/photos/` under the same filenames, re-run the script, and
+raise the widths in `TARGETS`.
+
+## Still worth adding
+
+| # | Slot | Shot | Why |
 |---|---|---|---|
-| 01 | Menu → To start | Snug interior, fire lit, brass lamps | Sets the room before any food. Currently the site never shows the inside of the pub. |
-| 02 | Menu → Mains | Battered haddock, mushy peas, tartare | Best food photo on the account. Sells the most profitable section. |
-| 03 | Menu → full-bleed band | Red facade at dusk, awning lit / outdoor benches in sun | Breaks the two-column rhythm. This is the move 55 Malin Road makes that Rosato's doesn't. |
-| 04 | Menu → Pizza | Two stone-baked pizzas on the outdoor bench | Product + setting in one frame; it's what the Order flow points at. |
-| 05 | Menu → From the bar | Row of settled Guinness on the bar top | Strongest images on the account, full stop. |
-| 06 | What's on | Live music — the duo with guitars, crowd in frame | Proves the programme is real. Currently it's a text list asking to be believed. |
-| 07 | Visit | Street view, Rosato's sign, footpath | Orientation. Helps someone actually find the door. |
-| 08 | Hero | Replace or pair the illustration with the real facade | See below. |
+| 01 | Visit | Street view, Rosato's sign, footpath | Orientation. Helps someone find the door. |
+| 02 | Menu → Mains | A plated main other than the haddock — hot pot or sirloin | Five items, one photo. |
+| 03 | Anywhere | Staff behind the bar, mid-service, unposed | The site still has no named human presence. 55 Malin Road names its hosts and quotes a guest. |
+| 04 | Hero | The real facade | See below — deferred, illustration retained for now. |
 
-## The hero question
+## The hero question — deferred
+
+**Decision: keeping the illustration for now.** The reasoning below is retained
+because the question will come back.
+
 
 The illustrated facade is charming and it's doing brand work. But it's the first
 thing every visitor sees and it's the one element on the page that isn't
@@ -43,20 +68,24 @@ Three options, in order of preference:
    primary mark. But then the rest of the page has to carry the evidence, which
    currently it doesn't.
 
-## What's missing from the account
+## Practical notes
 
-Two things worth shooting, since everything else is covered:
+`scripts/optimize-images.mjs` handles the pipeline — drop sources into
+`assets/source/photos/`, add them to `TARGETS`, run it, reference the generated
+variants from `content/*.json`.
 
-- **A plated main other than the haddock** — the hot pot or the sirloin. The
-  mains section is five items and one photo.
-- **Staff behind the bar, mid-service, unposed.** There's one good shot of a
-  barman pulling a pint. 55 Malin Road names its hosts and quotes a guest;
-  Rosato's has no human presence on the site at all.
+Two things that will bite otherwise:
 
-## Practical note
+- **Leave `graded: false` on venue photos.** The warm channel shift exists to
+  correct raw, un-graded phone snapshots (`pint.jpg`, `room.jpg`). Instagram
+  exports are already processed, and running the grade over them a second time
+  overcooks the reds — on a building that colour, badly.
 
-`scripts/optimize-images.mjs` handles the pipeline — drop originals into
-`assets/source/`, add them to `TARGETS`, run it, and reference the generated
-variants. Instagram exports are typically 1080px wide, so cap the widths
-accordingly rather than upscaling; the `photo` kind applies the existing warm
-colour grade that keeps images consistent with the palette.
+- **Any new content key must be declared in `public/admin/config.yml`.** Decap
+  serialises only the fields named in its config and drops everything else
+  without warning or error. An undeclared photo reference survives right up
+  until someone saves that file through `/admin`, then vanishes.
+
+Photo slots are set per-image where cropping is involved, not left to sharp's
+`attention` strategy — it optimises for contrast, and in a dim pub that means it
+finds the illuminated beer signage rather than the person playing guitar.
