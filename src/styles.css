@@ -1737,19 +1737,111 @@ body:has(.cart-fab) .order-fab {
   text-decoration: none;
 }
 
-/* Mark and wordmark on one baseline. The mark inherits this colour through
-   currentColor, so the two can't drift apart. */
-.site-footer__studio {
+/* MCA studio credit — from the mca-footer-credit package.
+   Colours come from this site's tokens rather than the package's hardcoded
+   rgba/hex fallbacks, which were tuned for a light footer. */
+.mca-credit {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+  text-decoration: none;
+  transition: color 0.16s linear;
 }
 
-.site-footer__studio-mark {
-  display: block;
+.mca-credit:hover,
+.mca-credit:focus-visible {
+  color: var(--cream);
+  text-decoration: underline;
+}
+
+.mca-credit__mark {
+  position: relative;
+  display: inline-block;
   width: 34px;
-  height: 12px;
-  flex: 0 0 auto;
+  aspect-ratio: 1065 / 381;
+  flex-shrink: 0;
+}
+
+.mca-credit__logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mca-credit__caption {
+  white-space: nowrap;
+}
+
+.mca-credit__trace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mca-credit__strokes path {
+  fill: none;
+  stroke: url('#mca-trace-gradient');
+  stroke-width: 80;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.45));
+}
+
+.mca-credit__sparkle {
+  fill: #f4e1b0;
+  opacity: 0;
+  transform-origin: 955px 300px;
+  filter: drop-shadow(0 0 3px rgba(244, 225, 176, 0.8));
+}
+
+.mca-credit.is-tracing .mca-credit__trace {
+  animation: mca-trace-fade 0.7s ease-out both;
+}
+
+.mca-credit.is-tracing .mca-credit__strokes path {
+  animation: mca-trace-draw 0.7s ease-in-out both;
+}
+
+.mca-credit.is-tracing .mca-credit__sparkle {
+  animation: mca-sparkle 0.7s ease-out both;
+}
+
+@keyframes mca-trace-fade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes mca-trace-draw {
+  0% { stroke-dashoffset: 100; }
+  78%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes mca-sparkle {
+  0%, 76% { opacity: 0; transform: scale(0.4); }
+  86% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mca-credit {
+    transition: none;
+  }
+
+  .mca-credit.is-tracing .mca-credit__trace,
+  .mca-credit.is-tracing .mca-credit__strokes path,
+  .mca-credit.is-tracing .mca-credit__sparkle {
+    animation: none;
+  }
 }
 
 .site-footer__credit a:hover {

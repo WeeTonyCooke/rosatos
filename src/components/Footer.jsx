@@ -1,5 +1,5 @@
 import { Photo } from './Photo.jsx'
-import { McaMark } from './McaMark.jsx'
+import { McaCredit } from './McaCredit.jsx'
 
 /**
  * Three-column footer: navigation left, wordmark centred, contact right.
@@ -75,24 +75,12 @@ export function Footer({ venue }) {
       </div>
 
       <div className="site-footer__credit">
-        {/* Mark plus wordmark, linking to a prefilled email rather than a
-            website — the studio would rather hear from someone than be
-            browsed. The anchor carries the accessible name; the mark itself
-            is aria-hidden, so it isn't announced twice. */}
-        {credit?.label ? (
-          credit.email ? (
-            <a
-              className="site-footer__studio"
-              href={`mailto:${credit.email}${credit.subject ? `?subject=${encodeURIComponent(credit.subject)}` : ''}`}
-              aria-label={credit.ariaLabel || `Email ${credit.label}`}
-            >
-              <McaMark className="site-footer__studio-mark" />
-              <span>{credit.label}</span>
-            </a>
-          ) : (
-            <span>{credit.label}</span>
-          )
-        ) : null}
+        <McaCredit
+          label={credit?.label}
+          email={credit?.email}
+          subject={credit?.subject}
+          ariaLabel={credit?.ariaLabel}
+        />
       </div>
     </footer>
   )
