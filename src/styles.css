@@ -1048,10 +1048,20 @@ body:has(.cart-fab) .order-fab {
   margin: 0;
 }
 
+/* One frame for every course photo.
+   The sources alternate landscape and portrait almost at random — fire 1.25,
+   prawns 0.80, haddock 1.19, pizzas 0.75, guinness 1.25 — so rendered heights
+   came out 571, 468, 610 and 348px down the same column. Nothing to settle
+   into, which is what read as unframed rather than as variety.
+   4:5 because it's the shape most of these already are, and it survives the
+   two landscape sources: a centre crop keeps the haddock on its plate and the
+   full row of pints. */
 .menu__course-figure img {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
   border-radius: var(--radius);
 }
 
@@ -1787,15 +1797,29 @@ body:has(.cart-fab) .order-fab {
     gap: var(--space-6);
   }
 
+  /* The figure column is always the 0.9fr one. Swapping sides with `order`
+     alone left the columns fixed, so the photo landed in 0.9fr on odd rows and
+     1.1fr on even — rendering at 457px then 559px wide down the same page.
+     Named areas move the column with the content instead. */
   .menu__course {
     grid-template-columns: 0.9fr 1.1fr;
+    grid-template-areas: 'figure body';
     gap: var(--space-5);
   }
 
   /* Alternate which side the photo sits on, so the eye zig-zags down the
      page instead of running down a single rail of images. */
-  .menu__course:nth-of-type(even) .menu__course-figure {
-    order: 2;
+  .menu__course:nth-of-type(even) {
+    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-areas: 'body figure';
+  }
+
+  .menu__course-figure {
+    grid-area: figure;
+  }
+
+  .menu__course-body {
+    grid-area: body;
   }
 
 
