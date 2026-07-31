@@ -514,6 +514,7 @@ body:has(.cart-fab) .order-fab {
 
 
 .programme__day {
+  grid-area: day;
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1116,117 +1117,6 @@ body:has(.cart-fab) .order-fab {
   color: color-mix(in srgb, var(--cream) 92%, transparent);
 }
 
-/* Full-bleed forest sections — the evening half of the page.
-   Full-bleed rather than contained: a colour block that stops at the container
-   edge reads as a card sitting on the page, not as the page itself changing. */
-.menu__bar {
-  --bar-pad: clamp(3.25rem, 10vw, 9rem);
-  margin: var(--bar-pad) calc(50% - 50vw) calc(var(--bar-pad) * -1);
-  padding: var(--bar-pad) calc(50vw - 50% + var(--space-3));
-  background: var(--forest);
-  color: var(--on-accent);
-}
-
-/* A whole section on forest, bleeding past the container.
-   `box-shadow` rather than negative margins: the section is already a
-   max-width centred block, and giving it horizontal bleed via margins fights
-   the centring and can introduce a scrollbar at some widths. A spread shadow
-   in the same colour paints the gutters with no layout effect at all. */
-.section--dark {
-  background: var(--forest);
-  color: var(--on-accent);
-  box-shadow: 0 0 0 100vmax var(--forest);
-  clip-path: inset(0 -100vmax);
-}
-
-.section--dark .eyebrow {
-  color: color-mix(in srgb, var(--cream) 55%, transparent);
-}
-
-.section--dark .section__title,
-.section--dark .programme__name {
-  color: var(--on-accent);
-}
-
-.section--dark .section__body,
-.section--dark .programme__when,
-.section--dark .programme__note {
-  color: color-mix(in srgb, var(--cream) 74%, transparent);
-}
-
-.section--dark .programme,
-.section--dark .programme__item {
-  border-color: color-mix(in srgb, var(--cream) 20%, transparent);
-}
-
-.section--dark .programme__day {
-  color: color-mix(in srgb, var(--cream) 60%, transparent);
-}
-
-.section--dark .programme__item.is-today .programme__day,
-.section--dark .programme__note a {
-  color: color-mix(in srgb, var(--cream) 92%, transparent);
-}
-
-/* Visit's own furniture on forest. Not folded into the rules above because
-   these are structural (rules, form controls, an embedded map) rather than
-   the text colours the generic block covers. */
-.section--dark .visit__block h3,
-.section--dark .visit__book h3,
-.section--dark .visit__address {
-  color: var(--on-accent);
-}
-
-.section--dark .hours-list li {
-  border-bottom-color: color-mix(in srgb, var(--cream) 18%, transparent);
-  color: color-mix(in srgb, var(--cream) 82%, transparent);
-}
-
-.section--dark .visit__tip,
-.section--dark .visit__note,
-.section--dark .visit__enquiry {
-  color: color-mix(in srgb, var(--cream) 68%, transparent);
-}
-
-.section--dark .visit__details a,
-.section--dark .visit__enquiry a,
-.section--dark .text-link {
-  color: color-mix(in srgb, var(--cream) 92%, transparent);
-}
-
-/* The primary button was forest-on-cream; on forest it needs inverting or it
-   disappears into its own background. */
-.section--dark .btn--primary {
-  background: var(--cream);
-  color: var(--forest);
-  border-color: var(--cream);
-}
-
-.section--dark /* CartDrawer disables its submit on two conditions (kitchen closed, empty
-   cart) and nothing said so visually — a dead button looked identical to a
-   live one. */
-.btn:disabled,
-.btn[aria-disabled='true'] {
-  opacity: 0.45;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.btn:disabled:hover,
-.btn[aria-disabled='true']:hover {
-  transform: none;
-}
-
-.btn--primary:hover {
-  background: color-mix(in srgb, var(--cream) 88%, var(--charcoal));
-}
-
-/* Google's map iframe is a hard white rectangle we can't restyle. A hairline
-   in the ground colour stops it reading as a hole punched in the section. */
-.section--dark .visit__map iframe {
-  border: 1px solid color-mix(in srgb, var(--cream) 22%, transparent);
-  border-radius: var(--radius);
-}
 
 .menu__bar .menu__section-title,
 .menu__bar .menu__item-name {
@@ -1356,11 +1246,9 @@ body:has(.cart-fab) .order-fab {
   border-bottom: 1px solid var(--line);
 }
 
-.programme__day { grid-area: day; }
-.programme__when { grid-area: time; }
-.programme__name { grid-area: name; }
 
 .programme__name {
+  grid-area: name;
   margin: 0;
   font-family: var(--font-display);
   font-size: 1.35rem;
@@ -1368,6 +1256,7 @@ body:has(.cart-fab) .order-fab {
 }
 
 .programme__when {
+  grid-area: time;
   margin: 0;
   color: var(--ink-muted);
   font-variant-numeric: tabular-nums;
@@ -1667,18 +1556,6 @@ body:has(.cart-fab) .order-fab {
 }
 
 
-.site-footer__credit {
-  border-top-color: color-mix(in srgb, var(--cream) 18%, transparent);
-  color: color-mix(in srgb, var(--cream) 72%, transparent);
-}
-
-.site-footer__credit a {
-  color: color-mix(in srgb, var(--cream) 72%, transparent);
-}
-
-.site-footer__credit a:hover {
-  color: var(--cream);
-}
 
 /* Stacks on mobile; becomes nav | wordmark | contact at 860px below. */
 .site-footer__inner {
@@ -1763,26 +1640,30 @@ body:has(.cart-fab) .order-fab {
   color: color-mix(in srgb, var(--cream) 72%, transparent) !important;
 }
 
-/* One hairline, then the studio credit alone on the right. */
+/* One hairline, then the studio credit alone on the right.
+   Layout AND colour in a single rule. This was two rules a hundred lines
+   apart: an earlier one setting cream on forest, and this one still setting
+   --ink-faint from when the footer was cream. Equal specificity, later wins,
+   so the credit shipped at 2.21:1 — dark on dark green. */
 .site-footer__credit {
   display: flex;
   justify-content: flex-end;
   max-width: var(--max);
   margin: 0 auto;
   padding: var(--space-3) clamp(1rem, 3vw, 2rem) var(--space-4);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid color-mix(in srgb, var(--cream) 18%, transparent);
   font-size: 0.8rem;
   letter-spacing: 0.04em;
-  color: var(--ink-faint);
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
 }
 
 .site-footer__credit a {
-  color: var(--ink-faint);
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
   text-decoration: none;
 }
 
 .site-footer__credit a:hover {
-  color: var(--accent-deep);
+  color: var(--cream);
 }
 
 @keyframes hero-fade {
@@ -2240,8 +2121,7 @@ body:has(.customize-sheet.is-open) {
   line-height: 1.35;
 }
 
-.cart-fab,
-.sticky-order {
+.cart-fab {
   position: fixed;
   right: 1rem;
   bottom: 1rem;
@@ -2261,26 +2141,13 @@ body:has(.customize-sheet.is-open) {
   align-items: center;
 }
 
-.cart-fab:hover,
-.sticky-order:hover {
+.cart-fab:hover {
   background: var(--forest-deep);
   color: var(--on-accent);
 }
 
-.sticky-order {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(0.5rem);
-  transition:
-    opacity 0.3s var(--ease),
-    transform 0.3s var(--ease),
-    background 0.25s var(--ease);
-}
 
 /* Header badge owns Order pizza — no competing sticky shout */
-.sticky-order {
-  display: none !important;
-}
 
 .cart-drawer {
   position: fixed;
