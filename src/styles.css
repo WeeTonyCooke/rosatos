@@ -1,14 +1,30 @@
-/* Rosato's — four-colour design system
-   Hero Green · Warm Paper · Dark Ink · Muted Terracotta
-   Terracotta is the one accent — used sparingly, never as a background.
-   See docs/VISUAL-REFRESH.md for the full rationale. */
+/* Rosato's — five-colour design system
+   Hero Green · Warm Paper · Dark Ink · Muted Terracotta · Brick
+
+   This said four colours and "terracotta is the one accent". That stopped
+   being true when the order badge needed a fill that reads red rather than
+   brown, so there are two accents now: terracotta stays quiet (rules, tints,
+   error text) and brick is loud (the badge). Naming both beats leaving a
+   hardcoded hex in the body of the file, which is what was here before.
+   See docs/VISUAL-REFRESH.md for the original rationale. */
 
 :root {
   /* Primaries — these four only */
   --forest: #234d43;      /* Hero Green */
   --cream: #f5f1ea;       /* Warm Paper */
   --charcoal: #303336;    /* Dark Ink */
-  --terracotta: #814b37;  /* Muted Terracotta — inspired by the building, deliberately quiet */
+  --terracotta: #814b37;  /* Muted Terracotta — the quiet accent: rules, tints, error text */
+  --forest-deep: #1a4a40; /* Hover for forest-filled controls. A literal, not a
+                             mix: it was hardcoded twice in the body of this file
+                             and it is NOT derivable from --forest by any single
+                             blend — the channels don't scale together. Naming it
+                             keeps the exact colour while getting it out of the
+                             rules. */
+  --brick: #a8341f;       /* The loud accent: the order badge, and nothing else yet.
+                             Same family as terracotta, pushed from hue 16/40% sat to
+                             hue 9/69% so it reads red rather than brown. Sampled toward
+                             the real facade (#890105). Kept as its own token because
+                             --terracotta has four existing consumers that must NOT shift. */
 
   /* Roles */
   --bg: var(--cream);
@@ -40,11 +56,8 @@
      resolved. The footer carries the closing green instead: it is text and
      links, so it inverts cleanly. Prefer the simple section when choosing
      which one takes a colour. */
-  --rosato-green: var(--forest);
-  --rosato-green-mid: color-mix(in srgb, var(--forest) 70%, white);
   --accent: var(--forest);
   --accent-deep: var(--forest);
-  --accent-soft: color-mix(in srgb, var(--forest) 10%, transparent);
   /* The order badge is the page's one persistent call to action. It was
      cream-on-cream with a hairline ring, on a cream page — invisible.
 
@@ -70,9 +83,8 @@
      (sampled from the daylight photo at #890105). Text on it stays at
      5.87:1. --terracotta is deliberately left untouched so nothing else on
      the site shifts. */
-  --order-pop: #a8341f;
+  --order-pop: var(--brick);
   --order-pop-ink: var(--cream);
-  --order-pop-border: color-mix(in srgb, var(--cream) 30%, transparent);
   --order-pop-hot: color-mix(in srgb, var(--order-pop) 88%, var(--charcoal));
   --ink: var(--charcoal);
   --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
@@ -81,7 +93,6 @@
   --line-strong: color-mix(in srgb, var(--charcoal) 28%, transparent); /* neutral, not colour-tinted — borders are structural, not decorative */
   --on-accent: var(--cream);
   --hero-ink: var(--cream);
-  --signal: var(--terracotta);
 
   --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
@@ -104,6 +115,30 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* Focus ring, site-wide.
+   There was none: zero :focus-visible rules and zero outline declarations in
+   2,200 lines, so every control fell back to the browser default — and on a
+   page that alternates cream and forest the default is unreliable on one of
+   them. Worse, useDialog moves and traps focus inside the three overlays, so
+   focus was being managed carefully and then landing invisibly.
+
+   currentColor rather than a fixed value, for the same reason the order badge
+   needed a ring: no single colour clears 3:1 against both grounds. currentColor
+   inherits the element's own text colour, which is already required to contrast
+   with whatever it sits on — so the ring adapts for free. Charcoal on cream,
+   cream on forest, cream on the brick badge. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Only for people who can't see the ring's context — mouse users clicking a
+   button shouldn't get one, which is what :focus-visible already handles. */
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 html {
@@ -582,7 +617,6 @@ body:has(.cart-fab) .order-fab {
   row-gap: clamp(1.25rem, 4vh, var(--space-4));
   align-items: start;
   justify-items: center;
-  min-height: 100svh;
   min-height: 100dvh;
   padding:
     calc(var(--ticker-h) + var(--space-3))
@@ -832,8 +866,23 @@ body:has(.cart-fab) .order-fab {
   color: var(--on-accent);
 }
 
+/* CartDrawer disables its submit on two conditions (kitchen closed, empty
+   cart) and nothing said so visually — a dead button looked identical to a
+   live one. */
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn:disabled:hover,
+.btn[aria-disabled='true']:hover {
+  transform: none;
+}
+
 .btn--primary:hover {
-  background: #1a4a40;
+  background: var(--forest-deep);
   color: var(--on-accent);
 }
 
@@ -1153,7 +1202,22 @@ body:has(.cart-fab) .order-fab {
   border-color: var(--cream);
 }
 
-.section--dark .btn--primary:hover {
+.section--dark /* CartDrawer disables its submit on two conditions (kitchen closed, empty
+   cart) and nothing said so visually — a dead button looked identical to a
+   live one. */
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn:disabled:hover,
+.btn[aria-disabled='true']:hover {
+  transform: none;
+}
+
+.btn--primary:hover {
   background: color-mix(in srgb, var(--cream) 88%, var(--charcoal));
 }
 
@@ -1811,11 +1875,7 @@ body:has(.cart-fab) .order-fab {
     color: var(--ink);
   }
 
-  .room__grid {
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: var(--space-5);
-  }
-
+  
   /* Intro copy beside the fire photo, carried over from the Room section this
    absorbed. The copy keeps its own measure rather than stretching to a grid
    fraction — the mistake that left holes in the gift card row and the What's
@@ -2203,7 +2263,7 @@ body:has(.customize-sheet.is-open) {
 
 .cart-fab:hover,
 .sticky-order:hover {
-  background: #1a4a40;
+  background: var(--forest-deep);
   color: var(--on-accent);
 }
 
