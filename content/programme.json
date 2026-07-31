@@ -15,15 +15,6 @@
       "detail": "Seán Furey · Sundays · 22:00"
     },
     {
-      "day": 1,
-      "dayLabel": "Monday",
-      "name": "Amy Bonnar",
-      "time": "21:00",
-      "kind": "music",
-      "cue": "Amy Bonnar · 21:00",
-      "detail": "Amy Bonnar · 21:00"
-    },
-    {
       "day": 3,
       "dayLabel": "Wednesday",
       "name": "Texas Hold’em",
@@ -58,14 +49,6 @@
       "label": "Music",
       "title": "Sunday",
       "detail": "Seán Furey · 22:00",
-      "href": "#whats-on"
-    },
-    {
-      "id": "music-1",
-      "days": "1",
-      "label": "Music",
-      "title": "Monday",
-      "detail": "Amy Bonnar · 21:00",
       "href": "#whats-on"
     },
     {
