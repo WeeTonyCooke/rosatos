@@ -58,6 +58,12 @@
      which one takes a colour. */
   --accent: var(--forest);
   --accent-deep: var(--forest);
+  /* The pinstripe marking tonight's row. It has to flip with the ground:
+     brick reads 5.87:1 on cream but 1.43:1 on forest, so a single value can't
+     serve both. --marker is re-declared on .section--dark. Lightening brick
+     toward cream keeps it in the palette rather than introducing a sixth hue —
+     it's the same warm, just raised until it clears the dark ground. */
+  --marker: var(--brick);
   /* The order badge is the page's one persistent call to action. It was
      cream-on-cream with a hairline ring, on a cream page — invisible.
 
@@ -507,11 +513,11 @@ body:has(.cart-fab) .order-fab {
   margin-left: -0.75rem;
   padding-left: calc(0.75rem - 2px);
   padding-right: 0.75rem;
-  /* currentColor, so the marker follows the ground the section sits on.
-     These were terracotta, chosen when What's On was cream — against forest
-     the tint measured 1.01:1 and the rule 1.35:1, i.e. invisible and nearly
-     so. The row was marked and nobody could see it. */
-  border-left: 2px solid currentColor;
+  /* The rule carries the colour; the tint stays neutral so the row lifts
+     off the ground without looking washed. These were both terracotta, set
+     when What's On was cream — against forest the tint measured 1.01:1 and
+     the rule 1.35:1, invisible and nearly so. */
+  border-left: 2px solid var(--marker);
   background: color-mix(in srgb, currentColor 6%, transparent);
 }
 
@@ -1144,6 +1150,8 @@ body:has(.cart-fab) .order-fab {
 .section--dark {
   background: var(--forest);
   color: var(--on-accent);
+  /* 3.69:1 on forest — visible as colour without becoming a stripe of paint. */
+  --marker: color-mix(in srgb, var(--brick) 50%, var(--cream));
   box-shadow: 0 0 0 100vmax var(--forest);
   clip-path: inset(0 -100vmax);
 }
