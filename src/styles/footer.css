@@ -1,0 +1,255 @@
+
+
+/* Footer */
+
+/* The footer carries the page's last green rather than Visit.
+   Visit is the most furniture-heavy section on the site — an hours table, a
+   booking panel, buttons, and a Google Maps iframe that is a hard white
+   rectangle we cannot restyle. Every one of those had to be fought onto a dark
+   ground, and the map never resolved. The footer is text and links, so it
+   inverts cleanly and still closes the page dark. */
+.site-footer {
+  background: var(--forest);
+  color: var(--on-accent);
+}
+
+
+
+
+
+/* Stacks on mobile; becomes nav | wordmark | contact at 860px below. */
+.site-footer__inner {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-5) clamp(1rem, 3vw, 2rem) var(--space-4);
+}
+
+.site-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.75rem;
+}
+
+.site-footer__nav a {
+  /* 2.5.8 wants 24px minimum. These are a nav list, not links inline in a
+     sentence, so the inline exception doesn't apply. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--cream) 80%, transparent);
+}
+
+.site-footer__nav a:hover {
+  color: var(--cream);
+}
+
+
+
+/* Centred at every width. This was only centred inside the desktop media
+   query, so on a phone the mark and wordmark sat hard left against a
+   left-aligned nav above them. */
+.site-footer__brandblock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+
+/* The illustrated facade, small, above the wordmark — the brand mark the
+   hero carries, reused at the close. */
+.site-footer__mark {
+  display: block;
+  width: 5.5rem;
+  height: auto;
+  margin: 0 0 0.75rem;
+}
+
+.site-footer__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* 72%: 62% measured 4.32:1 on forest, just short of 4.5:1. */
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+}
+
+.site-footer__wordmark {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.site-footer__meta p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--cream) 80%, transparent);
+}
+
+.site-footer__meta a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-footer__meta a:hover {
+  color: var(--cream);
+}
+
+.site-footer__copyright {
+  margin-top: 0.4rem !important;
+  color: color-mix(in srgb, var(--cream) 72%, transparent) !important;
+}
+
+
+
+/* One hairline, then the studio credit alone on the right.
+   Layout AND colour in a single rule. This was two rules a hundred lines
+   apart: an earlier one setting cream on forest, and this one still setting
+   --ink-faint from when the footer was cream. Equal specificity, later wins,
+   so the credit shipped at 2.21:1 — dark on dark green. */
+.site-footer__credit {
+  display: flex;
+  justify-content: flex-end;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-3) clamp(1rem, 3vw, 2rem) var(--space-4);
+  border-top: 1px solid color-mix(in srgb, var(--cream) 18%, transparent);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+}
+
+.site-footer__credit a {
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+  text-decoration: none;
+}
+
+
+
+/* MCA studio credit — from the mca-footer-credit package.
+   Colours come from this site's tokens rather than the package's hardcoded
+   rgba/hex fallbacks, which were tuned for a light footer. */
+.mca-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+  text-decoration: none;
+  transition: color 0.16s linear;
+}
+
+.mca-credit:hover,
+.mca-credit:focus-visible {
+  color: var(--cream);
+  text-decoration: underline;
+}
+
+.mca-credit__mark {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  aspect-ratio: 1065 / 381;
+  flex-shrink: 0;
+}
+
+.mca-credit__logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mca-credit__caption {
+  white-space: nowrap;
+}
+
+.mca-credit__trace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mca-credit__strokes path {
+  fill: none;
+  stroke: url('#mca-trace-gradient');
+  stroke-width: 80;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.45));
+}
+
+.mca-credit__sparkle {
+  fill: #f4e1b0;
+  opacity: 0;
+  transform-origin: 955px 300px;
+  filter: drop-shadow(0 0 3px rgba(244, 225, 176, 0.8));
+}
+
+.mca-credit.is-tracing .mca-credit__trace {
+  animation: mca-trace-fade 0.7s ease-out both;
+}
+
+.mca-credit.is-tracing .mca-credit__strokes path {
+  animation: mca-trace-draw 0.7s ease-in-out both;
+}
+
+.mca-credit.is-tracing .mca-credit__sparkle {
+  animation: mca-sparkle 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  
+  .mca-credit {
+  transition: none;
+  }
+
+
+  
+  .mca-credit.is-tracing .mca-credit__trace,
+  .mca-credit.is-tracing .mca-credit__strokes path,
+  .mca-credit.is-tracing .mca-credit__sparkle {
+  animation: none;
+  }
+}
+
+.site-footer__credit a:hover {
+  color: var(--cream);
+}
+
+@media (min-width: 720px) {
+
+  
+  .site-footer__inner {
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  }
+
+
+  
+  .site-footer__wordmark {
+  text-align: center;
+  }
+
+
+  
+  .site-footer__meta {
+  text-align: right;
+  }
+}

@@ -1,0 +1,348 @@
+
+
+/* Hero */
+.hero {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 100svh;
+  padding: calc(var(--ticker-h) + 1.75rem) clamp(1rem, 3vw, 2rem) clamp(3rem, 8vw, 5rem);
+  overflow: hidden;
+  color: var(--hero-ink);
+}
+
+
+
+/* Short/landscape mobile viewports (e.g. phone rotated): fixed min-height +
+   overflow:hidden can clip the CTA. Let the section grow with content and
+   scroll instead of cropping. */
+@media (max-height: 500px) {
+
+  
+  .hero {
+  min-height: 100svh;
+  height: auto;
+  overflow-y: auto;
+  }
+}
+
+.hero--paint {
+  background-color: var(--forest);
+}
+
+.hero--photo {
+  background-color: var(--forest);
+  /*
+    Mobile: two proportional bands, not a stack of one-off margins.
+    Row 1 (auto) = name + CTA, sized to its content. Row 2 (1fr) = the
+    building, which absorbs all remaining vertical space and centres the
+    image within it — so the gap above/below the building scales with the
+    viewport instead of being a guessed fixed value. The source image is
+    now cropped to its real bounding box (no baked-in transparent margin),
+    so what you see here IS the layout, not the asset's internal padding.
+  */
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  row-gap: clamp(1.25rem, 4vh, var(--space-4));
+  align-items: start;
+  justify-items: center;
+  min-height: 100dvh;
+  padding:
+    calc(var(--ticker-h) + var(--space-3))
+    1.25rem
+    max(var(--space-3), env(safe-area-inset-bottom, 0px));
+}
+
+.hero--photo .hero__media {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 0;
+  overflow: visible;
+  background-color: transparent;
+}
+
+.hero__stage {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(90%, 22rem);
+  transform: none;
+}
+
+.hero__facade {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  line-height: 0;
+}
+
+.hero--photo .hero__media img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(46svh, 24rem);
+  object-fit: contain;
+  object-position: center center;
+  animation: hero-fade 1.4s var(--ease) both;
+}
+
+.hero__tagline--under {
+  position: relative;
+  z-index: 3;
+  margin: var(--space-1) 0 0;
+  width: 100%;
+  max-width: 18rem;
+  padding: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
+}
+
+.hero--photo .hero__veil {
+  display: none;
+}
+
+.hero--photo .hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 22rem;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+.hero--photo .hero__name {
+  font-size: clamp(2.9rem, 13vw, 3.75rem);
+}
+
+
+
+/* Place line under the name — breaks up the name/CTA pair so they don't
+   read as glued together, without adding much vertical weight. */
+.hero--photo .hero__place {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--cream) 70%, transparent);
+}
+
+.hero--photo .hero__actions {
+  justify-content: center;
+  margin-top: var(--space-3);
+}
+
+
+
+/* Book a table: a clear, comfortably-sized action — not the dominant
+   element on the page. Sized close to the base hero button, just a touch
+   taller for a good mobile tap target. */
+.hero--photo .btn--on-hero {
+  min-height: 2.85rem;
+  padding: 0.7rem 1.5rem;
+}
+
+
+
+/* Desktop: copy left, façade + caption as one unit on the right — both
+   columns share the same vertical centre so the name/CTA and the building
+   read as one balanced composition instead of the text floating alone in
+   whitespace while the building pins to the bottom edge. */
+@media (min-width: 901px) {
+
+  
+  .hero--photo {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.78fr) minmax(24rem, 1.45fr);
+  grid-template-rows: none;
+  column-gap: clamp(0.5rem, 2vw, 1.5rem);
+  align-items: center;
+  justify-content: initial;
+  gap: 0;
+  min-height: 100svh;
+  padding-top: calc(var(--ticker-h) + 1.75rem);
+  padding-right: clamp(0.75rem, 2vw, 1.5rem);
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+  padding-left: clamp(1rem, 3vw, 2rem);
+  background-color: var(--forest);
+  }
+
+
+  
+  .hero--photo .hero__media {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  flex: initial;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 0;
+  height: auto;
+  margin-top: 0;
+  overflow: visible;
+  }
+
+
+  
+  .hero__stage {
+  width: min(100%, 46rem);
+  transform: none;
+  }
+
+
+  
+  .hero--photo .hero__media img {
+  max-height: calc(100svh - var(--ticker-h) - 9rem);
+  }
+
+
+  
+  .hero__tagline--under {
+  margin: var(--space-2) 0 0;
+  max-width: 22rem;
+  font-size: 0.98rem;
+  }
+
+
+  
+  .hero--photo .hero__content {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  justify-self: start;
+  max-width: 26rem;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  }
+
+
+  
+  .hero--photo .hero__name {
+  font-size: clamp(3.5rem, 6.5vw, 7.5rem);
+  }
+
+
+  
+  .hero--photo .hero__actions {
+  justify-content: flex-start;
+  margin-top: var(--space-3);
+  }
+
+
+  
+  .hero--photo .btn--on-hero {
+  min-height: 2.85rem;
+  padding: 0.7rem 1.35rem;
+  }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+}
+
+.hero__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.1rem, 11vw, 6.5rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--hero-ink);
+}
+
+.hero__tagline {
+  margin: var(--space-2) 0 0;
+  max-width: 22rem;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--cream) 86%, transparent);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: var(--space-3);
+}
+
+
+
+/* Coach-inspired: brand rises into view; supporting lines follow */
+.hero__reveal {
+  animation: hero-rise 0.9s var(--ease) both;
+}
+
+.hero__name.hero__reveal {
+  animation-name: hero-name-reveal;
+  animation-duration: 1.15s;
+  animation-delay: 0.2s;
+}
+
+.hero__actions.hero__reveal {
+  animation-delay: 0.45s;
+}
+
+.hero__tagline.hero__reveal {
+  animation-delay: 0.7s;
+}
+
+
+
+/* One frame for every course photo.
+   The sources alternate landscape and portrait almost at random — fire 1.25,
+   prawns 0.80, haddock 1.19, pizzas 0.75, guinness 1.25 — so rendered heights
+   came out 571, 468, 610 and 348px down the same column. Nothing to settle
+   into, which is what read as unframed rather than as variety.
+   4:5 because it's the shape most of these already are, and it survives the
+   two landscape sources: a centre crop keeps the haddock on its plate and the
+   full row of pints. */
+/* Hero place line: stacked on a phone, one line with a separator above 480px.
+   Joined into a single string it wrapped mid-phrase — "MOVILLE, CO." on one
+   line and "DONEGAL" on the next. */
+.hero__place {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  gap: 0.15rem;
+}
+
+@media (min-width: 480px) {
+
+  
+  .hero__place {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 0.5em;
+  }
+
+
+  
+  .hero__subtitle::after {
+  content: '·';
+  margin-left: 0.5em;
+  opacity: 0.55;
+  }
+}
+
+@media (min-width: 960px) {
+
+  
+  .hero__content {
+  max-width: 44rem;
+  }
+}

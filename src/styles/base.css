@@ -1,0 +1,364 @@
+/* Rosato's — five-colour design system
+   Hero Green · Warm Paper · Dark Ink · Muted Terracotta · Brick
+
+   This said four colours and "terracotta is the one accent". That stopped
+   being true when the order badge needed a fill that reads red rather than
+   brown, so there are two accents now: terracotta stays quiet (rules, tints,
+   error text) and brick is loud (the badge). Naming both beats leaving a
+   hardcoded hex in the body of the file, which is what was here before.
+   See docs/VISUAL-REFRESH.md for the original rationale. */
+:root {
+  /* Primaries — these four only */
+  --forest: #234d43;      /* Hero Green */
+  --cream: #f5f1ea;       /* Warm Paper */
+  --charcoal: #303336;    /* Dark Ink */
+  --terracotta: #814b37;  /* Muted Terracotta — the quiet accent: rules, tints, error text */
+  --forest-deep: #1a4a40; /* Hover for forest-filled controls. A literal, not a
+                             mix: it was hardcoded twice in the body of this file
+                             and it is NOT derivable from --forest by any single
+                             blend — the channels don't scale together. Naming it
+                             keeps the exact colour while getting it out of the
+                             rules. */
+  --brick: #a8341f;       /* The loud accent: the order badge, and nothing else yet.
+                             Same family as terracotta, pushed from hue 16/40% sat to
+                             hue 9/69% so it reads red rather than brown. Sampled toward
+                             the real facade (#890105). Kept as its own token because
+                             --terracotta has four existing consumers that must NOT shift. */
+
+  /* Roles */
+  --bg: var(--cream);
+  --bg-elevated: var(--cream);
+  --bg-soft: var(--cream);
+  /* TWO-TONE, ALTERNATING. This originally read "sections differentiate via
+     whitespace, not background colour", which left the page a stack of
+     identical slabs. It was then a day/night rule — cream for food, forest for
+     the bar — which was coherent but produced an uneven page: 29% green, a
+     3,640px cream run through the menu, and a long cream tail.
+
+     The rule now is simply alternation, top to bottom:
+
+       forest  hero
+       cream   menu
+       forest  the bar block closing the menu
+       cream   order
+       forest  what's on
+       cream   gift cards + visit
+       forest  footer
+
+     Ground colour is rhythm, not meaning. Adding a section means picking the
+     colour its neighbours don't have.
+
+     Visit was briefly forest and it did not work. It is the most
+     furniture-heavy section on the site — hours table, booking panel, buttons,
+     and a Google Maps iframe that is a hard white rectangle we cannot restyle.
+     Each of those had to be fought onto the dark ground and the map never
+     resolved. The footer carries the closing green instead: it is text and
+     links, so it inverts cleanly. Prefer the simple section when choosing
+     which one takes a colour. */
+  --accent: var(--forest);
+  --accent-deep: var(--forest);
+  /* The pinstripe marking tonight's row. It has to flip with the ground:
+     brick reads 5.87:1 on cream but 1.43:1 on forest, so a single value can't
+     serve both. --marker is re-declared on .section--dark. Lightening brick
+     toward cream keeps it in the palette rather than introducing a sixth hue —
+     it's the same warm, just raised until it clears the dark ground. */
+  --marker: var(--brick);
+  /* The order badge is the page's one persistent call to action. It was
+     cream-on-cream with a hairline ring, on a cream page — invisible.
+
+     The fill colour is NOT what makes it visible, and an earlier version of
+     this comment claimed it was. The badge is fixed-position over a page that
+     alternates cream and forest, and no flat fill clears 3:1 against both:
+     cream sits at luminance 0.85, forest at 0.055, so the best any single
+     mid-value manages against both is ~2.9:1. Measured:
+
+       terracotta  6.23 on cream   1.35 on forest
+       facade red  9.01 on cream   1.07 on forest
+       brass       2.78 on cream   3.03 on forest
+       warm white  1.07 on cream   8.99 on forest
+
+     The ring in .order-fab does the work instead. That frees the fill to be
+     chosen on brand grounds alone.
+
+     It is NOT --terracotta. That token sits at hue 16 and only 40% saturation,
+     which is measurably brown rather than red — fine as the quiet accent it
+     was defined to be, wrong for the one control we want noticed. This is the
+     same family pushed to hue 9 and 69% saturation: still a muted brick, but
+     it reads red, and it is closer to the actual colour of the building
+     (sampled from the daylight photo at #890105). Text on it stays at
+     5.87:1. --terracotta is deliberately left untouched so nothing else on
+     the site shifts. */
+  --order-pop: var(--brick);
+  --order-pop-ink: var(--cream);
+  --order-pop-hot: color-mix(in srgb, var(--order-pop) 88%, var(--charcoal));
+  --ink: var(--charcoal);
+  --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
+  /* 70%, not 50%. At 50% this measured 2.77:1 on cream and was failing 1.4.3
+     on five elements — menu descriptions, course notes, the QR caption and the
+     visit tip. It sits close to --ink-muted now; the distinction between them
+     is smaller than it was, but both clear 4.5:1, which the old pair did not. */
+  --ink-faint: color-mix(in srgb, var(--charcoal) 70%, transparent);
+  --line: color-mix(in srgb, var(--charcoal) 12%, transparent);
+  --line-strong: color-mix(in srgb, var(--charcoal) 28%, transparent); /* neutral, not colour-tinted — borders are structural, not decorative */
+  --on-accent: var(--cream);
+  --hero-ink: var(--cream);
+
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4.5rem;
+  --space-6: 9rem;
+
+  --radius: 2px;
+  --header-h: 4.25rem;
+  --ticker-h: 2.45rem;
+  --max: 72rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+
+/* Focus ring, site-wide.
+   There was none: zero :focus-visible rules and zero outline declarations in
+   2,200 lines, so every control fell back to the browser default — and on a
+   page that alternates cream and forest the default is unreliable on one of
+   them. Worse, useDialog moves and traps focus inside the three overlays, so
+   focus was being managed carefully and then landing invisibly.
+
+   currentColor rather than a fixed value, for the same reason the order badge
+   needed a ring: no single colour clears 3:1 against both grounds. currentColor
+   inherits the element's own text colour, which is already required to contrast
+   with whatever it sits on — so the ring adapts for free. Charcoal on cream,
+   cream on forest, cream on the brick badge. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+
+
+/* Only for people who can't see the ring's context — mouse users clicking a
+   button shouldn't get one, which is what :focus-visible already handles. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  
+  html {
+  scroll-behavior: auto;
+  }
+
+
+  
+  *,
+  *::before,
+  *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: -4rem;
+  z-index: 100;
+  padding: 0.65rem 1rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+@keyframes cue-name-scroll {
+  0%,
+  18% {
+    transform: translateX(0);
+  }
+  82%,
+  100% {
+    transform: translateX(var(--cue-shift, 0));
+  }
+}
+
+@keyframes cue-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--accent-deep) !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes mca-trace-fade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes mca-trace-draw {
+  0% { stroke-dashoffset: 100; }
+  78%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes mca-sparkle {
+  0%, 76% { opacity: 0; transform: scale(0.4); }
+  86% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.6); }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+
+/* Title unmasks upward — presence without Michelin theatre */
+@keyframes hero-name-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em);
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+

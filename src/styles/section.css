@@ -1,0 +1,138 @@
+
+
+/* Sections */
+
+/* Section rhythm is fluid, not fixed.
+   These were flat rem values, so a phone got the same 9rem top AND bottom as
+   a 27-inch monitor — 288px of empty cream between every section on a 390px
+   screen, and 388px either side of a "loose" one. Desktop looked composed and
+   mobile looked broken. The vw term does the work; the rem bounds stop it
+   collapsing on small screens or running away on very large ones. */
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(3.25rem, 10vw, 9rem) clamp(1rem, 3vw, 2rem);
+}
+
+
+
+/* Three-step rhythm. Every section used to carry identical padding, so the gap
+   between any two was the same, seven times over — a stack of equally weighted
+   slabs rather than a page with a shape. Tight keeps a section pinned to the
+   one it continues from; loose gives a real chapter break room to register. */
+/* A small section, eased at both ends. This previously only reduced
+   padding-top, so gift cards sat tight under What's On and then left a full
+   9rem beneath it — the modifier fixed one side of the block and not the
+   other. */
+.section--tight {
+  padding-top: clamp(2rem, 5vw, 4.5rem);
+  padding-bottom: clamp(2rem, 5vw, 4.5rem);
+}
+
+
+
+/* Adjacent padding compounds: a tight section's bottom plus a loose section's
+   top came to 338px of empty ground between gift cards and Visit — the largest
+   gap on the page, between its two least important sections. A loose section
+   following a tight one drops back to the normal step. */
+.section--tight + .section--loose {
+  padding-top: clamp(3.25rem, 10vw, 9rem);
+}
+
+.section--loose {
+  padding-top: clamp(4rem, 13.5vw, 12.15rem);
+  padding-bottom: clamp(4rem, 13.5vw, 12.15rem);
+}
+
+.section__intro {
+  max-width: 32rem;
+  margin-bottom: clamp(2rem, 6vw, 4.5rem);
+}
+
+.section__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.section__body {
+  margin: var(--space-3) 0 0;
+  max-width: 30rem;
+  color: var(--ink-muted);
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+
+
+/* A whole section on forest, bleeding past the container.
+   `box-shadow` rather than negative margins: the section is already a
+   max-width centred block, and giving it horizontal bleed via margins fights
+   the centring and can introduce a scrollbar at some widths. A spread shadow
+   in the same colour paints the gutters with no layout effect at all. */
+.section--dark {
+  background: var(--forest);
+  color: var(--on-accent);
+  /* 3.69:1 on forest — visible as colour without becoming a stripe of paint. */
+  --marker: color-mix(in srgb, var(--brick) 50%, var(--cream));
+  box-shadow: 0 0 0 100vmax var(--forest);
+  clip-path: inset(0 -100vmax);
+}
+
+.section--dark .eyebrow {
+  color: color-mix(in srgb, var(--cream) 55%, transparent);
+}
+
+.section--dark .section__title,
+.section--dark .programme__name {
+  color: var(--on-accent);
+}
+
+.section--dark .section__body,
+.section--dark .programme__when,
+.section--dark .programme__note {
+  color: color-mix(in srgb, var(--cream) 74%, transparent);
+}
+
+
+
+/* border-top-color and border-bottom-color, NOT the border-color shorthand.
+   These two elements only carry a top and a bottom rule respectively, so the
+   shorthand looked equivalent — but it also sets border-left-color, and
+   tonight's row paints its pinstripe there. Equal specificity to
+   .programme__item.is-today and declared later, so the shorthand silently won
+   and the marker rendered as cream at 20% no matter what --marker said.
+
+   Third time this exact shape has caused a bug here: a later, equally
+   specific declaration quietly overriding an earlier one. Shorthands make it
+   easier to hit, because they set properties you didn't mention. */
+.section--dark .programme {
+  border-top-color: color-mix(in srgb, var(--cream) 20%, transparent);
+}
+
+.section--dark .programme__item {
+  border-bottom-color: color-mix(in srgb, var(--cream) 20%, transparent);
+}
+
+
+
+/* 72%: at 60% this measured 4.19:1 on forest, just under the 4.5:1 bar. */
+.section--dark .programme__day {
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+}
+
+.section--dark .programme__note a {
+  color: color-mix(in srgb, var(--cream) 92%, transparent);
+}
+
+
+
+/* Today's row reads at full strength against the muted rest of the board:
+   8.42:1 on forest, where the others sit at 4.16:1. */
+.section--dark .programme__item.is-today,
+.section--dark .programme__item.is-today .programme__day {
+  color: var(--cream);
+}

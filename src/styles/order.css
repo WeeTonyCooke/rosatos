@@ -1,0 +1,276 @@
+@media (min-width: 720px) {
+
+  
+  .order__head {
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-5);
+  align-items: center;
+  }
+}
+
+
+
+/* Order pizza — collection only */
+
+/* Intro and photo share the top of the section, so the pizza list still
+   starts high rather than being pushed a full viewport down by the image. */
+.order__head {
+  display: grid;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.order__figure {
+  margin: 0;
+}
+
+.order__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.order__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.order__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.order__item-copy {
+  min-width: 0;
+}
+
+.order__item-main {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.order__item-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.order__item-price {
+  font-weight: 600;
+  color: var(--accent-deep);
+}
+
+.order__item-desc {
+  margin: 0.25rem 0 0;
+  color: var(--ink-faint);
+  font-size: 0.95rem;
+}
+
+.order__actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.order__add {
+  min-width: 5.25rem;
+}
+
+.customize-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.customize-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--charcoal) 35%, transparent);
+}
+
+.customize-sheet__panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+  max-height: 88svh;
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-3) max(var(--space-3), env(safe-area-inset-bottom, 0px));
+  background: var(--cream);
+  border-top: 1px solid var(--line-strong);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -10px 30px color-mix(in srgb, var(--charcoal) 18%, transparent);
+  animation: sheet-up 0.3s var(--ease) both;
+}
+
+body:has(.customize-sheet.is-open) {
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+
+  
+  .customize-sheet {
+  align-items: center;
+  }
+
+
+  
+  .customize-sheet__panel {
+  max-width: 30rem;
+  max-height: 85vh;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--charcoal) 16%, transparent);
+  animation: sheet-fade-in 0.25s var(--ease) both;
+  }
+
+}
+
+.order__customize-lead {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.order__customize-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.order__fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.order__fieldset legend {
+  padding: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.order__options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.15rem;
+  margin-top: 0.65rem;
+}
+
+@media (min-width: 480px) {
+
+  
+  .order__options {
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem 1rem;
+  }
+}
+
+.order__option {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  font-size: 0.95rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.order__option input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--accent-deep);
+}
+
+.order__line-note {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.order__line-note .optional {
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.order__line-note input {
+  width: 100%;
+  min-height: 2.65rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+}
+
+.order__customize-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.order__customize-total {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+}
+
+.order__customize-total strong {
+  color: var(--accent-deep);
+  font-size: 1.1rem;
+}
+
+.order__note {
+  margin: var(--space-4) 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+}
+
+/* Used by .customize-sheet__panel inside the 900px media block above.
+   Declared at top level deliberately: a @keyframes doesn't need scoping to a
+   media query, since the rule referencing it is already scoped. It was nested
+   in the original file, and nesting it here made the minifier emit the steps
+   without their @keyframes wrapper. */
+@keyframes sheet-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

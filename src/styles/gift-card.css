@@ -1,0 +1,103 @@
+
+
+/* Gift cards */
+.gift-card {
+  background: var(--cream);
+}
+
+.gift-card__inner {
+  display: grid;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: center;
+}
+
+.gift-card__title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.gift-card__body {
+  margin: 0 0 var(--space-4);
+  max-width: 32rem;
+  color: var(--ink-muted);
+}
+
+.gift-card__cta {
+  display: inline-flex;
+}
+
+.gift-card__qr {
+  /* Full width when stacked. At 182px in a 343px column it read as a small
+     bordered box floating in the section rather than a block belonging to the
+     copy above it.
+     justify-self, NOT align-self: in a grid, align-self works the block axis
+     and justify-self the inline one. Setting align-self: stretch here changed
+     nothing at all and left the panel at its intrinsic 182px. */
+  justify-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.gift-card__qr:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--charcoal) 18%, transparent);
+}
+
+.gift-card__qr img {
+  display: block;
+  /* Grows with the panel when stacked so the code isn't a small mark adrift
+     in a wide box, capped so it never dominates the section. */
+  width: min(11rem, 45vw);
+  height: min(11rem, 45vw);
+}
+
+@media (min-width: 860px) {
+
+  
+  .gift-card__qr img {
+  width: 8.25rem;
+  height: 8.25rem;
+  }
+}
+
+.gift-card__qr-caption {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (min-width: 700px) {
+
+  
+  .gift-card__inner {
+  /* Sized to the copy's own 32rem measure rather than a fraction of the
+  container, so the QR sits beside the text instead of being pushed to
+  the far edge with dead ground between them. */
+  grid-template-columns: minmax(0, 32rem) auto;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  justify-content: start;
+  }
+
+
+  /* Beside the copy it goes back to hugging its contents. */
+  .gift-card__qr {
+  justify-self: start;
+  align-self: center;
+  display: inline-flex;
+  }
+}

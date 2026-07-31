@@ -1,0 +1,74 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.btn--primary {
+  background: var(--accent-deep);
+  color: var(--on-accent);
+}
+
+
+
+/* CartDrawer disables its submit on two conditions (kitchen closed, empty
+   cart) and nothing said so visually — a dead button looked identical to a
+   live one. */
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn:disabled:hover,
+.btn[aria-disabled='true']:hover {
+  transform: none;
+}
+
+.btn--primary:hover {
+  background: var(--forest-deep);
+  color: var(--on-accent);
+}
+
+.btn--on-hero {
+  background: var(--bg);
+  color: var(--accent-deep);
+}
+
+.btn--on-hero:hover {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+
+
+/* --line-strong is a 28% hairline, right for a rule between rows but only
+   1.69:1 here — and this border is the button's entire visible boundary, so
+   1.4.11's 3:1 applies. */
+.btn--ghost {
+  border-color: color-mix(in srgb, var(--charcoal) 55%, transparent);
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn--ghost:hover {
+  border-color: var(--accent-deep);
+  color: var(--accent-deep);
+}
+
+.btn--small {
+  min-height: 2.35rem;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  font-size: 0.92rem;
+}

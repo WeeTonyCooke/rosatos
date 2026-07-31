@@ -1,0 +1,242 @@
+
+
+/* Menu */
+.menu {
+  background: var(--bg-soft);
+}
+
+
+
+/* Courses stack on mobile; the two-column pairing arrives at 860px below.
+   Course-to-course spacing is deliberately smaller than the 9rem between
+   top-level sections — the smaller step reads as "same section, next part"
+   instead of making every block feel equally weighted. */
+/* Intro copy beside the fire photo, carried over from the Room section this
+   absorbed. The copy keeps its own measure rather than stretching to a grid
+   fraction — the mistake that left holes in the gift card row and the What's
+   On board. */
+.menu__intro-grid {
+  display: grid;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+  margin-bottom: clamp(2.5rem, 8vw, 5rem);
+}
+
+.menu__intro-copy {
+  margin-bottom: 0;
+}
+
+.menu__intro-figure {
+  margin: 0;
+}
+
+
+
+/* Same 4:5 frame as the course photos below it, so the menu reads as one
+   set. It was rendering 343x274 against their 343x429. */
+.menu__intro-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.menu__courses {
+  display: grid;
+  gap: clamp(2.5rem, 8vw, 4.5rem);
+}
+
+.menu__course {
+  display: grid;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+
+
+/* Stacked, the menu ran: intro copy, intro photo, course photo, course text —
+   so the intro photo and the first course photo landed against each other with
+   nothing between them. Ordering the figure after its own text breaks every
+   such pair at once, and keeps each photo beside the course it belongs to.
+   Above 860px the named grid areas take over and this has no effect. */
+.menu__course-figure {
+  order: 2;
+}
+
+.menu__course-body {
+  order: 1;
+}
+
+.menu__course-figure {
+  margin: 0;
+}
+
+.menu__course-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.menu__course-head {
+  margin-bottom: var(--space-3);
+}
+
+.menu__course-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+}
+
+
+
+/* Full-bleed forest sections — the evening half of the page.
+   Full-bleed rather than contained: a colour block that stops at the container
+   edge reads as a card sitting on the page, not as the page itself changing. */
+.menu__bar {
+  --bar-pad: clamp(3.25rem, 10vw, 9rem);
+  margin: var(--bar-pad) calc(50% - 50vw) calc(var(--bar-pad) * -1);
+  /* Horizontal padding matches .section's, so content inside the bleed lines
+     up with everything above it. It previously added --space-3 on top of the
+     section's own inset, which made the Guinness photo 295px wide against
+     every other menu photo at 343. */
+  padding: var(--bar-pad) calc(50vw - 50% + clamp(1rem, 3vw, 2rem));
+  background: var(--forest);
+  color: var(--on-accent);
+}
+
+.menu__bar .menu__section-title,
+.menu__bar .menu__item-name {
+  color: var(--on-accent);
+}
+
+.menu__bar .menu__section-title {
+  border-bottom-color: color-mix(in srgb, var(--cream) 22%, transparent);
+}
+
+.menu__bar .menu__item-price {
+  color: color-mix(in srgb, var(--cream) 92%, transparent);
+}
+
+.menu__bar .menu__item-desc,
+.menu__bar .menu__course-note {
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+}
+
+.menu__section-title {
+  margin: 0 0 var(--space-3);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.15rem;
+}
+
+.menu__item-main {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.menu__item-name {
+  font-weight: 600;
+}
+
+.menu__item-price {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--accent-deep);
+}
+
+.menu__item-desc {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+}
+
+@media (min-width: 720px) {
+
+  /* Intro copy beside the fire photo, carried over from the Room section this
+   absorbed. The copy keeps its own measure rather than stretching to a grid
+   fraction — the mistake that left holes in the gift card row and the What's
+   On board. */
+  .menu__intro-grid {
+  display: grid;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+  margin-bottom: clamp(2.5rem, 8vw, 5rem);
+  }
+
+  .menu__intro-copy {
+  margin-bottom: 0;
+  }
+
+  .menu__intro-figure {
+  margin: 0;
+  }
+
+
+  /* Same 4:5 frame as the course photos below it, so the menu reads as one
+   set. It was rendering 343x274 against their 343x429. */
+  .menu__intro-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+  }
+
+  .menu__courses {
+  gap: var(--space-6);
+  }
+
+
+  /* The figure column is always the 0.9fr one. Swapping sides with `order`
+     alone left the columns fixed, so the photo landed in 0.9fr on odd rows and
+     1.1fr on even — rendering at 457px then 559px wide down the same page.
+     Named areas move the column with the content instead. */
+  .menu__course {
+  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-areas: 'figure body';
+  gap: var(--space-5);
+  }
+
+
+  /* Alternate which side the photo sits on, so the eye zig-zags down the
+     page instead of running down a single rail of images. */
+  .menu__course:nth-of-type(even) {
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-areas: 'body figure';
+  }
+
+
+  
+  .menu__course-figure {
+  grid-area: figure;
+  }
+
+
+  
+  .menu__course-body {
+  grid-area: body;
+  }
+}
+
+.menu__order-link {
+  margin: var(--space-3) 0 0;
+}

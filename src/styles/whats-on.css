@@ -1,0 +1,125 @@
+.whats-on__tonight {
+  margin-top: 0.75rem;
+}
+
+.programme__item.is-today {
+  margin-left: -0.75rem;
+  padding-left: calc(0.75rem - 2px);
+  padding-right: 0.75rem;
+  /* The rule carries the colour; the tint stays neutral so the row lifts
+     off the ground without looking washed. These were both terracotta, set
+     when What's On was cream — against forest the tint measured 1.01:1 and
+     the rule 1.35:1, invisible and nearly so. */
+  border-left: 2px solid var(--marker);
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.programme__day {
+  grid-area: day;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-faint);
+}
+
+.programme__item.is-today .programme__day {
+  color: currentColor;
+  font-weight: 700;
+}
+
+
+
+/* What's on */
+.whats-on {
+  text-align: left;
+}
+
+.whats-on__photos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin-bottom: clamp(2rem, 6vw, 4.5rem);
+}
+
+.whats-on__photos img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.programme {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+
+
+/* A listings board, not a paragraph.
+   Mobile: day and time share the top row — they're both metadata and they
+   belong on the same baseline — with the act on its own line beneath. The time
+   previously sat alone on a third line, right-aligned against nothing, which
+   is what made the column look broken.
+   Desktop (960px): day / act / time as three columns. */
+.programme__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'day time'
+    'name name';
+  gap: 0.35rem 1rem;
+  align-items: baseline;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.programme__name {
+  grid-area: name;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.programme__when {
+  grid-area: time;
+  margin: 0;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.programme__note {
+  margin: var(--space-4) 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+}
+
+.programme__note a {
+  color: var(--accent);
+}
+
+@media (min-width: 960px) {
+
+  
+  .programme__item {
+  grid-template-columns: 12rem 1fr auto;
+  grid-template-areas: 'day name time';
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  }
+
+
+  
+  .whats-on__photos {
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  }
+}

@@ -1,0 +1,416 @@
+
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  color: var(--hero-ink);
+  background: var(--forest);
+  transition: background 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.site-header.is-scrolled {
+  background: color-mix(in srgb, var(--cream) 96%, transparent);
+  color: var(--ink);
+  box-shadow: 0 1px 0 var(--line);
+  backdrop-filter: blur(12px);
+}
+
+
+
+/* Quiet fade — one event at a time, cream on forest */
+.events-cue {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: var(--ticker-h);
+  /* Fab sits below the cue — keep the ticker optically centred */
+  padding: 0 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--cream) 12%, transparent);
+  background: color-mix(in srgb, var(--forest) 35%, transparent);
+  text-align: center;
+}
+
+.site-header.is-scrolled .events-cue {
+  display: flex;
+  border-bottom-color: var(--line);
+  background: color-mix(in srgb, var(--forest) 4%, transparent);
+  color: var(--forest);
+}
+
+.events-cue__viewport {
+  display: block;
+  max-width: min(40rem, 100%);
+  height: 1.2em;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.events-cue__line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  max-width: 100%;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: cue-fade-in 0.85s var(--ease) both;
+}
+
+.events-cue__line.is-today {
+  color: var(--cream);
+}
+
+.site-header.is-scrolled .events-cue__line.is-today {
+  color: var(--forest);
+}
+
+.events-cue__day {
+  flex: 0 0 auto;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.events-cue__pipe {
+  flex: 0 0 auto;
+  opacity: 0.45;
+  font-weight: 500;
+}
+
+.events-cue__name {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: min(12.5rem, 38vw);
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.events-cue__name-inner {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.events-cue__name.is-scroll .events-cue__name-inner {
+  padding-right: 1.25rem;
+  animation: cue-name-scroll 5.2s var(--ease) infinite;
+}
+
+.events-cue__dot {
+  flex: 0 0 auto;
+  opacity: 0.45;
+  font-weight: 500;
+}
+
+.events-cue__time {
+  flex: 0 0 auto;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.events-cue__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  opacity: 0.92;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  
+  .events-cue__name.is-scroll .events-cue__name-inner {
+  animation: none;
+  padding-right: 0;
+  }
+}
+
+
+
+/* Brand + nav — hidden on landing so the hero + ticker / pizza fab own the first view */
+.site-header__bar {
+  display: none;
+}
+
+.site-header.is-scrolled .site-header__bar {
+  display: block;
+}
+
+.site-header__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-2);
+  max-width: var(--max);
+  height: var(--header-h);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 2rem);
+}
+
+.site-header.has-order-fab.is-scrolled .site-header__inner {
+  padding-right: calc(4.35rem + 1rem);
+}
+
+.site-header__brand {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+/* Order pizza — top-right badge on every breakpoint, sitting just under
+   the ticker so it reads immediately without competing with the CTA
+   lower on the page. */
+.order-fab {
+  position: fixed;
+  top: calc(0.9rem + env(safe-area-inset-top, 0px));
+  right: max(1.1rem, env(safe-area-inset-right, 0px));
+  bottom: auto;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.85rem;
+  height: 3.85rem;
+  border-radius: 50%;
+  border: 0;
+  background: var(--order-pop);
+  color: var(--order-pop-ink);
+  text-decoration: none;
+  text-align: center;
+  /* A cream ring, then a dark halo, then the drop shadow.
+     The badge is fixed and floats over both grounds, and no flat fill can
+     clear 3:1 against cream AND forest — that's arithmetic, not taste: cream
+     sits at luminance 0.85 and forest at 0.055, so the best any single
+     mid-value manages against both is about 2.9:1.
+     The ring solves it instead of the fill. Over forest the cream ring does
+     the separating (8.99:1); over cream the fill does it (6.23:1). Something
+     always contrasts, whatever is behind. */
+  box-shadow:
+    0 0 0 2px var(--cream),
+    0 0 0 3px color-mix(in srgb, var(--charcoal) 22%, transparent),
+    0 6px 20px color-mix(in srgb, var(--charcoal) 32%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    background 0.2s var(--ease),
+    opacity 0.3s var(--ease),
+    top 0.35s var(--ease);
+}
+
+
+
+/* Only appears once scrolled past the hero — the hero itself keeps exactly
+   one CTA (Book a table); Order Pizza shows up once it's contextually
+   relevant rather than competing for attention on first load. Top offset
+   also shifts down here since the ticker (see .events-cue) only occupies
+   space in this same scrolled state. */
+.site-header.is-scrolled ~ .order-fab {
+  opacity: 1;
+  pointer-events: auto;
+  top: calc(var(--ticker-h) + 0.9rem + env(safe-area-inset-top, 0px));
+}
+
+
+
+/* Cart owns the lower-right while an order is in progress */
+body:has(.cart-fab) .order-fab {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 901px) {
+
+  
+  .order-fab {
+  top: calc(0.9rem + env(safe-area-inset-top, 0px));
+  right: max(0.75rem, env(safe-area-inset-right, 0px));
+  bottom: auto;
+  width: 4.25rem;
+  height: 4.25rem;
+  }
+
+
+  
+  .site-header.is-scrolled ~ .order-fab {
+  top: calc(var(--ticker-h) + 1rem + env(safe-area-inset-top, 0px));
+  }
+}
+
+.order-fab:hover {
+  transform: scale(1.04);
+  background: var(--order-pop-hot);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--forest) 22%, transparent);
+}
+
+
+
+/* 0.62rem was under 10px — legible but timid for the page's one persistent
+   call to action. Letter-spacing eases back slightly as the size goes up;
+   tracking that helps a 10px label starts to loosen the word at 12px. */
+.order-fab__text {
+  display: block;
+  max-width: 3.1rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+
+
+/* Mobile: brand only when scrolled — no hamburger / drawer on a short landing page */
+.site-nav {
+  display: none;
+}
+
+.site-nav__links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.site-nav__links a {
+  padding: 0;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-nav__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.site-nav__ghost,
+.site-nav__primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-nav__ghost {
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+}
+
+.site-nav__primary {
+  border: 1px solid var(--accent-deep);
+  background: var(--accent-deep);
+  color: var(--on-accent);
+}
+
+@media (min-width: 720px) {
+
+  
+  .site-header__inner {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+
+  
+  .site-header.has-order-fab.is-scrolled .site-header__inner {
+  padding-right: calc(4.35rem + 1.25rem);
+  }
+
+
+  
+  .events-cue {
+  padding: 0 5rem;
+  }
+
+
+  
+  .events-cue__line {
+  font-size: 0.95rem;
+  }
+
+
+  
+  .site-nav {
+  display: flex;
+  grid-column: 3;
+  grid-row: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  }
+
+
+  
+  .site-nav__ghost,
+  .site-nav__primary {
+  min-height: 2.4rem;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.92rem;
+  }
+
+
+  
+  .site-header.is-scrolled .site-nav__primary {
+  border-color: var(--accent-deep);
+  background: var(--accent-deep);
+  color: var(--on-accent);
+  }
+
+
+  
+  .site-header.is-scrolled .site-nav__ghost {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  }
+}
+
+.cart-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  min-height: 3rem;
+  padding: 0.75rem 1.2rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent-deep);
+  color: var(--on-accent);
+  font-weight: 600;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--charcoal) 18%, transparent);
+  display: inline-flex;
+  align-items: center;
+}
+
+.cart-fab:hover {
+  background: var(--forest-deep);
+  color: var(--on-accent);
+}
