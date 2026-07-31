@@ -12,9 +12,14 @@ export function Hero({ venue }) {
     >
       <div className="hero__content">
         <h1 className="hero__name hero__reveal">{venue.name}</h1>
+        {/* Two spans, not one joined string: as one line it wrapped
+            mid-phrase on a phone, breaking "MOVILLE, CO." from "DONEGAL".
+            The separator is a pseudo-element so it disappears when they
+            stack. */}
         {venue.subtitle || venue.place ? (
           <p className="hero__place hero__reveal">
-            {[venue.subtitle, venue.place].filter(Boolean).join(' · ')}
+            {venue.subtitle ? <span className="hero__subtitle">{venue.subtitle}</span> : null}
+            {venue.place ? <span className="hero__town">{venue.place}</span> : null}
           </p>
         ) : null}
         <div className="hero__actions hero__reveal">

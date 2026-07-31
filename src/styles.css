@@ -1026,10 +1026,14 @@ body:has(.cart-fab) .order-fab {
   margin: 0;
 }
 
+/* Same 4:5 frame as the course photos below it, so the menu reads as one
+   set. It was rendering 343x274 against their 343x429. */
 .menu__intro-figure img {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
   border-radius: var(--radius);
 }
 
@@ -1044,6 +1048,19 @@ body:has(.cart-fab) .order-fab {
   align-items: start;
 }
 
+/* Stacked, the menu ran: intro copy, intro photo, course photo, course text —
+   so the intro photo and the first course photo landed against each other with
+   nothing between them. Ordering the figure after its own text breaks every
+   such pair at once, and keeps each photo beside the course it belongs to.
+   Above 860px the named grid areas take over and this has no effect. */
+.menu__course-figure {
+  order: 2;
+}
+
+.menu__course-body {
+  order: 1;
+}
+
 .menu__course-figure {
   margin: 0;
 }
@@ -1056,6 +1073,30 @@ body:has(.cart-fab) .order-fab {
    4:5 because it's the shape most of these already are, and it survives the
    two landscape sources: a centre crop keeps the haddock on its plate and the
    full row of pints. */
+/* Hero place line: stacked on a phone, one line with a separator above 480px.
+   Joined into a single string it wrapped mid-phrase — "MOVILLE, CO." on one
+   line and "DONEGAL" on the next. */
+.hero__place {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  gap: 0.15rem;
+}
+
+@media (min-width: 480px) {
+  .hero__place {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 0.5em;
+  }
+
+  .hero__subtitle::after {
+    content: '·';
+    margin-left: 0.5em;
+    opacity: 0.55;
+  }
+}
+
 .menu__course-figure img {
   display: block;
   width: 100%;
@@ -1081,7 +1122,11 @@ body:has(.cart-fab) .order-fab {
 .menu__bar {
   --bar-pad: clamp(3.25rem, 10vw, 9rem);
   margin: var(--bar-pad) calc(50% - 50vw) calc(var(--bar-pad) * -1);
-  padding: var(--bar-pad) calc(50vw - 50% + var(--space-3));
+  /* Horizontal padding matches .section's, so content inside the bleed lines
+     up with everything above it. It previously added --space-3 on top of the
+     section's own inset, which made the Guinness photo 295px wide against
+     every other menu photo at 343. */
+  padding: var(--bar-pad) calc(50vw - 50% + clamp(1rem, 3vw, 2rem));
   background: var(--forest);
   color: var(--on-accent);
 }
@@ -1320,7 +1365,11 @@ body:has(.cart-fab) .order-fab {
   /* start, not center: the CTA above it is left-aligned, and a centred code
      beside a left-aligned button reads as a mistake. */
   justify-self: start;
-  display: inline-flex;
+  /* Full width when stacked. At 182px in a 343px column it read as a small
+     box floating in the section rather than a block belonging to the copy
+     above it. It returns to its natural width beside the text at 860px. */
+  align-self: stretch;
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
@@ -1359,6 +1408,11 @@ body:has(.cart-fab) .order-fab {
     grid-template-columns: minmax(0, 32rem) auto;
     gap: clamp(2.5rem, 5vw, 4.5rem);
     justify-content: start;
+  }
+
+  .gift-card__qr {
+    align-self: center;
+    display: inline-flex;
   }
 }
 
@@ -1786,10 +1840,14 @@ body:has(.cart-fab) .order-fab {
   margin: 0;
 }
 
+/* Same 4:5 frame as the course photos below it, so the menu reads as one
+   set. It was rendering 343x274 against their 343x429. */
 .menu__intro-figure img {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
   border-radius: var(--radius);
 }
 
