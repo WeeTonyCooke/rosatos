@@ -50,14 +50,26 @@ export function useDialog(panelRef, { open, onClose }) {
     initial?.focus?.()
 
     // Hide everything else from assistive tech and the tab order.
+    //
+    // Walk up from the dialog marking its SIBLINGS at each level, rather than
+    // iterating document.body.children. The body-level version never marked
+    // anything: React renders the whole app into one #root div, the dialog is
+    // inside it, so the only candidate always contained the dialog and was
+    // always skipped. aria-modal="true" was claiming something untrue on all
+    // three overlays for as long as the hook has existed.
     const marked = []
     if (panel) {
       const dialogRoot = panel.closest('[data-dialog-root]') || panel.parentElement
-      for (const node of Array.from(document.body.children)) {
-        if (node === dialogRoot || node.contains(dialogRoot) || node.tagName === 'SCRIPT') continue
-        if (node.hasAttribute('inert')) continue
-        node.setAttribute('inert', '')
-        marked.push(node)
+      let node = dialogRoot
+      while (node && node !== document.body) {
+        for (const sibling of Array.from(node.parentElement?.children || [])) {
+          if (sibling === node) continue
+          if (sibling.tagName === 'SCRIPT' || sibling.tagName === 'STYLE') continue
+          if (sibling.hasAttribute('inert')) continue
+          sibling.setAttribute('inert', '')
+          marked.push(sibling)
+        }
+        node = node.parentElement
       }
     }
 

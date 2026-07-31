@@ -159,7 +159,7 @@ export function Header({ venue }) {
               {venue.name}
             </a>
 
-            <nav className="site-nav" aria-label="Site">
+            <nav className="site-nav" aria-label="Main">
               <div className="site-nav__links">
                 <a href="#menu">Menu</a>
                 <a href="#whats-on">What’s on</a>

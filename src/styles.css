@@ -94,7 +94,11 @@
   --order-pop-hot: color-mix(in srgb, var(--order-pop) 88%, var(--charcoal));
   --ink: var(--charcoal);
   --ink-muted: color-mix(in srgb, var(--charcoal) 72%, transparent);
-  --ink-faint: color-mix(in srgb, var(--charcoal) 50%, transparent);
+  /* 70%, not 50%. At 50% this measured 2.77:1 on cream and was failing 1.4.3
+     on five elements — menu descriptions, course notes, the QR caption and the
+     visit tip. It sits close to --ink-muted now; the distinction between them
+     is smaller than it was, but both clear 4.5:1, which the old pair did not. */
+  --ink-faint: color-mix(in srgb, var(--charcoal) 70%, transparent);
   --line: color-mix(in srgb, var(--charcoal) 12%, transparent);
   --line-strong: color-mix(in srgb, var(--charcoal) 28%, transparent); /* neutral, not colour-tinted — borders are structural, not decorative */
   --on-accent: var(--cream);
@@ -908,8 +912,11 @@ body:has(.cart-fab) .order-fab {
   color: var(--ink);
 }
 
+/* --line-strong is a 28% hairline, right for a rule between rows but only
+   1.69:1 here — and this border is the button's entire visible boundary, so
+   1.4.11's 3:1 applies. */
 .btn--ghost {
-  border-color: var(--line-strong);
+  border-color: color-mix(in srgb, var(--charcoal) 55%, transparent);
   background: transparent;
   color: var(--ink);
 }
@@ -1189,8 +1196,9 @@ body:has(.cart-fab) .order-fab {
   border-bottom-color: color-mix(in srgb, var(--cream) 20%, transparent);
 }
 
+/* 72%: at 60% this measured 4.19:1 on forest, just under the 4.5:1 bar. */
 .section--dark .programme__day {
-  color: color-mix(in srgb, var(--cream) 60%, transparent);
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
 }
 
 .section--dark .programme__note a {
@@ -1681,6 +1689,11 @@ body:has(.cart-fab) .order-fab {
 }
 
 .site-footer__nav a {
+  /* 2.5.8 wants 24px minimum. These are a nav list, not links inline in a
+     sentence, so the inline exception doesn't apply. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1716,7 +1729,8 @@ body:has(.cart-fab) .order-fab {
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--cream) 62%, transparent);
+  /* 72%: 62% measured 4.32:1 on forest, just short of 4.5:1. */
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
 }
 
 .site-footer__wordmark {
