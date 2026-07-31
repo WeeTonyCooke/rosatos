@@ -13,7 +13,7 @@ bugs that would only bite a real paying customer are parked at the bottom.
 
 ## Status — fixed in `207f6c5`
 
-Everything below is addressed except #12, which was deliberately deferred (see its entry).
+Everything below is addressed. #12 was initially deferred and has since been fixed — see its entry.
 
 | # | Issue | Status |
 |---|---|---|
@@ -28,7 +28,7 @@ Everything below is addressed except #12, which was deliberately deferred (see i
 | 9 | Modals not actually modal | fixed — new `useDialog` hook |
 | 10 | 3.8MB unused originals deployed | fixed — moved to `assets/source/` |
 | 11 | Price `aria-label` single replace | fixed — `replaceAll` |
-| 12 | Collection slots use visitor timezone | **deferred** — see entry |
+| 12 | Collection slots use visitor timezone | fixed — all hours logic runs in `Europe/Dublin` |
 
 **Not yet pushed.** The commit is local; the sandbox has no GitHub credentials. Netlify builds from
 git on push to `main` (last deploy `6a61f272` came from commit `71036a0`), so:
@@ -223,7 +223,7 @@ reference only the generated variants. 3MB of deploy weight, no runtime cost.
 
 ---
 
-## P4 — Parked (only matters if ordering goes live)
+## P4 — Deferred, then fixed
 
 ### 12. Collection slots use the visitor's timezone, not the venue's
 
@@ -237,17 +237,32 @@ Harmless on a demo, and it can even flatter it (slots always look available). Bu
 before this template takes a real order anywhere, and the same flaw drives the "TONIGHT" ticker and
 the kitchen-closed message — so it has a small cosmetic footprint today.
 
-**Deliberately not fixed in `207f6c5`.** It's the one change that alters behaviour rather than
-correcting something plainly wrong, and it touches every hours comparison in the app — the honest fix
-means threading a venue timezone through `hours.js`, `programme.js` and `CartDrawer`, then testing
-across a day boundary. That's a change worth making on its own, with its own verification, not
-bundled into a pass of unrelated fixes on a site where nobody can currently place an order.
+**Deferred in `207f6c5`, fixed since.** It was deferred because it alters behaviour rather than
+correcting something plainly wrong, and it touches every hours comparison in the app — worth its own
+change with its own verification rather than being bundled into a pass of unrelated fixes.
 
-**Fix when it matters:** normalise `now` through `Europe/Dublin` before any hours comparison — build
-the comparison date from `Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', … })
-.formatToParts()` rather than trusting `Date#getHours()` / `getDay()`.
+**The fix.** A new `src/lib/venue-time.js` reads the day and time *at the venue* via
+`Intl.DateTimeFormat(…, { timeZone: 'Europe/Dublin' })`, and everything downstream works in minutes
+since midnight rather than in `Date` objects — which removes the local-vs-UTC confusion entirely and
+leaves DST to `Intl`. `hours.js` returns `{ now, openWindow }` in those units; `programme.js` takes
+its weekday from the same source, so the "TONIGHT" ticker and the What's On highlight follow.
 
-*Files:* `src/lib/hours.js`, `src/components/CartDrawer.jsx`, `src/lib/programme.js`
+Two further problems surfaced while fixing it, neither of them timezone bugs:
+
+- The slot list was computed in a `useMemo` keyed on `[venue, ordering]`, both module constants. It
+  ran once at page load and never again, so a page left open for an hour still offered a slot that
+  had already passed. It also meant the prerender baked *build-time* slots into the HTML — the same
+  class of hydration mismatch as #3. Now computed after mount and refreshed every minute.
+- The footer copyright read `new Date().getFullYear()` — the visitor's year, and frozen at build time
+  by the prerender. Now `venueYear()`.
+
+**Verification:** the same five instants evaluated with the device clock set to `Europe/Dublin`,
+`Asia/Dubai`, `America/Los_Angeles`, `Pacific/Auckland` and `UTC` — including one instant that falls
+on a different calendar day in Moville than in UTC — produce byte-identical slot lists, closed
+reasons and Tonight cues in all five.
+
+*Files:* `src/lib/venue-time.js` (new), `src/lib/hours.js`, `src/lib/programme.js`,
+`src/components/CartDrawer.jsx`, `src/components/Footer.jsx`
 
 ---
 

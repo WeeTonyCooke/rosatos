@@ -60,9 +60,15 @@ headings more room to breathe before body copy starts.
 | `--space-5` | 4rem | 4.5rem |
 | `--space-6` | 7rem | 9rem |
 
-`--space-6` drives every section's vertical padding — this single change
+> **Renumbered since.** The scale later gained 0.75rem and 2rem as proper
+> steps and runs `--space-1`…`--space-8`. The values in this table are
+> unchanged; only the indices moved (old 2→3, 3→4, 4→6, 5→7, 6→8). Read
+> `docs/DESIGN-SYSTEM.md` for the current scale — the table above is a
+> record of *this* change, not the present state.
+
+`--space-8` (then `--space-6`) drives every section's vertical padding — this single change
 gives every section on the page roughly 30% more breathing room above
-and below without touching per-section CSS individually. `--space-5`
+and below without touching per-section CSS individually. `--space-7`
 (heading-to-content gap) got a smaller bump for the same reason.
 
 ## 5. Border radius
@@ -145,10 +151,10 @@ made needed a live look rather than code-only guessing.
 
 ## 11. Whitespace recommendations
 
-Implemented via the `--space-5`/`--space-6` increases above. Further
+Implemented via the `--space-7`/`--space-8` increases above. Further
 candidate if the current bump isn't enough once seen live: increasing
 the gap between a section's photo and its copy specifically (currently
-`--space-4`, 2.5rem) — the brief calls this out by name ("more generous
+`--space-6`, 2.5rem) — the brief calls this out by name ("more generous
 spacing between photographs and copy") and it wasn't touched yet,
 since it's a smaller, more surgical change worth doing after seeing
 whether the bigger section-level change already solves most of it.

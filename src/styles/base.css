@@ -106,12 +106,28 @@
   --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
 
+  /* Spacing scale.
+     Renumbered to include the two steps the CSS was already using constantly
+     but couldn't name: 0.75rem (13 declarations) and 2rem (15). The old scale
+     jumped 0.5 → 1 → 1.5 → 2.5, so every one of those 28 declarations had to
+     write a literal, and the scale quietly described less than half the
+     spacing on the page.
+
+     This covers the LAYOUT rhythm — section padding, stack gaps, grid gutters.
+     It deliberately does not try to cover everything: the remaining literals
+     are small component-internal nudges (0.15rem of optical alignment on a
+     ticker dot, 0.45rem inside a pill) where snapping to a shared step would
+     change the design rather than tidy it. A token scale that claims to
+     describe values it doesn't is worse than no scale, because the next
+     person trusts it. */
   --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.5rem;
-  --space-4: 2.5rem;
-  --space-5: 4.5rem;
-  --space-6: 9rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 2.5rem;
+  --space-7: 4.5rem;
+  --space-8: 9rem;
 
   --radius: 2px;
   --header-h: 4.25rem;
@@ -229,10 +245,10 @@ input {
 
 .skip-link {
   position: absolute;
-  left: var(--space-2);
+  left: var(--space-3);
   top: -4rem;
   z-index: 100;
-  padding: 0.65rem 1rem;
+  padding: 0.65rem var(--space-3);
   background: var(--accent);
   color: var(--on-accent);
   text-decoration: none;
@@ -240,7 +256,7 @@ input {
 }
 
 .skip-link:focus {
-  top: var(--space-2);
+  top: var(--space-3);
 }
 
 @keyframes cue-name-scroll {
@@ -264,7 +280,7 @@ input {
 }
 
 .eyebrow {
-  margin: 0 0 var(--space-2);
+  margin: 0 0 var(--space-3);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -285,7 +301,7 @@ input {
 
 .text-link {
   display: inline-block;
-  margin-top: 0.75rem;
+  margin-top: var(--space-2);
   color: var(--accent-deep) !important;
   font-weight: 600;
   text-decoration: none;

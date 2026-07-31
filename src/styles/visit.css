@@ -27,12 +27,12 @@
 /* Visit */
 .visit__grid {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-6);
 }
 
 .visit__details {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-6);
 }
 
 .visit__block h3 {
@@ -62,7 +62,7 @@
 .hours-list li {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-3);
   color: var(--ink-muted);
 }
 
@@ -73,7 +73,7 @@
 }
 
 .visit__book {
-  padding: var(--space-4);
+  padding: var(--space-6);
   background: var(--bg-elevated);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -86,17 +86,17 @@
 }
 
 .visit__address {
-  margin: 0.75rem 0 0;
+  margin: var(--space-2) 0 0;
   color: var(--ink-muted);
   line-height: 1.45;
 }
 
 .visit__directions {
-  margin-top: 0.5rem !important;
+  margin-top: var(--space-1) !important;
 }
 
 .visit__note {
-  margin: 0.85rem 0 var(--space-3);
+  margin: 0.85rem 0 var(--space-4);
   font-size: 0.95rem;
   color: var(--ink-muted);
 }
@@ -126,14 +126,14 @@
 }
 
 .booking-sheet__panel {
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
 .booking-sheet__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
 .booking-sheet__eyebrow {
@@ -173,7 +173,7 @@
 }
 
 .visit__enquiry {
-  margin: var(--space-3) 0 0;
+  margin: var(--space-4) 0 0;
   font-size: 0.95rem;
   line-height: 1.5;
   color: var(--ink-muted);
@@ -186,7 +186,7 @@
 }
 
 .visit__map {
-  margin-top: var(--space-5);
+  margin-top: var(--space-7);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);

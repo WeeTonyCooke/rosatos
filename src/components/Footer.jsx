@@ -1,5 +1,6 @@
 import { Photo } from './Photo.jsx'
 import { McaCredit } from './McaCredit.jsx'
+import { venueYear } from '../lib/venue-time.js'
 
 /**
  * Three-column footer: navigation left, wordmark centred, contact right.
@@ -10,7 +11,9 @@ import { McaCredit } from './McaCredit.jsx'
  * point; the footer's job is orientation, not another pitch.
  */
 export function Footer({ venue }) {
-  const year = new Date().getFullYear()
+  // The venue's year, not the visitor's — on New Year's Eve a customer in
+  // Sydney would otherwise be shown a copyright year Moville hasn't reached.
+  const year = venueYear()
   const gift = venue.giftCards
   const links = Array.isArray(venue.footerLinks) ? venue.footerLinks : []
   const credit = venue.credit

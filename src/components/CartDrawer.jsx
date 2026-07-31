@@ -1,48 +1,48 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useCart } from '../cart/CartContext.jsx'
 import { useDialog } from '../hooks/useDialog.js'
 import { getTodaysWindow } from '../lib/hours.js'
+import { toClock, toMinutes } from '../lib/venue-time.js'
 
-function formatClock(date) {
-  return date.toLocaleTimeString('en-IE', { hour: '2-digit', minute: '2-digit', hour12: false })
-}
+const SLOT_STEP = 15
 
 /**
- * Builds today's collection slots against the venue's real opening hours,
- * not just `kitchenCloses`. Previously this only checked the closing time,
- * so ordering outside hours (before opening, or any time after close) still
- * produced a list of slots — including, overnight, a nonsensical run of
- * "slots" rolled into the next calendar day with no indication anything
- * was wrong. Now it returns a `closed` reason instead of bad slots whenever
- * there's no valid collection window left today.
+ * Builds today's collection slots against the venue's real opening hours, not
+ * just `kitchenCloses`, and in the VENUE's timezone rather than the visitor's.
+ *
+ * Two bugs lived here. The first: it only checked the closing time, so ordering
+ * outside hours still produced slots — including, overnight, a nonsensical run
+ * rolled into the next calendar day.
+ *
+ * The second was worse and survived the first fix. Every comparison used
+ * `new Date()`, which is the visitor's clock. Tested from Asia/Dubai: it was
+ * 14:25 in Moville, the venue was shut until 16:00, and the site offered slots
+ * from 18:00 to 21:00. Everything below now works in minutes since midnight at
+ * the venue, so a phone on the wrong timezone — or a customer abroad — gets the
+ * same answer as someone standing outside the door.
  */
-function buildSlots(venue, leadMinutes, kitchenCloses) {
-  const now = new Date()
-  const window = getTodaysWindow(venue.hours, now)
+function buildSlots(venue, leadMinutes, kitchenCloses, at) {
+  const { now, openWindow } = getTodaysWindow(venue.hours, at)
 
-  if (!window) {
+  if (!openWindow) {
     return { slots: [], closed: true, reason: 'Closed today — check our hours below.' }
   }
 
-  const [closeH, closeM] = kitchenCloses.split(':').map(Number)
-  const kitchenClose = new Date(now)
-  kitchenClose.setHours(closeH, closeM, 0, 0)
   // Online ordering can't run past the venue's own closing time either.
-  const close = kitchenClose < window.close ? kitchenClose : window.close
+  const kitchenClose = toMinutes(kitchenCloses)
+  const close = Math.min(kitchenClose ?? openWindow.close, openWindow.close)
 
-  if (now >= close) {
+  if (now.minutes >= close) {
     return {
       slots: [],
       closed: true,
-      reason: `Kitchen’s closed for online orders now. Back at ${window.open.toLocaleTimeString('en-IE', { hour: '2-digit', minute: '2-digit', hour12: false })} — give us a call for anything else.`,
+      reason: `Kitchen’s closed for online orders now. Back at ${toClock(openWindow.open)} — give us a call for anything else.`,
     }
   }
 
-  const earliestByLead = new Date(now.getTime() + leadMinutes * 60 * 1000)
-  earliestByLead.setSeconds(0, 0)
-  earliestByLead.setMinutes(Math.ceil(earliestByLead.getMinutes() / 15) * 15)
-
-  const earliest = earliestByLead < window.open ? window.open : earliestByLead
+  // Round the lead time up to the next quarter hour.
+  const earliestByLead = Math.ceil((now.minutes + leadMinutes) / SLOT_STEP) * SLOT_STEP
+  const earliest = Math.max(earliestByLead, openWindow.open)
 
   if (earliest > close) {
     return {
@@ -53,10 +53,8 @@ function buildSlots(venue, leadMinutes, kitchenCloses) {
   }
 
   const slots = []
-  const cursor = new Date(earliest)
-  while (cursor <= close && slots.length < 40) {
-    slots.push(formatClock(cursor))
-    cursor.setMinutes(cursor.getMinutes() + 15)
+  for (let m = earliest; m <= close && slots.length < 40; m += SLOT_STEP) {
+    slots.push(toClock(m))
   }
   return { slots, closed: false, reason: '' }
 }
@@ -92,12 +90,27 @@ export function CartDrawer({ venue }) {
   const close = useCallback(() => setOpen(false), [setOpen])
   useDialog(panelRef, { open: open && enabled && Boolean(ordering), onClose: close })
 
+  // Recomputed after mount and every minute thereafter — never during render.
+  //
+  // Two reasons. The prerender would otherwise bake the BUILD time's slots into
+  // the HTML and the client would render a different list, which is a hydration
+  // mismatch of exactly the kind that was throwing React #418 elsewhere. And
+  // the old useMemo depended on [venue, ordering], both module constants, so
+  // the slots were computed once at page load and never again — leave the page
+  // open for an hour and it would still offer a slot that had already passed.
+  const [tick, setTick] = useState(null)
+  useEffect(() => {
+    setTick(Date.now())
+    const id = window.setInterval(() => setTick(Date.now()), 60_000)
+    return () => window.clearInterval(id)
+  }, [])
+
   const { slots, closed, reason } = useMemo(
     () =>
-      ordering
-        ? buildSlots(venue, ordering.leadMinutes, ordering.kitchenCloses)
+      ordering && tick !== null
+        ? buildSlots(venue, ordering.leadMinutes, ordering.kitchenCloses, new Date(tick))
         : { slots: [], closed: false, reason: '' },
-    [venue, ordering],
+    [venue, ordering, tick],
   )
 
   if (!enabled || !ordering) return null

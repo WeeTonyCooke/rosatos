@@ -26,7 +26,7 @@
   justify-content: center;
   height: var(--ticker-h);
   /* Fab sits below the cue — keep the ticker optically centred */
-  padding: 0 1rem;
+  padding: 0 var(--space-3);
   overflow: hidden;
   text-decoration: none;
   color: color-mix(in srgb, var(--cream) 78%, transparent);
@@ -151,15 +151,15 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   max-width: var(--max);
   height: var(--header-h);
   margin: 0 auto;
-  padding: 0 clamp(1rem, 3vw, 2rem);
+  padding: 0 clamp(var(--space-3), 3vw, var(--space-5));
 }
 
 .site-header.has-order-fab.is-scrolled .site-header__inner {
-  padding-right: calc(4.35rem + 1rem);
+  padding-right: calc(4.35rem + var(--space-3));
 }
 
 .site-header__brand {
@@ -243,7 +243,7 @@ body:has(.cart-fab) .order-fab {
   
   .order-fab {
   top: calc(0.9rem + env(safe-area-inset-top, 0px));
-  right: max(0.75rem, env(safe-area-inset-right, 0px));
+  right: max(var(--space-2), env(safe-area-inset-right, 0px));
   bottom: auto;
   width: 4.25rem;
   height: 4.25rem;
@@ -252,7 +252,7 @@ body:has(.cart-fab) .order-fab {
 
   
   .site-header.is-scrolled ~ .order-fab {
-  top: calc(var(--ticker-h) + 1rem + env(safe-area-inset-top, 0px));
+  top: calc(var(--ticker-h) + var(--space-3) + env(safe-area-inset-top, 0px));
   }
 }
 
@@ -357,7 +357,7 @@ body:has(.cart-fab) .order-fab {
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  gap: 1.5rem;
+  gap: var(--space-4);
   }
 
 
@@ -379,11 +379,11 @@ body:has(.cart-fab) .order-fab {
 
 .cart-fab {
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+  right: var(--space-3);
+  bottom: var(--space-3);
   z-index: 50;
   min-height: 3rem;
-  padding: 0.75rem 1.2rem;
+  padding: var(--space-2) 1.2rem;
   border: 0;
   border-radius: var(--radius);
   background: var(--accent-deep);

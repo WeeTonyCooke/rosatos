@@ -6,7 +6,7 @@
   display: grid;
   align-items: center;
   min-height: 100svh;
-  padding: calc(var(--ticker-h) + 1.75rem) clamp(1rem, 3vw, 2rem) clamp(3rem, 8vw, 5rem);
+  padding: calc(var(--ticker-h) + 1.75rem) clamp(var(--space-3), 3vw, var(--space-5)) clamp(3rem, 8vw, 5rem);
   overflow: hidden;
   color: var(--hero-ink);
 }
@@ -43,14 +43,14 @@
   */
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  row-gap: clamp(1.25rem, 4vh, var(--space-4));
+  row-gap: clamp(1.25rem, 4vh, var(--space-6));
   align-items: start;
   justify-items: center;
   min-height: 100dvh;
   padding:
-    calc(var(--ticker-h) + var(--space-3))
+    calc(var(--ticker-h) + var(--space-4))
     1.25rem
-    max(var(--space-3), env(safe-area-inset-bottom, 0px));
+    max(var(--space-4), env(safe-area-inset-bottom, 0px));
 }
 
 .hero--photo .hero__media {
@@ -141,7 +141,7 @@
 
 .hero--photo .hero__actions {
   justify-content: center;
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 
@@ -151,7 +151,7 @@
    taller for a good mobile tap target. */
 .hero--photo .btn--on-hero {
   min-height: 2.85rem;
-  padding: 0.7rem 1.5rem;
+  padding: 0.7rem var(--space-4);
 }
 
 
@@ -167,15 +167,15 @@
   display: grid;
   grid-template-columns: minmax(16rem, 0.78fr) minmax(24rem, 1.45fr);
   grid-template-rows: none;
-  column-gap: clamp(0.5rem, 2vw, 1.5rem);
+  column-gap: clamp(var(--space-1), 2vw, var(--space-4));
   align-items: center;
   justify-content: initial;
   gap: 0;
   min-height: 100svh;
   padding-top: calc(var(--ticker-h) + 1.75rem);
-  padding-right: clamp(0.75rem, 2vw, 1.5rem);
-  padding-bottom: clamp(2rem, 5vh, 3.5rem);
-  padding-left: clamp(1rem, 3vw, 2rem);
+  padding-right: clamp(var(--space-2), 2vw, var(--space-4));
+  padding-bottom: clamp(var(--space-5), 5vh, 3.5rem);
+  padding-left: clamp(var(--space-3), 3vw, var(--space-5));
   background-color: var(--forest);
   }
 
@@ -210,7 +210,7 @@
 
   
   .hero__tagline--under {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-3) 0 0;
   max-width: 22rem;
   font-size: 0.98rem;
   }
@@ -238,7 +238,7 @@
   
   .hero--photo .hero__actions {
   justify-content: flex-start;
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
   }
 
 
@@ -266,7 +266,7 @@
 }
 
 .hero__tagline {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-3) 0 0;
   max-width: 22rem;
   font-size: 1.1rem;
   line-height: 1.4;
@@ -276,8 +276,8 @@
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: var(--space-3);
+  gap: var(--space-2);
+  margin-top: var(--space-4);
 }
 
 

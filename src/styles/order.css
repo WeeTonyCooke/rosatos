@@ -3,7 +3,7 @@
   
   .order__head {
   grid-template-columns: 1.05fr 0.95fr;
-  gap: var(--space-5);
+  gap: var(--space-7);
   align-items: center;
   }
 }
@@ -16,7 +16,7 @@
    starts high rather than being pushed a full viewport down by the image. */
 .order__head {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-6);
   align-items: start;
 }
 
@@ -43,7 +43,7 @@
 .order__item {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: var(--space-2) var(--space-3);
+  gap: var(--space-3) var(--space-4);
   align-items: center;
   padding: 1.25rem 0;
   border-bottom: 1px solid var(--line);
@@ -75,7 +75,7 @@
 .order__actions {
   display: flex;
   flex-wrap: nowrap;
-  gap: var(--space-2);
+  gap: var(--space-3);
   justify-content: flex-end;
   align-items: center;
 }
@@ -103,11 +103,11 @@
   position: relative;
   z-index: 1;
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-4);
   width: 100%;
   max-height: 88svh;
   overflow-y: auto;
-  padding: var(--space-3) var(--space-3) max(var(--space-3), env(safe-area-inset-bottom, 0px));
+  padding: var(--space-4) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom, 0px));
   background: var(--cream);
   border-top: 1px solid var(--line-strong);
   border-radius: 12px 12px 0 0;
@@ -149,7 +149,7 @@ body:has(.customize-sheet.is-open) {
 .order__customize-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-1);
   flex: 1 1 auto;
   justify-content: flex-end;
   justify-content: flex-end;
@@ -182,7 +182,7 @@ body:has(.customize-sheet.is-open) {
   
   .order__options {
   grid-template-columns: 1fr 1fr;
-  gap: 0.35rem 1rem;
+  gap: 0.35rem var(--space-3);
   }
 }
 
@@ -218,7 +218,7 @@ body:has(.customize-sheet.is-open) {
 .order__line-note input {
   width: 100%;
   min-height: 2.65rem;
-  padding: 0.65rem 0.75rem;
+  padding: 0.65rem var(--space-2);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--bg-elevated);
@@ -238,15 +238,15 @@ body:has(.customize-sheet.is-open) {
    the panel's padded edge while its background still covers the full width. */
 .order__customize-actions {
   position: sticky;
-  bottom: calc(max(var(--space-3), env(safe-area-inset-bottom, 0px)) * -1);
+  bottom: calc(max(var(--space-4), env(safe-area-inset-bottom, 0px)) * -1);
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  margin: 0 calc(var(--space-3) * -1) calc(max(var(--space-3), env(safe-area-inset-bottom, 0px)) * -1);
-  padding: var(--space-2) var(--space-3) max(var(--space-3), env(safe-area-inset-bottom, 0px));
+  gap: var(--space-2);
+  margin: 0 calc(var(--space-4) * -1) calc(max(var(--space-4), env(safe-area-inset-bottom, 0px)) * -1);
+  padding: var(--space-3) var(--space-4) max(var(--space-4), env(safe-area-inset-bottom, 0px));
   background: var(--cream);
   border-top: 1px solid var(--line);
 }
@@ -265,7 +265,7 @@ body:has(.customize-sheet.is-open) {
 
 .order__customize-total {
   display: flex;
-  gap: 0.75rem;
+  gap: var(--space-2);
   align-items: baseline;
   margin: 0;
   font-size: 0.95rem;
@@ -278,7 +278,7 @@ body:has(.customize-sheet.is-open) {
 }
 
 .order__note {
-  margin: var(--space-4) 0 0;
+  margin: var(--space-6) 0 0;
   font-size: 0.95rem;
   color: var(--ink-muted);
 }

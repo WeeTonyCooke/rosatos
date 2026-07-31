@@ -1,10 +1,17 @@
+import { venueNow } from './venue-time.js'
+
 /**
  * Shared Tonight / programme helpers (Hybrid + Light).
  * day: 0 = Sunday … 6 = Saturday
+ *
+ * "Tonight" means tonight IN MOVILLE. These used to call `now.getDay()`, which
+ * is the visitor's calendar — so anyone east of Ireland late in the evening,
+ * or anyone with a phone on the wrong timezone, was shown the wrong night's
+ * line-up and a ticker highlighting the wrong day. See lib/venue-time.js.
  */
 
-export function getTonight(programme, now = new Date()) {
-  const day = now.getDay()
+export function getTonight(programme, at = new Date()) {
+  const { day } = venueNow(at)
   const lineup = Array.isArray(programme?.lineup) ? programme.lineup : []
   const todays = lineup.filter((row) => Number(row.day) === day)
   const label = day === 0 ? 'Sunday' : 'Tonight'
@@ -54,8 +61,8 @@ export function getTonight(programme, now = new Date()) {
  */
 const DAY_FULL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-export function getTickerItems(programme, now = new Date()) {
-  const day = now.getDay()
+export function getTickerItems(programme, at = new Date()) {
+  const { day } = venueNow(at)
   const lineup = Array.isArray(programme?.lineup) ? programme.lineup : []
   const override = programme?.tonightOverride?.trim()
 

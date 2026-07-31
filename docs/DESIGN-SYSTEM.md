@@ -91,8 +91,26 @@ anything the way these did.
 
 ## Spacing
 
-A six-step scale (`--space-1` through `--space-6`, 0.5rem to 7rem) used
-everywhere instead of arbitrary pixel/rem values. The one exception found
+An eight-step scale, `--space-1` through `--space-8`: 0.5, 0.75, 1, 1.5, 2,
+2.5, 4.5, 9rem.
+
+It was six steps until the audit measured how much of the CSS it actually
+described: 68 declarations used a token, ~130 used a literal. The two most
+common literals were 0.75rem and 2rem — values the old scale skipped, so
+every one of those 28 declarations *had* to write a number. Adding both
+steps and converting the 66 literals that already matched a step brought
+coverage from about a third to roughly three quarters, with the computed
+CSS byte-identical before and after.
+
+The remaining ~50 literals are deliberately left alone. They're a long
+tail of component-internal nudges — 0.15rem of optical alignment on a
+ticker dot, 0.45rem inside a pill — where snapping to a shared step would
+change the design rather than tidy it. This scale describes the layout
+rhythm: section padding, stack gaps, grid gutters. A scale that claims to
+describe values it doesn't is worse than no scale, because the next person
+trusts it.
+
+The one alignment failure found
 and fixed this session was the `.is-today` highlight, which used
 hand-picked `-0.65rem` values that didn't correspond to any step in this
 scale or to the section's own responsive padding — it visibly drifted
