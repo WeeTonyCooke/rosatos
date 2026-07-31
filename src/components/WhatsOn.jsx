@@ -1,11 +1,29 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getTonight } from '../lib/programme.js'
 import { Photo } from './Photo.jsx'
 
 export function WhatsOn({ venue }) {
   const { programme, social } = venue
-  const tonight = useMemo(() => getTonight(programme), [programme])
-  const lineup = Array.isArray(programme.lineup) ? programme.lineup : []
+  // Null until mounted, for the same reason the header ticker is: getTonight
+  // reads new Date(), so during the prerender it bakes the BUILD day's
+  // "is-today" into the HTML and the client then renders a different one.
+  // That's a hydration mismatch — the exact bug that was throwing React #418
+  // on every page load before the ticker was fixed. This one was still latent.
+  const [today, setToday] = useState(null)
+  useEffect(() => {
+    setToday(getTonight(programme).day)
+  }, [programme])
+
+  // Monday first. The data is stored 0 = Sunday because that's what
+  // Date#getDay returns and what the CMS field documents, but a week that
+  // opens on Sunday reads as last week's leftovers under a heading that says
+  // "This week". Sorting here rather than in the content keeps the CMS
+  // numbering — and its hint text — unchanged.
+  const lineup = useMemo(() => {
+    const rows = Array.isArray(programme.lineup) ? programme.lineup : []
+    const mondayFirst = (day) => (Number(day) + 6) % 7
+    return [...rows].sort((a, b) => mondayFirst(a.day) - mondayFirst(b.day))
+  }, [programme])
   const photos = Array.isArray(programme.photos) ? programme.photos : []
 
   return (
@@ -36,7 +54,7 @@ export function WhatsOn({ venue }) {
 
       <ul className="programme">
         {lineup.map((event) => {
-          const isToday = Number(event.day) === tonight.day
+          const isToday = today !== null && Number(event.day) === today
           return (
             // Day, act and time are siblings rather than a nested block, so
             // they can be laid out as columns of a board on wide screens and
