@@ -1737,6 +1737,21 @@ body:has(.cart-fab) .order-fab {
   text-decoration: none;
 }
 
+/* Mark and wordmark on one baseline. The mark inherits this colour through
+   currentColor, so the two can't drift apart. */
+.site-footer__studio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.site-footer__studio-mark {
+  display: block;
+  width: 34px;
+  height: 12px;
+  flex: 0 0 auto;
+}
+
 .site-footer__credit a:hover {
   color: var(--cream);
 }

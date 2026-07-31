@@ -144,7 +144,9 @@
   },
   "credit": {
     "label": "Website by MCA",
-    "url": ""
+    "email": "hello@quietobjects.ie",
+    "subject": "Collaboration",
+    "ariaLabel": "Email MCA about web development and collaboration"
   },
   "footerLinks": [
     {
