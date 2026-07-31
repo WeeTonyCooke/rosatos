@@ -8,11 +8,12 @@
     {
       "day": 0,
       "dayLabel": "Sunday",
-      "name": "Seán Furey",
+      "name": "Michael Thomas",
       "time": "22:00",
       "kind": "music",
-      "cue": "Seán Furey · 22:00",
-      "detail": "Seán Furey · Sundays · 22:00"
+      "context": "Live Music",
+      "cue": "Michael Thomas · 22:00",
+      "detail": "Live Music · Michael Thomas · Sundays · 22:00"
     },
     {
       "day": 3,
@@ -20,6 +21,7 @@
       "name": "Texas Hold’em",
       "time": "21:30",
       "kind": "poker",
+      "context": "Poker",
       "cue": "Texas Hold’em · 21:30",
       "detail": "Texas Hold’em Poker Wednesdays · 21:30"
     },
@@ -29,17 +31,19 @@
       "name": "QuizKings",
       "time": "22:00",
       "kind": "quiz",
+      "context": "Pub Quiz",
       "cue": "Fun Quiz · 22:00",
       "detail": "QuizKings Fun Quiz Fridays · 22:00"
     },
     {
       "day": 6,
       "dayLabel": "Saturday",
-      "name": "Seán Óg",
+      "name": "Benny Doherty",
       "time": "22:00",
       "kind": "music",
-      "cue": "Seán Óg · 22:00",
-      "detail": "Seán Óg · Saturdays · 22:00"
+      "context": "The Beatles Fest | Live Music",
+      "cue": "Benny Doherty · 22:00",
+      "detail": "The Beatles Fest · Live Music · Benny Doherty · 22:00"
     }
   ],
   "photos": [

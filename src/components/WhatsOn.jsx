@@ -72,6 +72,13 @@ export function WhatsOn({ venue }) {
               <span className="programme__day">{isToday ? 'Tonight' : event.dayLabel}</span>
               <h3 className="programme__name">{event.name}</h3>
               <p className="programme__when">{event.time}</p>
+              {/* Optional. Carries the one-off context a listing sometimes
+                  needs — "The Beatles Fest · Live music" — without pushing it
+                  into the act's name, where it would fight the columns: the
+                  columns already ARE the separators, so pipes inside a cell
+                  read as a second, competing system. Most rows leave it
+                  empty and lose nothing. */}
+              {event.context ? <p className="programme__context">{event.context}</p> : null}
             </li>
           )
         })}

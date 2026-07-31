@@ -59,6 +59,13 @@ collections:
                   default: music,
                 }
               - {
+                  label: Context line,
+                  name: context,
+                  widget: string,
+                  required: false,
+                  hint: "Small line under the act, e.g. 'The Beatles Fest | Live Music'. Leave blank for regular nights.",
+                }
+              - {
                   label: Header cue,
                   name: cue,
                   widget: string,
