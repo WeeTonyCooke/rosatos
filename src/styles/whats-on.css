@@ -1,7 +1,3 @@
-.whats-on__tonight {
-  margin-top: 0.75rem;
-}
-
 .programme__item.is-today {
   margin-left: -0.75rem;
   padding-left: calc(0.75rem - 2px);

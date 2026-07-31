@@ -70,21 +70,19 @@ const manifestPath = path.join(__dirname, '..', 'src', 'lib', 'image-manifest.js
 const TARGETS = [
   { file: 'hero.png', base: 'hero', widths: [736, 1104, 1463], kind: 'art', graded: false },
 
+  // Only what the page actually renders. Four more sources live in
+  // assets/source/photos and are deliberately NOT built: salmon-mash,
+  // cocktail, hake-noodles and fish-noodles were shot for slots that didn't
+  // survive the layout. Generating them added ~1.06MB of variants to every
+  // deploy that no page ever requested. Add a name back here to bring one in.
   ...[
     'haddock',
     'pizzas',
     'guinness',
     'prawns',
-    'exterior-dusk',
     'exterior-day',
-    'salmon-mash',
     'pizza-club',
     'fire',
-    'cocktail',
-    'music-snug',
-    'music-mono',
-    'hake-noodles',
-    'fish-noodles',
   ].map((name) => ({
     file: `photos/${name}.jpg`,
     base: name,
@@ -102,6 +100,7 @@ const TARGETS = [
   // anchoring to the bottom keeps her and the stonework. On music-mono the
   // subject is isolated against black, which is exactly the case attention
   // handles well.
+  // The uncropped originals aren't built — only these 4:3 crops are rendered.
   {
     file: 'photos/music-snug.jpg',
     base: 'music-snug-wide',
@@ -120,7 +119,8 @@ const TARGETS = [
   },
 
   // NOT rendered by any section — this is the og:image, and it must keep
-  // being generated.
+  // being generated. The uncropped exterior-dusk is not built; only this crop
+  // is ever referenced.
   //
   // It began as the menu's full-bleed band and was cut from the page: once the
   // page went two-tone, the green sections did the chapter-break job the band

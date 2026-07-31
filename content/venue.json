@@ -12,7 +12,6 @@
   },
   "phone": "+353 74 938 5847",
   "email": "rosatosmoville@gmail.com",
-  "bookingUrl": "#visit",
   "bookingWidgetUrl": "https://booking.resdiary.com/widget/ThreeMonth/Rosatos/25888",
   "bookingNote": "Bookings are for indoor dining only. Outdoor seating is walk-in.",
   "bookingEnquiry": "Planning a meal or organising a group? Give us a call or send us an email.",
@@ -38,7 +37,6 @@
   ],
   "hoursHeading": "Kitchen hours",
   "hoursNote": "The bar stays open later than the kitchen.",
-  "hoursSummary": "Open 7 days · Kitchen from 16:00 Mon–Fri · from 15:00 Sat · from 12:30 Sun",
   "social": {
     "instagram": "https://www.instagram.com/rosatosmoville/",
     "facebook": "https://www.facebook.com/rosatos.bar/"

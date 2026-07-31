@@ -51,17 +51,6 @@
     "sourceWidth": 1122,
     "lowRes": false
   },
-  "exterior-dusk": {
-    "base": "exterior-dusk",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900,
-      1400
-    ],
-    "sourceWidth": 1402,
-    "lowRes": false
-  },
   "exterior-day": {
     "base": "exterior-day",
     "ext": "jpg",
@@ -70,16 +59,6 @@
       900
     ],
     "sourceWidth": 1086,
-    "lowRes": false
-  },
-  "salmon-mash": {
-    "base": "salmon-mash",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900
-    ],
-    "sourceWidth": 1088,
     "lowRes": false
   },
   "pizza-club": {
@@ -102,56 +81,6 @@
     ],
     "sourceWidth": 1402,
     "lowRes": false
-  },
-  "cocktail": {
-    "base": "cocktail",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900
-    ],
-    "sourceWidth": 1085,
-    "lowRes": false
-  },
-  "music-snug": {
-    "base": "music-snug",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900
-    ],
-    "sourceWidth": 1147,
-    "lowRes": false
-  },
-  "music-mono": {
-    "base": "music-mono",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900
-    ],
-    "sourceWidth": 1378,
-    "lowRes": false
-  },
-  "hake-noodles": {
-    "base": "hake-noodles",
-    "ext": "jpg",
-    "widths": [
-      480,
-      900,
-      1400
-    ],
-    "sourceWidth": 1405,
-    "lowRes": false
-  },
-  "fish-noodles": {
-    "base": "fish-noodles",
-    "ext": "jpg",
-    "widths": [
-      480
-    ],
-    "sourceWidth": 600,
-    "lowRes": true
   },
   "music-snug-wide": {
     "base": "music-snug-wide",

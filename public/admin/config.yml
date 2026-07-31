@@ -103,24 +103,6 @@ collections:
                   hint: "Describe what's in the photo for screen readers.",
                 }
 
-          - label: Board cards
-            name: board
-            widget: list
-            required: false
-            summary: "{{label}} · {{title}}"
-            fields:
-              - { label: Id, name: id, widget: string }
-              - {
-                  label: Active days,
-                  name: days,
-                  widget: string,
-                  hint: "Comma-separated day numbers: 0=Sun … 6=Sat. Example: 0,3,4,5,6",
-                }
-              - { label: Label, name: label, widget: string }
-              - { label: Title, name: title, widget: string }
-              - { label: Detail, name: detail, widget: string }
-              - { label: Link, name: href, widget: string, default: "#whats-on" }
-
   - name: menu
     label: Menu (light)
     label_singular: Menu
@@ -132,12 +114,6 @@ collections:
           - { label: Section eyebrow, name: eyebrow, widget: string }
           - { label: Section title, name: title, widget: string }
           - { label: Intro, name: intro, widget: text }
-          - {
-              label: Fee / service note,
-              name: feeNote,
-              widget: string,
-              required: false,
-            }
 
           # As with the programme photos above: undeclared keys are dropped on
           # save, so the per-course images have to be described here or a menu

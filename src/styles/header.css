@@ -305,7 +305,6 @@ body:has(.cart-fab) .order-fab {
   gap: 0.65rem;
 }
 
-.site-nav__ghost,
 .site-nav__primary {
   display: inline-flex;
   align-items: center;
@@ -317,10 +316,6 @@ body:has(.cart-fab) .order-fab {
   text-decoration: none;
 }
 
-.site-nav__ghost {
-  border: 1px solid var(--line-strong);
-  color: var(--ink);
-}
 
 .site-nav__primary {
   border: 1px solid var(--accent-deep);
@@ -367,7 +362,6 @@ body:has(.cart-fab) .order-fab {
 
 
   
-  .site-nav__ghost,
   .site-nav__primary {
   min-height: 2.4rem;
   padding: 0.45rem 0.95rem;
@@ -380,13 +374,6 @@ body:has(.cart-fab) .order-fab {
   border-color: var(--accent-deep);
   background: var(--accent-deep);
   color: var(--on-accent);
-  }
-
-
-  
-  .site-header.is-scrolled .site-nav__ghost {
-  border-color: var(--line-strong);
-  color: var(--ink);
   }
 }
 

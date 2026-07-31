@@ -42,40 +42,6 @@
       "detail": "Seán Óg · Saturdays · 22:00"
     }
   ],
-  "board": [
-    {
-      "id": "music-0",
-      "days": "0",
-      "label": "Music",
-      "title": "Sunday",
-      "detail": "Seán Furey · 22:00",
-      "href": "#whats-on"
-    },
-    {
-      "id": "poker-3",
-      "days": "3",
-      "label": "Poker",
-      "title": "Wednesday",
-      "detail": "Texas Hold’em · 21:30",
-      "href": "#whats-on"
-    },
-    {
-      "id": "quiz-5",
-      "days": "5",
-      "label": "Quiz",
-      "title": "Friday",
-      "detail": "Fun Quiz · 22:00",
-      "href": "#whats-on"
-    },
-    {
-      "id": "music-6",
-      "days": "6",
-      "label": "Music",
-      "title": "Saturday",
-      "detail": "Seán Óg · 22:00",
-      "href": "#whats-on"
-    }
-  ],
   "photos": [
     {
       "base": "music-snug-wide",
