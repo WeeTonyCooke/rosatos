@@ -507,8 +507,12 @@ body:has(.cart-fab) .order-fab {
   margin-left: -0.75rem;
   padding-left: calc(0.75rem - 2px);
   padding-right: 0.75rem;
-  border-left: 2px solid var(--terracotta);
-  background: color-mix(in srgb, var(--terracotta) 7%, transparent);
+  /* currentColor, so the marker follows the ground the section sits on.
+     These were terracotta, chosen when What's On was cream — against forest
+     the tint measured 1.01:1 and the rule 1.35:1, i.e. invisible and nearly
+     so. The row was marked and nobody could see it. */
+  border-left: 2px solid currentColor;
+  background: color-mix(in srgb, currentColor 6%, transparent);
 }
 
 
@@ -523,7 +527,8 @@ body:has(.cart-fab) .order-fab {
 }
 
 .programme__item.is-today .programme__day {
-  color: var(--terracotta);
+  color: currentColor;
+  font-weight: 700;
 }
 
 /* Mobile: brand only when scrolled — no hamburger / drawer on a short landing page */
@@ -1167,9 +1172,15 @@ body:has(.cart-fab) .order-fab {
   color: color-mix(in srgb, var(--cream) 60%, transparent);
 }
 
-.section--dark .programme__item.is-today .programme__day,
 .section--dark .programme__note a {
   color: color-mix(in srgb, var(--cream) 92%, transparent);
+}
+
+/* Today's row reads at full strength against the muted rest of the board:
+   8.42:1 on forest, where the others sit at 4.16:1. */
+.section--dark .programme__item.is-today,
+.section--dark .programme__item.is-today .programme__day {
+  color: var(--cream);
 }
 
 

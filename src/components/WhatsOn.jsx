@@ -64,7 +64,12 @@ export function WhatsOn({ venue }) {
               className={`programme__item${isToday ? ' is-today' : ''}`}
               key={`${event.day}-${event.name}-${event.time}`}
             >
-              <span className="programme__day">{event.dayLabel}</span>
+              {/* The word, not just a tint. Saying "Tonight" is the least
+                  decorative way to make today's row obvious, it matches the
+                  header ticker's language, and it survives any ground colour
+                  — unlike a coloured rule, which is what quietly stopped
+                  working when this section went forest. */}
+              <span className="programme__day">{isToday ? 'Tonight' : event.dayLabel}</span>
               <h3 className="programme__name">{event.name}</h3>
               <p className="programme__when">{event.time}</p>
             </li>
