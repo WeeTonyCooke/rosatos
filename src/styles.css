@@ -1362,13 +1362,13 @@ body:has(.cart-fab) .order-fab {
 }
 
 .gift-card__qr {
-  /* start, not center: the CTA above it is left-aligned, and a centred code
-     beside a left-aligned button reads as a mistake. */
-  justify-self: start;
   /* Full width when stacked. At 182px in a 343px column it read as a small
-     box floating in the section rather than a block belonging to the copy
-     above it. It returns to its natural width beside the text at 860px. */
-  align-self: stretch;
+     bordered box floating in the section rather than a block belonging to the
+     copy above it.
+     justify-self, NOT align-self: in a grid, align-self works the block axis
+     and justify-self the inline one. Setting align-self: stretch here changed
+     nothing at all and left the panel at its intrinsic 182px. */
+  justify-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1388,8 +1388,17 @@ body:has(.cart-fab) .order-fab {
 
 .gift-card__qr img {
   display: block;
-  width: 8.25rem;
-  height: 8.25rem;
+  /* Grows with the panel when stacked so the code isn't a small mark adrift
+     in a wide box, capped so it never dominates the section. */
+  width: min(11rem, 45vw);
+  height: min(11rem, 45vw);
+}
+
+@media (min-width: 860px) {
+  .gift-card__qr img {
+    width: 8.25rem;
+    height: 8.25rem;
+  }
 }
 
 .gift-card__qr-caption {
@@ -1410,7 +1419,9 @@ body:has(.cart-fab) .order-fab {
     justify-content: start;
   }
 
+  /* Beside the copy it goes back to hugging its contents. */
   .gift-card__qr {
+    justify-self: start;
     align-self: center;
     display: inline-flex;
   }
