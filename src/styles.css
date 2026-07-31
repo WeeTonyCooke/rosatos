@@ -1171,9 +1171,22 @@ body:has(.cart-fab) .order-fab {
   color: color-mix(in srgb, var(--cream) 74%, transparent);
 }
 
-.section--dark .programme,
+/* border-top-color and border-bottom-color, NOT the border-color shorthand.
+   These two elements only carry a top and a bottom rule respectively, so the
+   shorthand looked equivalent — but it also sets border-left-color, and
+   tonight's row paints its pinstripe there. Equal specificity to
+   .programme__item.is-today and declared later, so the shorthand silently won
+   and the marker rendered as cream at 20% no matter what --marker said.
+
+   Third time this exact shape has caused a bug here: a later, equally
+   specific declaration quietly overriding an earlier one. Shorthands make it
+   easier to hit, because they set properties you didn't mention. */
+.section--dark .programme {
+  border-top-color: color-mix(in srgb, var(--cream) 20%, transparent);
+}
+
 .section--dark .programme__item {
-  border-color: color-mix(in srgb, var(--cream) 20%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--cream) 20%, transparent);
 }
 
 .section--dark .programme__day {
