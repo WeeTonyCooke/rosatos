@@ -158,6 +158,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Anchor targets clear the sticky header. Without this every in-page link
+   lands with its heading tucked underneath the bar. */
+:target,
+[id] {
+  scroll-margin-top: calc(var(--header-h) + var(--ticker-h) + 1rem);
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   

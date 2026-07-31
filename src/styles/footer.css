@@ -18,7 +18,13 @@
 
 
 /* Stacks on mobile; becomes nav | wordmark | contact at 860px below. */
+/* Stacked on a phone, everything centred. It was reading nav left, brand
+   centred, contact left — three alignments in one column, which looks like a
+   mistake rather than a choice. The three-column layout at 720px keeps its
+   left / centre / right split, where the alignments are doing real work. */
 .site-footer__inner {
+  text-align: center;
+  justify-items: center;
   display: grid;
   gap: var(--space-4);
   align-items: start;
@@ -30,6 +36,7 @@
 .site-footer__nav {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.65rem 1.75rem;
 }
 
@@ -119,7 +126,7 @@
    so the credit shipped at 2.21:1 — dark on dark green. */
 .site-footer__credit {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   max-width: var(--max);
   margin: 0 auto;
   padding: var(--space-3) clamp(1rem, 3vw, 2rem) var(--space-4);

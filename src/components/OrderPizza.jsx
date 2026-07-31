@@ -150,7 +150,7 @@ export function OrderPizza() {
         ) : null}
       </div>
 
-      <ul className="order__list">
+      <ul className="order__list" id="order-list">
         {pizzas.map((pizza) => {
           const isOpen = activeName === pizza.name
           return (

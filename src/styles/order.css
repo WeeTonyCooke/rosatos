@@ -156,6 +156,8 @@ body:has(.customize-sheet.is-open) {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  flex: 1 1 auto;
+  justify-content: flex-end;
   justify-content: flex-end;
 }
 
@@ -231,12 +233,40 @@ body:has(.customize-sheet.is-open) {
   font-weight: 500;
 }
 
+/* Pinned to the foot of the scrolling panel.
+   The panel is a scroll container capped at 88svh, and these controls sat
+   539px into it — below the fold on a phone, with nothing to suggest there was
+   anything further down. You had to guess that scrolling would reveal a Save
+   button. Sticky keeps the price and both actions in view the whole time, so
+   the options scroll behind a fixed decision bar.
+
+   The negative bottom margin and matching padding let the bar sit flush with
+   the panel's padded edge while its background still covers the full width. */
 .order__customize-actions {
+  position: sticky;
+  bottom: calc(max(var(--space-3), env(safe-area-inset-bottom, 0px)) * -1);
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  margin: 0 calc(var(--space-3) * -1) calc(max(var(--space-3), env(safe-area-inset-bottom, 0px)) * -1);
+  padding: var(--space-2) var(--space-3) max(var(--space-3), env(safe-area-inset-bottom, 0px));
+  background: var(--cream);
+  border-top: 1px solid var(--line);
+}
+
+/* A hint that the options continue above the bar. */
+.order__customize-actions::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 1.25rem;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--cream), transparent);
 }
 
 .order__customize-total {

@@ -59,7 +59,7 @@ export function Menu({ venue }) {
             ))}
           {canOrder ? (
             <p className="menu__order-link">
-              <a className="text-link" href="#order">Order pizza for collection →</a>
+              <a className="text-link" href="#order-list">Order pizza for collection →</a>
             </p>
           ) : null}
         </div>

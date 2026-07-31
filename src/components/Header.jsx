@@ -181,7 +181,7 @@ export function Header({ venue }) {
       </header>
 
       {canOrder ? (
-        <a className="order-fab" href="#order" aria-label="Order pizza for collection">
+        <a className="order-fab" href="#order-list" aria-label="Order pizza for collection">
           <span className="order-fab__text">
             Order
             <br />
