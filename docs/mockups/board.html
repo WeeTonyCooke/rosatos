@@ -623,10 +623,20 @@ input {
 
 
 
+/* The context line is the reason a row is worth a second look — the night it
+   marks is the exception, not the routine — so it sits ABOVE the day and time
+   in the hierarchy and just below the act itself:
+     name 8.42:1  >  context 6.60:1  >  when 5.43:1  >  day 5.24:1
+   It carries that weight without shouting because it's small and tracked. */
+.section--dark .programme__context {
+  color: color-mix(in srgb, var(--cream) 85%, transparent);
+}
+
 /* Today's row reads at full strength against the muted rest of the board:
    8.42:1 on forest, where the others sit at 4.16:1. */
 .section--dark .programme__item.is-today,
-.section--dark .programme__item.is-today .programme__day {
+.section--dark .programme__item.is-today .programme__day,
+.section--dark .programme__item.is-today .programme__context {
   color: var(--cream);
 }
 
@@ -2019,10 +2029,25 @@ body:has(.customize-sheet.is-open) {
 .programme__context {
   grid-area: context;
   margin: 0;
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  /* NOT --ink-faint. That token is charcoal-based, and What's On is a forest
+     section — it measured 1.23:1, which is invisible rather than quiet. The
+     dark-section colour is set in section.css alongside the other overrides
+     for this board; this is the light-section fallback. */
+  color: var(--ink-muted);
+}
+
+.programme__sep {
+  /* Cancels the tracking on the pipe itself and pads it instead, so the gap
+     around it is visibly wider than the gap between letters. Without this the
+     pipe sits at exactly one letter's remove from its neighbours and reads as
+     an I. */
+  letter-spacing: 0;
+  margin: 0 0.5em 0 0.35em;
+  opacity: 0.55;
 }
 
 .programme__when {
@@ -2856,48 +2881,45 @@ body:has(.cart-drawer.is-open) {
   }
 }
 
-</style><style>body{margin:0}.whats-on__photos{display:none}</style></head>
+</style><style>body{margin:0}.whats-on__photos{display:none}.section{padding-top:var(--space-6)!important}</style></head>
 <body>
   <section class="section section--loose section--dark whats-on">
-    <div class="section__intro">
-      <h2 class="section__title">This week in Rosato’s.</h2>
-    </div>
+    <div class="section__intro"><h2 class="section__title">This week in Rosato’s.</h2></div>
     <ul class="programme">
-      <li class="programme__item">
+      <li class="programme__item" data-day="3">
         <span class="programme__day">Wednesday</span>
         <h3 class="programme__name">Texas Hold’em</h3>
         <p class="programme__when">21:30</p>
-        <p class="programme__context">Poker</p>
+        <p class="programme__context"><span>Poker</span></p>
       </li>
-      <li class="programme__item is-today">
-        <span class="programme__day">Tonight</span>
+      <li class="programme__item" data-day="5">
+        <span class="programme__day">Friday</span>
         <h3 class="programme__name">QuizKings</h3>
         <p class="programme__when">22:00</p>
-        <p class="programme__context">Pub Quiz</p>
+        <p class="programme__context"><span>Pub Quiz</span></p>
       </li>
-      <li class="programme__item">
+      <li class="programme__item" data-day="6">
         <span class="programme__day">Saturday</span>
         <h3 class="programme__name">Benny Doherty</h3>
         <p class="programme__when">22:00</p>
-        <p class="programme__context">The Beatles Fest | Live Music</p>
+        <p class="programme__context"><span>The Beatles Fest</span><span><span class="programme__sep" aria-hidden="true">|</span>Live Music</span></p>
       </li>
-      <li class="programme__item">
+      <li class="programme__item" data-day="0">
         <span class="programme__day">Sunday</span>
         <h3 class="programme__name">Michael Thomas</h3>
         <p class="programme__when">22:00</p>
-        <p class="programme__context">Live Music</p>
+        <p class="programme__context"><span>Live Music</span></p>
       </li>
     </ul>
     <p class="programme__note">Times and acts can change — check <a href="#">Instagram</a>.</p>
   </section>
 <script>
   var d = Number(new URLSearchParams(location.search).get('today'));
-  var labels = {0:'Sunday',3:'Wednesday',5:'Friday',6:'Saturday'};
-  var days = [3, 5, 6, 0];
-  document.querySelectorAll('.programme__item').forEach(function (li, i) {
-    var isToday = days[i] === d;
-    li.classList.toggle('is-today', isToday);
-    li.querySelector('.programme__day').textContent = isToday ? 'Tonight' : labels[days[i]];
+  document.querySelectorAll('.programme__item').forEach(function (li) {
+    if (Number(li.dataset.day) === d) {
+      li.classList.add('is-today');
+      li.querySelector('.programme__day').textContent = 'Tonight';
+    }
   });
 </script>
 </body></html>

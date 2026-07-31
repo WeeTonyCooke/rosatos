@@ -73,12 +73,29 @@ export function WhatsOn({ venue }) {
               <h3 className="programme__name">{event.name}</h3>
               <p className="programme__when">{event.time}</p>
               {/* Optional. Carries the one-off context a listing sometimes
-                  needs — "The Beatles Fest · Live music" — without pushing it
+                  needs — "The Beatles Fest | Live Music" — without pushing it
                   into the act's name, where it would fight the columns: the
                   columns already ARE the separators, so pipes inside a cell
                   read as a second, competing system. Most rows leave it
-                  empty and lose nothing. */}
-              {event.context ? <p className="programme__context">{event.context}</p> : null}
+                  empty and lose nothing.
+
+                  The pipe is rendered as its own element rather than left in
+                  the string. This text is uppercase and letter-spaced, and at
+                  that treatment a bare "|" between two spaces is read as a
+                  capital I — "BEATLES FEST I LIVE MUSIC". Giving it its own
+                  span lets the CSS drop its opacity and cancel the tracking
+                  around it, which is what actually separates it from the
+                  letters either side. */}
+              {event.context ? (
+                <p className="programme__context">
+                  {event.context.split('|').map((part, i) => (
+                    <span key={part.trim()}>
+                      {i > 0 ? <span className="programme__sep" aria-hidden="true">|</span> : null}
+                      {part.trim()}
+                    </span>
+                  ))}
+                </p>
+              ) : null}
             </li>
           )
         })}

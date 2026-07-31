@@ -88,10 +88,25 @@
 .programme__context {
   grid-area: context;
   margin: 0;
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  /* NOT --ink-faint. That token is charcoal-based, and What's On is a forest
+     section — it measured 1.23:1, which is invisible rather than quiet. The
+     dark-section colour is set in section.css alongside the other overrides
+     for this board; this is the light-section fallback. */
+  color: var(--ink-muted);
+}
+
+.programme__sep {
+  /* Cancels the tracking on the pipe itself and pads it instead, so the gap
+     around it is visibly wider than the gap between letters. Without this the
+     pipe sits at exactly one letter's remove from its neighbours and reads as
+     an I. */
+  letter-spacing: 0;
+  margin: 0 0.5em 0 0.35em;
+  opacity: 0.55;
 }
 
 .programme__when {
