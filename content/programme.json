@@ -6,16 +6,6 @@
   "tonightOverride": "",
   "lineup": [
     {
-      "day": 0,
-      "dayLabel": "Sunday",
-      "name": "Michael Thomas",
-      "time": "22:00",
-      "kind": "music",
-      "context": "Live Music",
-      "cue": "Michael Thomas · 22:00",
-      "detail": "Live Music · Michael Thomas · Sundays · 22:00"
-    },
-    {
       "day": 3,
       "dayLabel": "Wednesday",
       "name": "Texas Hold’em",
@@ -38,12 +28,11 @@
     {
       "day": 6,
       "dayLabel": "Saturday",
-      "name": "Benny Doherty",
+      "name": "Live Music",
       "time": "22:00",
       "kind": "music",
-      "context": "The Beatles Fest | Live Music",
-      "cue": "Benny Doherty · 22:00",
-      "detail": "The Beatles Fest · Live Music · Benny Doherty · 22:00"
+      "cue": "Live Music · 22:00",
+      "detail": "Live Music Saturdays · 22:00"
     }
   ],
   "photos": [
