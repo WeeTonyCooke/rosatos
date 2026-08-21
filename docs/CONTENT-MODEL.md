@@ -75,3 +75,5 @@ v1 = light sections only. Upgrade path: see [`MENU-UPGRADE.md`](./MENU-UPGRADE.m
 ## `venue.json` (QO)
 
 Includes `giftCards: { "label": "Gift cards", "url": "https://…" }` as an outbound link only — no checkout on Quiet Objects.
+
+Pizza collection lives under `ordering`. The code, copy, customisations and Netlify form stay in the repo; `"enabled": false` hides the FAB, the order section, the menu link and the cart. Set it back to `true` to restore the flow.

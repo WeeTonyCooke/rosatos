@@ -67,7 +67,7 @@
     }
   },
   "ordering": {
-    "enabled": true,
+    "enabled": false,
     "mode": "collection",
     "eyebrow": "",
     "title": "Order ahead, collect at the bar.",
